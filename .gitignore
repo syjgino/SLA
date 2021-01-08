@@ -1,0 +1,6 @@
+__pycache__
+.idea/
+dist
+build
+.DS_Store
+*.spec
