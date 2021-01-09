@@ -64,6 +64,21 @@ from the mass spec for this step).
 utilized in the Tuning and Suitability steps.
 
 
+<!-- Tuning – Run -->
+## Tuning – Run
+1. It is recommended that you create a new project or subproject for each experiment in
+order to avoid confusion in appropriately tuned methods. In Analyst: Tools → Project →
+Create Project
+2. Copy “Neg Infusion COV 3500_SPLASH”, “Pos Infusion COV 3500_SPLASH”, “SST v3”,
+“Method 1 v3” and “Method 2 v3” from provided method package to the current
+project “Acquisition Method” folder.
+3. “Hardware Config” → Activate “Lipidyzer” profile
+4. Acquire → Ready Instrument
+5. Purge Modifier and wait 30min for instrument to warm up
+6. While waiting, set up batches. Negative and positive infusion batches should each
+contain three repeats of the same respective method.
+
+
 
 
 
