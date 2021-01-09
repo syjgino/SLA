@@ -255,5 +255,21 @@ method, then load it to m1 and leave m2 blank.)
 
 ![mergeshot](screeshot/merge.PNG)
 
+### Further Analysis
+1. Prior to performing the ClassTotal/TAG Analysis, you may want to move the primary
+data file to a new subfolder (especially if there are multiple data files from multiple
+demarcated experiments in the batch).
+2. Select ClassTotal/TAG Analysis tab.
+3. Load the _Exp_ file from the Merge session
+
+![expshot](screeshot/expfile.PNG)
+
+4. Select if you want to add error bar and data points to the TAG analysis bar plots.
+5. Hit Run TAG. Results will be saved under the same folder with your *_Exp_* file.
+
+![TAG](screeshot/TAG.PNG)
+
+
+
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
 [license-url]: https://github.com/syjgino/LA_V1/blob/master/LICENSE
