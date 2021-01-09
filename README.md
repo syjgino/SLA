@@ -29,11 +29,12 @@
   * [Analysis](#Analysis)
 * [Sample Run](#Sample-Run)
   * [Run Setup](#Run-Setup)
-  * [Run](#Run)
-* [Data Analysis Setup](#Data-Analysis-Setup)
-* [Read MZML](#Read-MZML)
-* [Merge data with sample map](#Merge-data-with-sample-map)
-* [Further Analysis](#Further-Analysis)
+  * [Run](#run-1)
+* [Data Analysis](#Data-Analysis)
+  * [Setup](#Setup-1)
+  * [Read MZML](#Read-MZML)
+  * [Merge data with sample map](#Merge-data-with-sample-map)
+  * [Further Analysis](#Further-Analysis)
 
 
 
@@ -178,7 +179,39 @@ numbers should be filled into the Sample Map along with sample information.
 3. Prior to starting the run, make sure all solvents and running buffer are topped off.
 
 ### Run
+1. If the instrument has been on standby before starting the sample run, a modifier purge
+and 30 minute warm up will be needed.
+2. If you are performing a large experiment (60+ samples), it may be worthwhile to run
+Method 1 and Method 2 batches separately. This allows you to check over the samples
+and correct any plumbing problems before doing a second injection of precious
+samples.
+3. Each batch should be created with the sample numbers assigned above and the correct
+vial positions. Note that all samples to be analyzed must be assigned numbers as IDs
+(usually 01 through 99). The SLA denotes sample IDs containing letters or symbols as
+controls (i.e. “buffer”, “QC”, “QCSpike”, etc.). These numbered IDs are then assigned
+sample information in the map file. Submit and run these two batches.
+4. After completing both Method batches, proceed with data analysis.
 
+
+<!-- Data Analysis -->
+## Data Analysis
+### Setup
+1. You will need a Species Name Dictionary (spname_dict_xxx) and a Standard Dictionary
+(standard_dict_xxx.xlsx) to perform the data analysis step. Make sure these match the
+Analyst methods utilized in your sample run. You will also need the Sample Map you
+filled out while setting up the samples. Follow the example on the Sample Map. Make
+sure that each sample is appropriately demarcated into experiments and groups, and
+that the normalization values for each sample are correct.
+2. There is a Mute column in spname_dict_xxx. You can mute a species from the output by
+setting the value to TRUE. (Internal Standards and species end with “_2” are always
+muted from output.)
+
+Q1    | Q3   | Mute | Name
+------|-----_| -----|-------
+-700  | 200  |FALSE |dPCBLANK
+-706.5| 225.2|FALSE |PC(12:0/14:1)
+-736.5| 255.2|FALSE |PC(16:0/12:0)
+-734.5| 253.2|FALSE |PC(12:0/16:1)
 
 
 
