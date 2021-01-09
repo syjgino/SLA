@@ -50,7 +50,8 @@ versions may not transfer the data or file name correctly.)
 
 
 <!-- Tuning – Instrument Setup -->
-## Tuning 
+## Tuning
+
 ### Instrument Setup
 1. This protocol assumes that users are utilizing a Sciex Lipidyzer with the 100ul sample
 loop installed in the Shimadzu Autosampler.
@@ -67,7 +68,7 @@ from the mass spec for this step).
 utilized in the Tuning and Suitability steps.
 
 
-### Tuning – Run
+### Run
 1. It is recommended that you create a new project or subproject for each experiment in
 order to avoid confusion in appropriately tuned methods. In Analyst: Tools → Project →
 Create Project
@@ -110,9 +111,29 @@ same directory with Mzml files. (The excel file will be open automatically. A co
 prompt may pop-up. You can close it after the excel file is open.)
 
 [![tuneshot1][tuneshot1]](https://example.com)
+[![tuneshot2][tuneshot2]](https://example.com)
+[![tuneshot3][tuneshot3]](https://example.com)
+
+8. Copy/paste the volt column to the corresponding Analyst method COV column. The
+“POS” and “NEG” tabs correspond to the respective experiments in “Method 1”. The
+SST tab contains COV values for both positive and negative experiments in the SST
+method. Save the respective files after this modification.
+
+[![tuneshot4][tuneshot4]](https://example.com)
+
+
+<!-- Suitability Test -->
+## Suitability Test
+
+### Setup
+
 
 
 
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
 [license-url]: https://github.com/syjgino/LA_V1/blob/master/LICENSE
 [tuneshot1]: screeshot/Tune1.PNG
+[tuneshot2]: screeshot/Tune2.PNG
+[tuneshot3]: screeshot/Tune3.PNG
+[tuneshot4]: screeshot/Tune4.PNG
+
