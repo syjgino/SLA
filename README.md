@@ -67,7 +67,6 @@ from the mass spec for this step).
 4. Load a sample vial containing running buffer in Position 1 in sample rack. This will be
 utilized in the Tuning and Suitability steps.
 
-
 ### Run
 1. It is recommended that you create a new project or subproject for each experiment in
 order to avoid confusion in appropriately tuned methods. In Analyst: Tools → Project →
@@ -85,7 +84,6 @@ and add 3 samples named “POS1/2/3” (all drawing from vial position 1) → su
 8. For Negative Batch: Build Acquisition Batch → add batch name(e.g. “Tune – *Date* – 2”)
 and add 3 samples named “NEG1/2/3” (all drawing from vial position 1) → submit
 9. Start syringe pump 3-5min before sample run start
-
 
 ### Data Analysis:
 1. Following the run, find and copy both sets of .WIFF files to a working folder in a location
@@ -120,6 +118,7 @@ SST tab contains COV values for both positive and negative experiments in the SS
 method. Save the respective files after this modification.
 
 [![tuneshot4][tuneshot4]](https://example.com)
+
 
 
 <!-- Suitability Test -->
