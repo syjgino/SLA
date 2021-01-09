@@ -20,13 +20,13 @@
 
 * [Getting Started](#getting-started)
 * [Tuning](#Tuning)
-  * [Instrument Setup](#Tuning-Instrument-Setup)
-  * [Run](#Tuning-Run)
-  * [Data Analysis](#Tuning-Data-Analysis)
+  * [Instrument Setup](#Instrument-Setup)
+  * [Run](#Run)
+  * [Data Analysis](#Data-Analysis)
 * [Suitability Test](#Suitability-Test)
-  * [Setup](#Suitability-Test-Setup)
-  * [Running](#Suitability-Test-Running)
-  * [Analysis](#Suitability-Test-Analysis)
+  * [Setup](#Setup)
+  * [Running](#Running)
+  * [Analysis](#Analysis)
 * [Sample Run Setup](#Sample-Run-Setup)
 * [Sample Run](#Sample-Run)
 * [Data Analysis Setup](#Data-Analysis-Setup)
@@ -108,7 +108,7 @@ first. Hit ExportResult button when finished. Result will be saved to a xlsx fil
 same directory with Mzml files. (The excel file will be open automatically. A command
 prompt may pop-up. You can close it after the excel file is open.)
 
-[![tuneshot1][tuneshot1]](https://example.com)
+![tuneshot1]: screeshot/Tune1.PNG
 [![tuneshot2][tuneshot2]](https://example.com)
 [![tuneshot3][tuneshot3]](https://example.com)
 
@@ -125,14 +125,47 @@ method. Save the respective files after this modification.
 ## Suitability Test
 
 ### Setup
+(Note: The Suitability Test is not required but is recommended to ensure that the instrument is
+in good working order and that the previous tuning step was carried out properly. The
+Suitability Test mix should be prepared fresh on a regular basis. Baseline results for the
+suitability test should be established and significant decreases should be troubleshot
+appropriately.)
+
+1. The suitability test mix is prepared from two working stocks: the Lipidyzer System
+Suitability Kit (Sciex 5040407) and the PG/PI/PS mix from Avanti (described below).
+2. The PG/PI/PS mix is prepared from 17:0-18:1 PI-d5, 17:0-18:1 PG-d5 and 17:0-18:1 PS-
+d5 (Avanti 850111L-500ug, 858133L-1mg, 858151L-1mg). A 100ug/mL stock of these
+three compounds should be prepared by diluting in 50/50 DCM/Methanol. Several mLs
+can be prepared at once and aliquoted into vials or ampules. As an example, the
+following formulation makes 1mL (100uL PG, 200uL PI, 100uL PS, 300uL Methanol,
+300uL DCM).
+3. The Suitability Test mix is prepared by combining 10ul of Lipidyzer System Suitability
+Mix with 10ul of PG/PI/PS mix in 980ul of running buffer.
+4. Prepare Suitability Test mix in a robovial and place in the 105 position in the sample
+rack. Make sure there is sufficient volume of running buffer in the position 1 vial.
+5. Reconnect the autosampler output to the source.
+
+### Analysis
+1. Find and copy .WIFF files to a working folder. Extract to Mzml format with
+MSConverterGUI.
+2. Read the Suitability Test results with the SLA using the SST tab.
+3. Import the Mzml file with the SST result (the “LOD” file above).
+4. Import the Tuning_spname_dict_xxx.xlsx file
+5. Hit Run and the result will be saved to an xlsx file under the same directory with the
+Mzml file
+6. Compare results with previous suitability tests.
+
+[![SSTshot1][SSTshot1]](https://example.com)
+
+
 
 
 
 
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
 [license-url]: https://github.com/syjgino/LA_V1/blob/master/LICENSE
-[tuneshot1]: screeshot/Tune1.PNG
+
 [tuneshot2]: screeshot/Tune2.PNG
 [tuneshot3]: screeshot/Tune3.PNG
 [tuneshot4]: screeshot/Tune4.PNG
-
+[SSTshot1]: screeshot/SST1.PNG
