@@ -25,8 +25,8 @@
   * [Tuning Analysis](#Tuning-Analysis)
 * [Suitability Test](#Suitability-Test)
   * [Setup](#Setup)
-  * [Running](#Running)
-  * [Analysis](#Analysis)
+  * [SST Run](#SST-Run)
+  * [SST Analysis](#SST-Analysis)
 * [Sample Run](#Sample-Run)
   * [Run Setup](#Run-Setup)
   * [Run](#run-1)
@@ -147,7 +147,15 @@ Mix with 10ul of PG/PI/PS mix in 980ul of running buffer.
 rack. Make sure there is sufficient volume of running buffer in the position 1 vial.
 5. Reconnect the autosampler output to the source.
 
-### Analysis
+### SST Run
+1. If instrument was set to standby, a modifier purge and 30 minute warm up will be
+required before starting. If instrument remained ready after tune, you may proceed
+immediately to the suitability test.
+2. Build batch using the “SST v3” method under the batch name “SST – *Date* - 1”. Create
+2 samples in the batch: a “buffer” in vial 1 and a “LOD” in vial 105.
+3. Submit and Run batch.
+
+### SST Analysis
 1. Find and copy .WIFF files to a working folder. Extract to Mzml format with
 MSConverterGUI.
 2. To read the Suitability Test results with the SLA, select the **SST** tab.
@@ -163,7 +171,7 @@ Mzml file
 
 <!-- Sample Run -->
 ## Sample Run
-### Sample Run Setup
+### Run Setup
 (Note: This protocol does not describe the sample extraction. There are a number of protocols
 that detail extraction. The addition of standards prior to extraction is key to good quantitative
 measurements. Check the “Standard Info” tab on Standard Dictionary Excel. This document
