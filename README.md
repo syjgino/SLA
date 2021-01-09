@@ -22,7 +22,7 @@
 * [Tuning](#Tuning)
   * [Instrument Setup](#Instrument-Setup)
   * [Run](#Run)
-  * [Data Analysis](#Data-Analysis)
+  * [Tuning Analysis](#Tuning-Analysis)
 * [Suitability Test](#Suitability-Test)
   * [Setup](#Setup)
   * [Running](#Running)
@@ -87,7 +87,7 @@ and add 3 samples named “POS1/2/3” (all drawing from vial position 1) → su
 and add 3 samples named “NEG1/2/3” (all drawing from vial position 1) → submit
 9. Start syringe pump 3-5min before sample run start
 
-### Data Analysis:
+### Tuning Analysis:
 1. Following the run, find and copy both sets of .WIFF files to a working folder in a location
 of your choice. Convert to mzml with MSConvertGUI.
 2. To read Tuning data with SLA, select the **Tuning** tab.
