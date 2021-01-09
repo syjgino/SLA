@@ -90,7 +90,7 @@ and add 3 samples named “NEG1/2/3” (all drawing from vial position 1) → su
 ### Data Analysis:
 1. Following the run, find and copy both sets of .WIFF files to a working folder in a location
 of your choice. Convert to mzml with MSConvertGUI.
-2. Read Tuning data with SLA Tuning tab.
+2. To read Tuning data with SLA, select the **Tuning** tab.
 3. Click Import POS/Import NEG and choose the corresponding mzml files. (We
 recommend using the last one among the 3 replicates.)
 4. Click Import Tune Dict to import the Tuning_spname_dict_xxx.xlsx file.
@@ -150,7 +150,7 @@ rack. Make sure there is sufficient volume of running buffer in the position 1 v
 ### Analysis
 1. Find and copy .WIFF files to a working folder. Extract to Mzml format with
 MSConverterGUI.
-2. Read the Suitability Test results with the SLA using the SST tab.
+2. To read the Suitability Test results with the SLA, select the **SST** tab.
 3. Import the Mzml file with the SST result (the “LOD” file above).
 4. Import the Tuning_spname_dict_xxx.xlsx file
 5. Hit Run and the result will be saved to an xlsx file under the same directory with the
@@ -213,7 +213,47 @@ Q1    | Q3   | Mute | Name
 -736.5| 255.2|FALSE |PC(16:0/12:0)
 -734.5| 253.2|FALSE |PC(12:0/16:1)
 
+3. To update internal standard information, open the “standard_dict_xxx.xlsx” file. Make
+sure that the appropriate standards are listed, that the concentrations match the lot of
+standards you are using, and that the volumes used reflect what the amounts you
+actually spiked into each sample.
 
+
+
+### Read MZML
+1. Find and copy .WIFF files to an appropriate working folder. Convert to mzml format
+with MSconvertGUI. (Note: the program will read all mzml files in the folder. Please only
+keep the relevant mzml files there.)
+2. Select the **Read mzml** tab on the SLA.
+3. Set Directory to the folder of mzml files.
+4. Import Standard_dict and spname_dict files.
+5. Import isotope correction list if you want to do isotope correction.
+6. Select the version of raw data file. (wiff file generated from LWM run or Analyst run)
+7. If you want to mute species which you labeled as TRUE in the spname_dict file, chose
+Yes for Mute Species.
+8. Put in your project name. You can also leave it blank.
+9. Hit Read MZML. Results will be saved under the same folder with the mzml files.
+
+![readmzmlshot1](screeshot/Readmzml2.PNG)
+
+### Merge data with sample map
+1. Select **Merge** tab on SLA.
+2. Set directory to where you want to keep the outputs.
+3. Import sample map. (Note: GroupNum will be used to sort x ticks in plots. You can
+change it to rearrange them.)
+
+![mapshot](screeshot/Map.PNG)
+
+4. Select output excel files m1&amp;m2 from **Read mzml** session. (if your experiment has only 1
+method, then load it to m1 and leave m2 blank.)
+
+![m1m2shot](screeshot/m1m2output.PNG)
+
+5. Put in your project name or leave it blank.
+6. Select if you want to export a csv file which can be uploaded to ClustVis for analysis.
+7. Hit Run Merge. Results will be saved in the directory you selected.
+
+![mergeshot](screeshot/merge.PNG)
 
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
 [license-url]: https://github.com/syjgino/LA_V1/blob/master/LICENSE
