@@ -19,9 +19,10 @@
 ## Table of Contents
 
 * [Getting Started](#getting-started)
-* [Tuning – Instrument Setup](#Tuning-Instrument-Setup)
-* [Tuning – Run](#Tuning-Run)
-* [Tuning – Data Analysis](#Tuning-Data-Analysis)
+* [Tuning](#Tuning)
+ * [Instrument Setup](#Tuning-Instrument-Setup)
+ * [Run](#Tuning-Run)
+ * [Data Analysis](#Tuning-Data-Analysis)
 * [Suitability Test – Setup](#Suitability-Test-Setup)
 * [Suitability Test – Running](#Suitability-Test-Running)
 * [Suitability Test – Analysis](#Suitability-Test-Analysis)
@@ -48,7 +49,8 @@ versions may not transfer the data or file name correctly.)
 
 
 <!-- Tuning – Instrument Setup -->
-## Tuning – Instrument Setup
+## Tuning 
+### Instrument Setup
 1. This protocol assumes that users are utilizing a Sciex Lipidyzer with the 100ul sample
 loop installed in the Shimadzu Autosampler.
 2. Prior to Tuning/Sample Run, make sure that the instrument is topped off with
@@ -64,8 +66,7 @@ from the mass spec for this step).
 utilized in the Tuning and Suitability steps.
 
 
-<!-- Tuning – Run -->
-## Tuning – Run
+### Tuning – Run
 1. It is recommended that you create a new project or subproject for each experiment in
 order to avoid confusion in appropriately tuned methods. In Analyst: Tools → Project →
 Create Project
