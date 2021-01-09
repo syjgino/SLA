@@ -207,7 +207,7 @@ setting the value to TRUE. (Internal Standards and species end with “_2” are
 muted from output.)
 
 Q1    | Q3   | Mute | Name
-------|-----_| -----|-------
+------|------|------|-------
 -700  | 200  |FALSE |dPCBLANK
 -706.5| 225.2|FALSE |PC(12:0/14:1)
 -736.5| 255.2|FALSE |PC(16:0/12:0)
