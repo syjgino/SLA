@@ -20,12 +20,13 @@
 
 * [Getting Started](#getting-started)
 * [Tuning](#Tuning)
- * [Instrument Setup](#Tuning-Instrument-Setup)
- * [Run](#Tuning-Run)
- * [Data Analysis](#Tuning-Data-Analysis)
-* [Suitability Test – Setup](#Suitability-Test-Setup)
-* [Suitability Test – Running](#Suitability-Test-Running)
-* [Suitability Test – Analysis](#Suitability-Test-Analysis)
+  * [Instrument Setup](#Tuning-Instrument-Setup)
+  * [Run](#Tuning-Run)
+  * [Data Analysis](#Tuning-Data-Analysis)
+* [Suitability Test](#Suitability-Test)
+  * [Setup](#Suitability-Test-Setup)
+  * [Running](#Suitability-Test-Running)
+  * [Analysis](#Suitability-Test-Analysis)
 * [Sample Run Setup](#Sample-Run-Setup)
 * [Sample Run](#Sample-Run)
 * [Data Analysis Setup](#Data-Analysis-Setup)
@@ -78,10 +79,40 @@ project “Acquisition Method” folder.
 5. Purge Modifier and wait 30min for instrument to warm up
 6. While waiting, set up batches. Negative and positive infusion batches should each
 contain three repeats of the same respective method.
+7. For Positive Batch: Build Acquisition Batch → add batch name(e.g. “Tune – *Date* – 1”)
+and add 3 samples named “POS1/2/3” (all drawing from vial position 1) → submit
+8. For Negative Batch: Build Acquisition Batch → add batch name(e.g. “Tune – *Date* – 2”)
+and add 3 samples named “NEG1/2/3” (all drawing from vial position 1) → submit
+9. Start syringe pump 3-5min before sample run start
 
 
+### Data Analysis:
+1. Following the run, find and copy both sets of .WIFF files to a working folder in a location
+of your choice. Convert to mzml with MSConvertGUI.
+2. Read Tuning data with SLA Tuning tab.
+3. Click Import POS/Import NEG and choose the corresponding mzml files. (We
+recommend using the last one among the 3 replicates.)
+4. Click Import Tune Dict to import the Tuning_spname_dict_xxx.xlsx file.
+5. Choose peak finding method from drop down list. We recommend “Con9”.
+6. Hit the “Run” button, the auto selected peak results will be printed to the Result
+window and plots will pop out. (The Group column in the POS and NEG tab in
+Tuning_spname_dict_xxx.xlsx file are corresponding to the items listed under the Export
+area. You can customize it by editing the Group column.)
+7. Fill in COV values in the Export area. You can copy and paste the recommended values
+from results to Export boxes. Alternatively, you can manually choose COV values. You
+can use your mouse to point at a different peaks in the plots. The x shown on the
+bottom right corner of the plot is the COV value. Note that most tuning mixes have a
+single LPC and LPE species and yet these subclasses have two different COV values for
+shorter and longer chain species. The calculation for the offset between these is
+provided on the tab. Copy the one COV value and calculate the other COV from the
+first. Hit ExportResult button when finished. Result will be saved to a xlsx file under the
+same directory with Mzml files. (The excel file will be open automatically. A command
+prompt may pop-up. You can close it after the excel file is open.)
+
+[![tuneshot1][tuneshot1]](https://example.com)
 
 
 
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
 [license-url]: https://github.com/syjgino/LA_V1/blob/master/LICENSE
+[tuneshot1]: screeshot/Tune1.PNG
