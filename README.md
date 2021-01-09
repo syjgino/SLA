@@ -27,8 +27,9 @@
   * [Setup](#Setup)
   * [Running](#Running)
   * [Analysis](#Analysis)
-* [Sample Run Setup](#Sample-Run-Setup)
 * [Sample Run](#Sample-Run)
+  * [Run Setup](#Run-Setup)
+  * [Run](#Run)
 * [Data Analysis Setup](#Data-Analysis-Setup)
 * [Read MZML](#Read-MZML)
 * [Merge data with sample map](#Merge-data-with-sample-map)
@@ -109,15 +110,15 @@ same directory with Mzml files. (The excel file will be open automatically. A co
 prompt may pop-up. You can close it after the excel file is open.)
 
 ![tuneshot1](screeshot/Tune1.PNG)
-[![tuneshot][tuneshot2]](https://example.com)
-[![tuneshot3][tuneshot3]](https://example.com)
+![tuneshot2](screeshot/Tune2.PNG)
+![tuneshot3](screeshot/Tune3.PNG)
 
 8. Copy/paste the volt column to the corresponding Analyst method COV column. The
 “POS” and “NEG” tabs correspond to the respective experiments in “Method 1”. The
 SST tab contains COV values for both positive and negative experiments in the SST
 method. Save the respective files after this modification.
 
-[![tuneshot4][tuneshot4]](https://example.com)
+![tuneshot4](screeshot/Tune4.PNG)
 
 
 
@@ -155,17 +156,31 @@ MSConverterGUI.
 Mzml file
 6. Compare results with previous suitability tests.
 
-[![SSTshot1][SSTshot1]](https://example.com)
+![SSTshot1](screeshot/SST1.PNG)
 
 
+
+<!-- Sample Run -->
+## Sample Run
+### Sample Run Setup
+(Note: This protocol does not describe the sample extraction. There are a number of protocols
+that detail extraction. The addition of standards prior to extraction is key to good quantitative
+measurements. Check the “Standard Info” tab on Standard Dictionary Excel. This document
+details the recommended standard formulation. This formulation can be optimized to the
+samples you are analyzing. The 5 products that make up the v3 standard are Lipidyzer Standard
+Kit (Sciex 5040156), PG Internal Standard Mixture - UltimateSPLASH™ (Avanti 330827), PI
+Internal Standard Mixture - UltimateSPLASH™ (Avanti 330830), PS Internal Standard Mixture -
+UltimateSPLASH™ (Avanti 330828), and 15:0-18:1-d7-PA (Avanti 791642).)
+1. Lipid extracts are dried down, resuspended in 275ul and transferred to a robovial.
+Samples should be assigned numbers that are utilized in the batch setup. These
+numbers should be filled into the Sample Map along with sample information.
+2. These samples should be placed in the autosampler sample rack in appropriate order.
+3. Prior to starting the run, make sure all solvents and running buffer are topped off.
+
+### Run
 
 
 
 
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
 [license-url]: https://github.com/syjgino/LA_V1/blob/master/LICENSE
-[tuneshot1]: screeshot/Tune1.PNG
-[tuneshot2]: screeshot/Tune2.PNG
-[tuneshot3]: screeshot/Tune3.PNG
-[tuneshot4]: screeshot/Tune4.PNG
-[SSTshot1]: screeshot/SST1.PNG
