@@ -108,8 +108,8 @@ first. Hit ExportResult button when finished. Result will be saved to a xlsx fil
 same directory with Mzml files. (The excel file will be open automatically. A command
 prompt may pop-up. You can close it after the excel file is open.)
 
-![tuneshot1][tuneshot1](https://example.com)
-[![tuneshot2][tuneshot2]](https://example.com)
+[![tuneshot][tuneshot1]](https://example.com)
+[![tuneshot][tuneshot2]](https://example.com)
 [![tuneshot3][tuneshot3]](https://example.com)
 
 8. Copy/paste the volt column to the corresponding Analyst method COV column. The
