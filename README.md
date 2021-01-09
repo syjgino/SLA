@@ -108,7 +108,7 @@ first. Hit ExportResult button when finished. Result will be saved to a xlsx fil
 same directory with Mzml files. (The excel file will be open automatically. A command
 prompt may pop-up. You can close it after the excel file is open.)
 
-[![tuneshot][tuneshot1]](https://example.com)
+![tuneshot1](screeshot/Tune1.PNG)
 [![tuneshot][tuneshot2]](https://example.com)
 [![tuneshot3][tuneshot3]](https://example.com)
 
