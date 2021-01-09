@@ -54,7 +54,7 @@ versions may not transfer the data or file name correctly.)
 <!-- Tuning – Instrument Setup -->
 ## Tuning
 
-### Instrument Setup(#Tuning-Instrument-Setup)
+### Instrument Setup
 1. This protocol assumes that users are utilizing a Sciex Lipidyzer with the 100ul sample
 loop installed in the Shimadzu Autosampler.
 2. Prior to Tuning/Sample Run, make sure that the instrument is topped off with
