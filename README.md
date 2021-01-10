@@ -40,15 +40,15 @@
 
 <!-- Getting Started -->
 ## Getting Started
-1. Download SLA_V1.12 from Github and extract to fold of your choice. If desired, create
-Exe shortcut to desktop. Run SLA_V1.12.exe.
+1. Download [SLA_V1.12](SLA_v1.12_20210108.zip) from Github and extract to fold of your choice. If desired, create
+Exe shortcut to desktop, then run SLA_V1.12.exe.
 2. If it does not open properly, or if it collapses while running, try to open it from
 command prompt to check the error message.
 3. To convert wiff file to mzml file, you need to download and isntall MSconvertGUI from
-Proteowizard. (Note: We have been using version 3.0.19082-ade61137d. Some updated
+[Proteowizard](http://proteowizard.sourceforge.net/download.html). (Note: We have been using version 3.0.19082-ade61137d. Some updated
 versions may not transfer the data or file name correctly.)
 4. A spreadsheet program must be installed on the control computer (Excel or LibreOffice).
-
+5. Download Analyst method files and Excel files. [KeyV1_2.0](KeyV1_2.0) for LWM version or [KeyV3](KeyV3) for our extended version.
 
 
 <!-- Tuning – Instrument Setup -->
@@ -204,7 +204,7 @@ sample information in the map file. Submit and run these two batches.
 <!-- Data Analysis -->
 ## Data Analysis
 ### Setup
-1. You will need a Species Name Dictionary (spname_dict_xxx) and a Standard Dictionary
+1. You will need a Species Name Dictionary (spname_dict_xxx.xlsx) and a Standard Dictionary
 (standard_dict_xxx.xlsx) to perform the data analysis step. Make sure these match the
 Analyst methods utilized in your sample run. You will also need the Sample Map you
 filled out while setting up the samples. Follow the example on the Sample Map. Make
