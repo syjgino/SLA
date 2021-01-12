@@ -259,7 +259,7 @@ method, then load it to m1 and leave m2 blank.)
 ![m1m2shot](screeshot/m1m2output.PNG)
 
 5. Put in your project name or leave it blank.
-6. Select if you want to export a csv file which can be uploaded to ClustVis for analysis.
+6. Select if you want to export a csv file which can be uploaded to [ClustVis](https://biit.cs.ut.ee/clustvis/) for analysis.
 7. Hit Run Merge. Results will be saved in the directory you selected.
 
 ![mergeshot](screeshot/merge.PNG)
