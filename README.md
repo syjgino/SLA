@@ -281,4 +281,4 @@ demarcated experiments in the batch).
 
 
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
-[license-url]: https://github.com/syjgino/LA_V1/blob/master/LICENSE
+[license-url]: LICENSE
