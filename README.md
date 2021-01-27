@@ -236,6 +236,9 @@ keep the relevant mzml files there.)
 2. Select the **Read mzml** tab on the SLA.
 3. Set Directory to the folder of mzml files.
 4. Import Standard_dict and spname_dict files.
+   (note: We are using 0.025ml of plasma sample and 1/4 the amount of the LWM recommended internal standard.
+   This will get us the same results from LWM and SLA. We can use a different amount of sample and internal standard.
+   Simply asjust the multiplier coefficient in the Standard_dict file so the SLA will get the correct estimation.)
 5. Import isotope correction list if you want to do isotope correction.
 6. Select the version of raw data file. (wiff file generated from LWM run or Analyst run)
 7. If you want to mute species which you labeled as TRUE in the spname_dict file, chose
