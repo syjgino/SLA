@@ -53,7 +53,7 @@ def imp_map(maploc_tune):
     
 def exportdata(covlist, covlist_dict, maploc_tune):
     #global covlist_dict
-    exp_temp_loc=maploc_tune.get('1.0', 'end-1c')#'C:/Users/baolongsu/Desktop/Projects/Tuning/TuneSST/Tuning_spname_dict_M1.xlsx'
+    exp_temp_loc=maploc_tune.get('1.0', 'end-1c') #'Tuning_spname_dict'
     neg_temp = pd.read_excel(exp_temp_loc, sheet_name = 'NEG', header=0, index_col=None, na_values='.')
     pos_temp = pd.read_excel(exp_temp_loc, sheet_name = 'POS', header=0, index_col=None, na_values='.')
     sst_temp = pd.read_excel(exp_temp_loc, sheet_name = 'SST', header=0, index_col=None, na_values='.')
@@ -124,7 +124,7 @@ def fetchLPE(covlist_dict):
         covlist_dict[4].insert(0,float(0))
         covlist_dict[4].configure(state=DISABLED)    
     
-def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable, tab1, covlist, covlist_label, covlist_dict):
+def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, covlist, covlist_label, covlist_dict):
     out_text.configure(state="normal")
     sp_dict1_loc = maploc_tune.get('1.0', 'end-1c')
     #std_dict_loc = 'C:/Users/baolongsu/Desktop/Projects/StdUnkRatio/standard_dict - LipidizerSimulate_102b_MW_dev2.xlsx'
@@ -238,7 +238,7 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable, tab1, covlist, co
     #current version only takes 1neg and 1pos file.
     peaks_pos = []
     peaks_neg = []
-    if variable.get()=='Max1':
+    if variable_peaktype.get()=='Max1':
         out_text.insert(END, 'Get Max Value:\n')
         #print SM
         for i in range(0,1):
@@ -256,7 +256,7 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable, tab1, covlist, co
             peaks_neg = peaks_neg + [round(bvar,3)]
             out_text.insert(END, tvar+'\n')
     
-    elif variable.get()=='Max3':
+    elif variable_peaktype.get()=='Max3':
         out_text.insert(END, 'Get Median of Top 3 Values:\n')
         #print SM
         for i in range(0,1):
@@ -276,7 +276,7 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable, tab1, covlist, co
             peaks_neg = peaks_neg + [round(bmid,3)]
             out_text.insert(END, tvar+'\n')
             
-    elif variable.get()=='Con5':
+    elif variable_peaktype.get()=='Con5':
         out_text.insert(END, 'Get Median of Max Consecutive 5 Values:\n')
         #print SM
         for i in range(0,1):
@@ -307,7 +307,7 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable, tab1, covlist, co
             out_text.insert(END, tvar+'\n')
 
 #%%
-    elif variable.get()=='Con9':
+    elif variable_peaktype.get()=='Con9':
         out_text.insert(END, 'Get Median of Max Consecutive 9 Values:\n')
         #print SM
         for i in range(0,1):

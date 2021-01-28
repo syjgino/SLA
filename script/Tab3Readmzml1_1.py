@@ -70,8 +70,8 @@ def get_std_dict(std_dict_loc):
 
 #readMZML function
 def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3, 
-             iso_dict_loc, variable_iso, progressBar, data_version, 
-             variable_version):
+             iso_dict_loc, variable_iso, progressBar, variable_dataversion, 
+             variable_mute):
     progressBar = progressBar
     os.chdir(dirloc_read.get('1.0', 'end-1c'))
     list_of_files = glob.glob('./*.mzML')
@@ -98,7 +98,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     #def spName(row): #not working currently
     #    return(sp_dict[method].loc[(pd.Series(sp_dict[method]['Q1'] == row['Q1']) & pd.Series(sp_dict[method]['Q3'] == row['Q3']))].index[0])
     
-    ##isotope correction, only works for the spname_dict_V1 scan list, will be updated in V2
+    ##isotope correction, v1, nolonger in use
     def isoadj(row):
         rnum = sp_df2['Species']==row['Name']
         if row['CT1']=='XXX':
@@ -121,7 +121,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
             nomin = A1 - A2 - A3
             B1 = nomin/row['P0']
             avgint_list[np.where(rnum)[0][0]] = B1
-    ##isotope correction for V2, not used in V1
+    ##isotope correction V2
     def isoadjv2(row):
         rnum = sp_df2['Species']==row['Name']
         rnum1 = sp_df2['Species']==row['CT1']
@@ -289,7 +289,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         ############################################
         #drop muted species on spname list 20200730#
         ############################################
-        if variable_version.get()=="Yes":
+        if variable_mute.get()=="Yes":
             mutelist = sp_dict[method][sp_dict[method]["Mute"]==TRUE]
             mutelist = mutelist.index
             sp_df2 = sp_df2[-sp_df2['Species'].str[:].isin(mutelist)]        
@@ -301,9 +301,9 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         out_df = out_df[1:]
         
         #name of sample(one for analyst, one for lipidyzer)
-        if data_version.get() == "Analyst":
+        if variable_dataversion.get() == "Analyst":
             out_df = out_df.rename(index={'Ratio': re.search('- .-(.+)[.]', list_of_files[sample]).group(1)} ).astype(float) #analyst
-        elif data_version.get() == "LWM":
+        elif variable_dataversion.get() == "LWM":
             out_df = out_df.rename(index={'Ratio': re.search('- [0-9][0-9]* - (.+)[.]', list_of_files[sample]).group(1)} ).astype(float)
         
         #all_df_dict[method][sample] = sp_df2
@@ -315,9 +315,9 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         out_df_con = out_df_con[1:]
         
         #name of sample
-        if data_version.get() == "LWM":
+        if variable_dataversion.get() == "LWM":
             out_df_con = out_df_con.rename(index={'Concentration': re.search('-[0-9][0-9]* - (.+)[.]', list_of_files[sample]).group(1)} ).astype(float)
-        elif data_version.get() == "Analyst":
+        elif variable_dataversion.get() == "Analyst":
             out_df_con = out_df_con.rename(index={'Concentration': re.search('- .-(.+)[.]', list_of_files[sample]).group(1)} ).astype(float)
         
         out_df2_con[method] = pd.concat([out_df2_con[method], out_df_con], axis=0, sort=False)

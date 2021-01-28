@@ -73,7 +73,7 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
     file2 = method2loc.get('1.0', 'end-1c')
     map1 = maploc.get('1.0', 'end-1c')
     
-    # Fix QC/SPIKE sample index for proper merge
+    # Fix sample index(name) type for proper merge
     def qcname(indname):
         #if 'QC_SPIKE' in str(indname):
         #    return('QC_SPIKE')
@@ -149,12 +149,16 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
     # Exp name dict
     expname = dict(zip(sampinfo.ExpNum, sampinfo.ExpName))
     sampinfo = sampinfo.drop(['ExpName'], axis=1)
+    sampinfo.index = list(map(qcname,list(sampinfo.index)))
     
     # Create Normalized Sheets
-    spenorm = spequant[list(map(lambda x: isinstance(x, int), spequant.index))].copy()
-    clanorm = claquant[list(map(lambda x: isinstance(x, int), claquant.index))].copy()
-    fanorm = faquant[list(map(lambda x: isinstance(x, int), faquant.index))].copy()
-    spenorm = spenorm.divide(40)
+    #spenorm = spequant[list(map(lambda x: isinstance(x, int), spequant.index))].copy()  #exclude sample with string name
+    #clanorm = claquant[list(map(lambda x: isinstance(x, int), claquant.index))].copy()
+    #fanorm = faquant[list(map(lambda x: isinstance(x, int), faquant.index))].copy()
+    spenorm = spequant.copy() #inlude all samples
+    clanorm = claquant.copy()
+    fanorm = faquant.copy()
+    spenorm = spenorm.divide(40) # x0.025 may remove in next version
     clanorm = clanorm.divide(40)
     fanorm = fanorm.divide(40)
     spenorm = spenorm.divide(sampinfo['SampleNorm'], axis='index')

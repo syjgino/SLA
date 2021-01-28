@@ -32,9 +32,9 @@ from Tab4Aggregate1_1 import *
 from Tab5TAGplot1 import *
 
 
-covlist = list()
-covlist_label = dict()
-covlist_dict = dict()
+covlist = list()  #list of COV
+covlist_label = dict() #dictionary of COV lavbel
+covlist_dict = dict()  #dictionary of COV entry box
 
 #TK
 root = ThemedTk(theme="clearlooks")
@@ -73,9 +73,9 @@ tab1.bind("<Configure>",
           tab1_canvas=tab1_canvas: tab1_canvas.configure(scrollregion=tab1_canvas.bbox("all"),
                                                          width=event.width))
 
-choices = ['Max1', 'Max3', 'Con5', 'Con9']
-variable = StringVar(tab1)
-w = ttk.OptionMenu(tab1, variable, choices[3], *choices)
+choices_peaktype = ['Max1', 'Max3', 'Con5', 'Con9']
+variable_peaktype = StringVar(tab1)
+w = ttk.OptionMenu(tab1, variable_peaktype, choices_peaktype[3], *choices_peaktype)
 w.grid(row=3, column=1, sticky='w')
 
 #text boxes
@@ -104,7 +104,7 @@ ttk.Label(tab1, text='Export:', font=('Helvetica', 10, 'bold')).grid(row=4,colum
 ttk.Button(tab1, text='Import POS', command=lambda: get_tune1(tunef1)).grid(row=0,column=0)
 ttk.Button(tab1, text='Import NEG', command=lambda: get_tune2(tunef2)).grid(row=1,column=0)
 ttk.Button(tab1, text='Import Tune Dict', command=lambda: imp_map(maploc_tune)).grid(row=2,column=0,padx=1)
-ttk.Button(tab1, text='Run', command=lambda: TuningFun(tunef1, tunef2, maploc_tune, out_text, variable, tab1, covlist, covlist_label, covlist_dict)).grid(row=3,column=0,padx=1)
+ttk.Button(tab1, text='Run', command=lambda: TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, covlist, covlist_label, covlist_dict)).grid(row=3,column=0,padx=1)
 ttk.Button(tab1, text='ExportResult', command=lambda: exportdata(covlist, covlist_dict, maploc_tune)).grid(row=3,column=5, padx=0, pady=1)
 
 
@@ -118,7 +118,7 @@ text = Text(tab2, width=50, height= 25, state=DISABLED) #output text
 text.grid(row=3, column=0, columnspan = 2,rowspan=1, sticky='nsew', padx=5, pady=5)
 text.config(yscrollcommand=scroll.set)
 scroll.config(command=text.yview)
-maploc2 = Text(tab2, width=50, height= 2, state=DISABLED) #tuning_spname_dict location
+maploc2 = Text(tab2, width=50, height= 2, state=DISABLED) #tuning_spname_dict location, same as maploc_tune
 maploc2.grid(row=1, column=1, columnspan = 1, sticky='w', padx=1, pady=1)
 mzmlloc = Text(tab2, width=50, height= 2, state=DISABLED)
 mzmlloc.grid(row=0, column=1, columnspan = 1, sticky='w', padx=1, pady=1)
@@ -139,46 +139,45 @@ ttk.Button(tab3, text='Import Iso Dict', command=lambda: get_iso_dict(iso_dict_l
 ttk.Button(tab3, text='Read MZML', command=lambda: readMZML(dirloc_read, 
                                                         sp_dict1_loc, std_dict_loc, 
                                                         proname3, iso_dict_loc, variable_iso,
-                                                        progressBar, data_version ,variable_version
+                                                        progressBar, variable_dataversion ,variable_mute
                                                         )).grid(row=5,column=2)
 
 ttk.Label(tab3, text='Project Name').grid(row=4,column=0, pady=10)
 ttk.Label(tab3, text='Isotope Correction').grid(row=5,column=0, pady=10)
-ttk.Label(tab3, text='mzml Version').grid(row=6,column=0, pady=8) #choice V, data_version
-ttk.Label(tab3, text='Mute Species').grid(row=7,column=0, pady=8) #choice V2, variable_version
+ttk.Label(tab3, text='mzml Version').grid(row=6,column=0, pady=8) #choice V, dataversion
+ttk.Label(tab3, text='Mute Species').grid(row=7,column=0, pady=8) #choice V2, mute species
 
-dirloc_read = Text(tab3, width=50, height= 2, state=DISABLED)
+dirloc_read = Text(tab3, width=50, height= 2, state=DISABLED) #work directory location
 dirloc_read.grid(row=0, column=1, columnspan = 2, sticky='w', padx=1, pady=1)
-std_dict_loc = Text(tab3, width=50, height= 2, state=DISABLED)
+std_dict_loc = Text(tab3, width=50, height= 2, state=DISABLED) #standard dictionary location
 std_dict_loc.grid(row=1, column=1, columnspan = 2, sticky='w', padx=1, pady=1)
-sp_dict1_loc = Text(tab3, width=50, height= 2, state=DISABLED)
+sp_dict1_loc = Text(tab3, width=50, height= 2, state=DISABLED) #species name/mrm list location
 sp_dict1_loc.grid(row=2, column=1, columnspan = 2, sticky='w', padx=1, pady=1)
-iso_dict_loc = Text(tab3, width=50, height= 2, state=DISABLED)
+iso_dict_loc = Text(tab3, width=50, height= 2, state=DISABLED) #isotope correction file location
 iso_dict_loc.grid(row=3, column=1, columnspan = 2, sticky='w', padx=1, pady=1)
 proname3 = ttk.Entry(tab3, width=30)
 proname3.grid(row=4, column=1, columnspan = 1, sticky='w')
 
 
-
 #choice for isotope correction
-choices = ['Yes', 'No']
+choices_iso = ['Yes', 'No']
 variable_iso = StringVar(tab3)
 #variable_iso.set('No')
-w = ttk.OptionMenu(tab3, variable_iso, choices[1], *choices)
+w = ttk.OptionMenu(tab3, variable_iso, choices_iso[1], *choices_iso)
 w.grid(row=5, column=1, sticky='w')
 
 #choice for data file version
-choices2 = ['Analyst', 'LWM']
-data_version = StringVar(tab3)
+choices_dataversion = ['Analyst', 'LWM']
+variable_dataversion = StringVar(tab3)
 #data_version.set('Analyst')
-V = ttk.OptionMenu(tab3, data_version, choices2[0], *choices2)
+V = ttk.OptionMenu(tab3, variable_dataversion, choices_dataversion[0], *choices_dataversion)
 V.grid(row=6, column=1, sticky='w')
 
 #choice for species version, muted or full list
-choices3 = ['Yes', 'No']
-variable_version = StringVar(tab3)
+choices_mute = ['Yes', 'No']
+variable_mute = StringVar(tab3)
 #variable_version.set('NewClass')
-V2 = ttk.OptionMenu(tab3, variable_version, choices3[0], *choices3)
+V2 = ttk.OptionMenu(tab3, variable_mute, choices_mute[0], *choices_mute)
 V2.grid(row=7, column=1, sticky='w')
 
 #progressbar
