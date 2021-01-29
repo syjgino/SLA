@@ -210,10 +210,7 @@ sample information.(in the map file you can use 1,2... instead of 01,02...) Try 
 ### Setup
 1. You will need a Species Name Dictionary (spname_dict_xxx.xlsx) and a Standard Dictionary
 (standard_dict_xxx.xlsx) to perform the data analysis step. Make sure these match the
-Analyst methods utilized in your sample run. You will also need the Sample Map you
-filled out while setting up the samples. Follow the example on the Sample Map. Make
-sure that each sample is appropriately demarcated into experiments and groups, and
-that the normalization values for each sample are correct.
+Analyst methods utilized in your sample run.
 2. There is a Mute column in spname_dict_xxx. You can mute a species from the output by
 setting the value to TRUE. (Internal Standards and species end with “_2” are always
 muted from output.)
@@ -226,10 +223,20 @@ Q1    | Q3   | Mute | Name
 -734.5| 253.2|FALSE |PC(12:0/16:1)
 
 3. To update internal standard information, open the “standard_dict_xxx.xlsx” file. Make
-sure that the appropriate standards are listed, that the concentrations match the lot of
+sure that the appropriate standards are listed, that the actual concentrations match the Lot of
 standards you are using, and that the volumes used reflect what the amounts you
-actually spiked into each sample.
+actually spiked into each sample. If you are using a different amount/type of sample than 0.025ml plasma, please asjust the SampleNorm factor in the map file so the SLA will get the correct normalization in the next step. Do not change the Coef column in the Standard_dict.
+(note: We are using 0.025ml of plasma sample and 1/4 the amount of the LWM recommended internal standard. This way we will get the same results from LWM and SLA.)
+4. You will also need the Sample Map(sample submission form) you
+filled out while setting up the samples. Follow the example on the Sample Map. Make
+sure that each sample is appropriately demarcated into experiments and groups, and
+that the normalization values for each sample are correct. GroupNum will be used to sort x ticks in plots. You can
+change it to rearrange them. If there is are bad samples/subgroups, you can assign them to a seperate experiment, or simply exclude them from the map. For different type of samples, the sample normalization values are:
+   - Plasma: volumn in ml
+   - Tissue: <img valign="middle" src="https://latex.codecogs.com/svg.latex?\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul&space;&plus;&space;weight\;in\;mg}&space;\;\cdot\;&space;amount\;of\;mixture\;taken\;from\;total\;in\;ul" title="\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul + weight\;in\;mg} \;\cdot\; amount\;of\;mixture\;taken\;from\;total\;in\;ul" />
+   - Cell: number of cell in 10 million
 
+![mapshot](screeshot/Map.PNG)
 
 
 ### Read MZML
@@ -238,8 +245,7 @@ with MSconvertGUI. (Note: the program will read all mzml files in the folder. Pl
 keep the relevant mzml files there.)
 2. Select the **Read mzml** tab on the SLA.
 3. Set Directory to the folder of mzml files.
-4. Import Standard_dict and spname_dict files. Please update the internal standard lot information(actual concentration) and amount used under the StdInfo sheet in Standard_dict file. If you are using a different amount/type of sample than 0.025ml plasma, please asjust the SampleNorm factor in the map file so the SLA will get the correct normalization in the next step. Do not change the Coef column in the Standard_dict.
-(note: We are using 0.025ml of plasma sample and 1/4 the amount of the LWM recommended internal standard. This way we will get the same results from LWM and SLA.)
+4. Import Standard_dict and spname_dict files.
 5. Import isotope correction list if you want to do isotope correction.
 6. Select the version of raw data file. (wiff file generated from LWM run or Analyst run)
 7. If you want to mute species which you labeled as TRUE in the spname_dict file, chose
@@ -252,14 +258,7 @@ Yes for Mute Species.
 ### Merge data with sample map
 1. Select **Merge** tab on SLA.
 2. Set directory to where you want to keep the outputs.
-3. Import sample map. GroupNum will be used to sort x ticks in plots. You can
-change it to rearrange them. If there is are bad samples/subgroups, you can assign them to a seperate experiment, or simply exclude them from the map. For different type of samples, the sample normalization factors are:
-   - Plasma: volumn in ml
-   - Tissue: <img valign="middle" src="https://latex.codecogs.com/svg.latex?\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul&space;&plus;&space;weight\;in\;mg}&space;\;\cdot\;&space;amount\;of\;mixture\;taken\;from\;total\;in\;ul" title="\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul + weight\;in\;mg} \;\cdot\; amount\;of\;mixture\;taken\;from\;total\;in\;ul" />
-   - Cell: number of cell in 10 million
-
-![mapshot](screeshot/Map.PNG)
-
+3. Import sample map.
 4. Select output excel files m1&amp;m2 from **Read mzml** session. (if your experiment has only 1
 method, then load it to m1 and leave m2 blank.)
 
