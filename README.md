@@ -253,7 +253,7 @@ Yes for Mute Species.
 3. Import sample map. GroupNum will be used to sort x ticks in plots. You can
 change it to rearrange them. If there is are bad samples/subgroups, you can assign them to a seperate experiment, or simply exclude them from the map. For different type of samples, the sample normalization factors are:
    - Plasma: volumn in ml
-   - Tissue: <img src="https://latex.codecogs.com/svg.latex?\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul&space;&plus;&space;weight\;in\;mg}&space;\;\cdot\;&space;amount\;of\;mixture\;taken\;from\;total\;in\;ul" title="\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul + weight\;in\;mg} \;\cdot\; amount\;of\;mixture\;taken\;from\;total\;in\;ul" />
+   - Tissue: <img valign="middle" src="https://latex.codecogs.com/svg.latex?\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul&space;&plus;&space;weight\;in\;mg}&space;\;\cdot\;&space;amount\;of\;mixture\;taken\;from\;total\;in\;ul" title="\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul + weight\;in\;mg} \;\cdot\; amount\;of\;mixture\;taken\;from\;total\;in\;ul" />
    - Cell: number of cell in 10 million
 
 ![mapshot](screeshot/Map.PNG)
