@@ -196,10 +196,12 @@ and correct any plumbing problems before doing a second injection of precious
 samples.
 3. Each batch should be created with the sample numbers assigned above and the correct
 vial positions. Note that all samples to be analyzed must be assigned with unique names. 
-We recomend using 01 through 99 as sample names(01,02 instead of 1,2), and names containing letters or symbols as
+We recomend using 01 through 99 as sample names(01,02... instead of 1,2...), and names containing letters or symbols as
 controls(i.e. “buffer”, “QC”, “QCSpike”, etc.). These names are then pasted to the first column in the map file and assigned
-sample information. Try to avoid using special characters here.
+sample information.(in the map file you can use 1,2... instead of 01,02...) Try to avoid using special characters here.
+
 ![mapshot](screeshot/Map.PNG)
+
 4. Submit and run these two batches. After completing both Method batches, proceed with data analysis.
 
 
