@@ -195,11 +195,12 @@ Method 1 and Method 2 batches separately. This allows you to check over the samp
 and correct any plumbing problems before doing a second injection of precious
 samples.
 3. Each batch should be created with the sample numbers assigned above and the correct
-vial positions. Note that all samples to be analyzed must be assigned numbers as IDs
-(usually 01 through 99). The SLA denotes sample IDs containing letters or symbols as
-controls (i.e. “buffer”, “QC”, “QCSpike”, etc.). These numbered IDs are then assigned
-sample information in the map file. Submit and run these two batches.
-4. After completing both Method batches, proceed with data analysis.
+vial positions. Note that all samples to be analyzed must be assigned with unique names. 
+We recomend using 01 through 99 as sample names(01,02 instead of 1,2), and names containing letters or symbols as
+controls(i.e. “buffer”, “QC”, “QCSpike”, etc.). These names are then pasted to the first column in the map file and assigned
+sample information. Try to avoid using special characters here.
+![mapshot](screeshot/Map.PNG)
+4. Submit and run these two batches. After completing both Method batches, proceed with data analysis.
 
 
 <!-- Data Analysis -->
@@ -251,8 +252,8 @@ Yes for Mute Species.
 ### Merge data with sample map
 1. Select **Merge** tab on SLA.
 2. Set directory to where you want to keep the outputs.
-3. Import sample map. (Note: GroupNum will be used to sort x ticks in plots. You can
-change it to rearrange them.)
+3. Import sample map. GroupNum will be used to sort x ticks in plots. You can
+change it to rearrange them. If there is are bad samples/subgroups, you can assign them to a seperate experiment, or simply exclude them from the map.
 
 ![mapshot](screeshot/Map.PNG)
 
