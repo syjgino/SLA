@@ -231,7 +231,7 @@ actually spiked into each sample. If you are using a different amount/type of sa
 filled out while setting up the samples. Follow the example on the Sample Map. Make
 sure that each sample is appropriately demarcated into experiments and groups, and
 that the normalization values for each sample are correct. GroupNum will be used to sort x ticks in plots. You can
-change it to rearrange them. If there is are bad samples/subgroups, you can assign them to a seperate experiment, or simply exclude them from the map. For different type of samples, the sample normalization values are:
+change it to rearrange them. To exclude samples, such as bad samples/subgroups or blank/QC_spike, you can assign them to a seperate experiment, or simply exclude them from the map. For different type of samples, the sample normalization values are:
    - Plasma: volumn in ml
    - Tissue: <img valign="middle" src="https://latex.codecogs.com/svg.latex?\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul&space;&plus;&space;weight\;in\;mg}&space;\;\cdot\;&space;amount\;of\;mixture\;taken\;from\;total\;in\;ul" title="\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul + weight\;in\;mg} \;\cdot\; amount\;of\;mixture\;taken\;from\;total\;in\;ul" />
    - Cell: number of cell in 10 million
