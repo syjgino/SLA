@@ -1,8 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jan 17 10:17:30 2020
+This file is part of the Shotgun Lipidomics Assistant (SLA) project.
 
+Copyright 2020 Baolong Su (UCLA), Kevin Williams (UCLA), Lisa F. Bettcher (UW).
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+"""
 @author: BaolongSu
+
+SLA main
+all imported Tab files should be in the same location as this file
 
 """
 
@@ -15,12 +34,13 @@ from ttkthemes import ThemedTk
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 from Tab1Tune1_1 import *
 from Tab2SST1_1 import *
-from Tab3Readmzml1_1 import *
+# from Tab3Readmzml1_1 import *  # using LWM lipid name format
+from Tab3Readmzml1_2 import *  # new name and FA analysis version
 from Tab4Aggregate1_1 import *
-from Tab5TAGplot1 import *
+from Tab5TAGplot1_2 import *
 
 covlist = list()  # list of COV
-covlist_label = dict()  # dictionary of COV label
+covlist_label = dict()  # dictionary of COV lavbel
 covlist_dict = dict()  # dictionary of COV entry box
 
 # TK
@@ -42,7 +62,7 @@ note.add(tab5, text="ClassTotal/TAG Analysis")
 note.pack()
 
 ########
-# Tab1 #
+##Tab1##
 ########
 # choices for peak selecting method
 tab1_canvas = tk.Canvas(tab1_container)
@@ -62,7 +82,7 @@ tab1.bind("<Configure>",
 choices_peaktype = ['Max1', 'Max3', 'Con5', 'Con9']
 variable_peaktype = StringVar(tab1)
 w = ttk.OptionMenu(tab1, variable_peaktype, choices_peaktype[3], *choices_peaktype)
-w.grid(row=3, column=1, sticky='w')
+w.grid(row=3, column=2, sticky='w')
 
 # text boxes
 tunef1 = Text(tab1, width=50, height=2, state=DISABLED)  # mzml directory location
@@ -81,6 +101,7 @@ out_text.config(yscrollcommand=scroll.set)
 scroll.config(command=out_text.yview)
 
 # labels
+ttk.Label(tab1, text='Peak Method').grid(row=3, column=1, sticky='e')
 ttk.Label(tab1, text='').grid(row=3, column=7, columnspan=1, pady=2, padx=2)
 ttk.Label(tab1, text='Result:\nLPC/LPE16 cover C12-16 | LPC/LPE18 cover C17-24\nLPC16+1.0=LPC18 | LPE16+1.5=LPE18',
           font=('Helvetica', 10, 'bold')).grid(row=4, column=0, columnspan=3, pady=2, sticky='w')
@@ -99,7 +120,7 @@ ttk.Button(tab1, text='ExportResult', command=lambda: exportdata(covlist, covlis
                                                                                                            pady=1)
 
 ########
-# Tab2 #
+##Tab2##
 ########
 # text boxes
 scroll = ttk.Scrollbar(tab2)
@@ -119,7 +140,7 @@ ttk.Button(tab2, text='Import SST', command=lambda: imp_mzml(mzmlloc)).grid(row=
 ttk.Button(tab2, text='Run', command=lambda: SSTFun(mzmlloc, maploc2, text)).grid(row=2, column=0)
 
 #################
-# Tab3 readMZml #
+##Tab3 readMZml##
 #################
 ttk.Button(tab3, text='Set Directory', command=lambda: set_dir_read(dirloc_read)).grid(row=0, column=0)
 ttk.Button(tab3, text='Import Standard Dict', command=lambda: get_std_dict(std_dict_loc)).grid(row=1, column=0)
@@ -174,7 +195,7 @@ progressBar = ttk.Progressbar(tab3, orient=HORIZONTAL,
 progressBar.grid(row=8, column=0, columnspan=3, sticky=EW, padx=10, pady=3)
 
 ##################
-# Tab4 Aggregate #
+##Tab4 Aggregate##
 ##################
 ttk.Label(tab4, text='Project Name').grid(row=4, column=0, pady=10)
 
@@ -205,7 +226,7 @@ ttk.Checkbutton(tab4, text="Generate .csv file for ClustVis", variable=CheckClus
                 width=0).grid(row=5, column=1, sticky=W, pady=0)
 
 ############
-# Tab5 TAG #
+##Tab5 TAG##
 ############
 exploc = Text(tab5, width=50, height=2, state=DISABLED)
 exploc.grid(row=0, column=1, columnspan=2, sticky='w', pady=5, padx=1)
@@ -215,7 +236,7 @@ CheckVar2 = IntVar()
 ttk.Checkbutton(tab5, text="Mute Error Bar", variable=CheckVar1,
                 onvalue=1, offvalue=0,  # height=0, standard Checkbutton only, ttk.Checkbutton doesn't alow height
                 width=0).grid(row=2, column=1, sticky=W, pady=0)
-ttk.Checkbutton(tab5, text="Show Data Points", variable=CheckVar2,
+ttk.Checkbutton(tab5, text="Show Points(TG plot)", variable=CheckVar2,
                 onvalue=1, offvalue=0,  # height=0,
                 width=0).grid(row=2, column=2, sticky=W, pady=0)
 ttk.Button(tab5, text='Choose File(_exp)',
