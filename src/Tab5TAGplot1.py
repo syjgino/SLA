@@ -50,15 +50,11 @@ def tagplot(exploc, CheckVar1, CheckVar2):
     start = datetime.datetime.now()
     file = exploc.get('1.0', 'end-1c')
     # root.destroy()
-    # file = 'C:/Users/baolongsu/Desktop/Data/20190312MiklosVallim/20190312MiklosVallim_exp1.xlsx'
 
     # set directory
     os.chdir(file[0:file.rfind('/')])
     # Open Excel Document
     lipid_all = pd.read_excel(file, sheet_name='Species Norm', index_col=0, na_values='.')
-
-    # lipid_all = pd.read_excel('C:/Users/kevinwilliams/Desktop/Scripts/Python/Merge/20190306ShinCharles_exp1.xlsx',sheet_name='Species Norm', index_col=0, na_values='.')
-
     lipid_all = lipid_all.drop(['SampleNorm', 'NormType'], axis=1)
     # Convert to floats
     # lipid_all=lipid_all.replace(".",np.nan)
