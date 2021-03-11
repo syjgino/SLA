@@ -540,6 +540,10 @@ def tagplot(exploc, CheckVar1, CheckVar2):
     
     # classtotal boxplot
     sns.set_style("ticks")
+    PROPS = {'boxprops':{'facecolor':'none', 'edgecolor':'black'},
+             'medianprops':{'color':'black'},
+             'whiskerprops':{'color':'black'},
+             'capprops':{'color':'black'}}
     expdata = pd.read_excel(file,
                             sheet_name='Class Norm', header=[0], index_col=[0, 4], na_values='.')
     expdata = expdata.sort_values(by=['GroupNum'])
@@ -551,7 +555,8 @@ def tagplot(exploc, CheckVar1, CheckVar2):
                     sharey=False, color='#FFFFFF',
                     linewidth=None,
                     kind="box", 
-                    height=4, aspect=1.2, fliersize=5
+                    height=4, aspect=1.2, fliersize=5,
+                    **PROPS
                     )
     g.set_titles(size=22, col_template='{col_name}')
     g.set_xlabels(fontsize=16)
