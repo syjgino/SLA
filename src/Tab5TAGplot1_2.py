@@ -35,7 +35,11 @@ all plot sort by groupname
 
 02/12/2021
 take both TAG or TG as name
+
+03/10/2021
+add boxplot of class total
 """
+
 import numpy as np
 import pandas as pd
 # from pyopenms import *
@@ -69,7 +73,6 @@ def tagplot(exploc, CheckVar1, CheckVar2):
     start = datetime.datetime.now()
     file = exploc.get('1.0', 'end-1c')
     # root.destroy()
-    # file = 'C:/Users/baolongsu/Desktop/Data/20190312MiklosVallim/20190312MiklosVallim_exp1.xlsx'
 
     # set directory
     os.chdir(file[0:file.rfind('/')])
@@ -510,8 +513,10 @@ def tagplot(exploc, CheckVar1, CheckVar2):
         scat = tag_bond_summary
         grouped_barplot(df, cat, subcat, val, err, scat)
         print('TAG plot saved')
-
-    # classtotal barplot
+    
+    ######################
+    # classtotal barplot #
+    ######################
     sns.set_style("ticks")
     expdata = pd.read_excel(file,
                             sheet_name='Class Norm', header=[0], index_col=[0, 4], na_values='.')
