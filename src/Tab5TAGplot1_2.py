@@ -78,9 +78,6 @@ def tagplot(exploc, CheckVar1, CheckVar2):
     os.chdir(file[0:file.rfind('/')])
     # Open Excel Document
     lipid_all = pd.read_excel(file, sheet_name='Species Norm', index_col=0, na_values='.')
-
-    # lipid_all = pd.read_excel('C:/Users/kevinwilliams/Desktop/Scripts/Python/Merge/20190306ShinCharles_exp1.xlsx',sheet_name='Species Norm', index_col=0, na_values='.')
-
     lipid_all = lipid_all.drop(['SampleNorm', 'NormType'], axis=1)
     # Convert to floats
     # lipid_all=lipid_all.replace(".",np.nan)
