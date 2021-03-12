@@ -87,7 +87,7 @@ def tagplot(exploc, CheckVar1, CheckVar2):
     species_all = lipid_all.T
 
     # Create TAG DataFrame, get name TAG or TG
-    tag_all = species_all[species_all.index.str.startswith(('TAG','TG'))].copy()
+    tag_all = species_all[species_all.index.str.startswith(('TAG', 'TG'))].copy()
 
     # if no TAG, skip tag analysis
     if len(tag_all) != 0:
@@ -193,7 +193,7 @@ def tagplot(exploc, CheckVar1, CheckVar2):
         tag_60.loc['60total'] = pd.Series(tag_60.sum(min_count=1))
 
         ##summary avg
-        tag_all2 = lipid_all[lipid_all.columns[pd.Series(lipid_all.columns).str.startswith(('TAG','TG'))]].copy()
+        tag_all2 = lipid_all[lipid_all.columns[pd.Series(lipid_all.columns).str.startswith(('TAG', 'TG'))]].copy()
         tag_all2 = tag_all2.astype(float)
         tag_all2 = pd.concat([tag_all2, lipid_all.iloc[:, 1:4]], axis=1)
         tag_all2_drop = tag_all2.drop(['SampleID'], axis=1)
@@ -510,7 +510,7 @@ def tagplot(exploc, CheckVar1, CheckVar2):
         scat = tag_bond_summary
         grouped_barplot(df, cat, subcat, val, err, scat)
         print('TAG plot saved')
-    
+
     ######################
     # classtotal barplot #
     ######################
@@ -537,13 +537,13 @@ def tagplot(exploc, CheckVar1, CheckVar2):
     plt.savefig(file[file.rfind('/') + 1:file.rfind('.')] + '_ClassTotalBar.pdf', bbox_inches='tight')
     plt.close('all')
     print('ClassTotal barplot saved')
-    
+
     # classtotal boxplot
     sns.set_style("ticks")
-    PROPS = {'boxprops':{'facecolor':'none', 'edgecolor':'black'},
-             'medianprops':{'color':'black'},
-             'whiskerprops':{'color':'black'},
-             'capprops':{'color':'black'}}
+    PROPS = {'boxprops': {'facecolor': 'none', 'edgecolor': 'black'},
+             'medianprops': {'color': 'black'},
+             'whiskerprops': {'color': 'black'},
+             'capprops': {'color': 'black'}}
     expdata = pd.read_excel(file,
                             sheet_name='Class Norm', header=[0], index_col=[0, 4], na_values='.')
     expdata = expdata.sort_values(by=['GroupNum'])
@@ -554,7 +554,7 @@ def tagplot(exploc, CheckVar1, CheckVar2):
                     col="Class", col_wrap=4,
                     sharey=False, color='#FFFFFF',
                     linewidth=None,
-                    kind="box", 
+                    kind="box",
                     height=4, aspect=1.2, fliersize=5,
                     **PROPS
                     )
@@ -568,6 +568,6 @@ def tagplot(exploc, CheckVar1, CheckVar2):
     plt.savefig(file[file.rfind('/') + 1:file.rfind('.')] + '_ClassTotalBox.pdf', bbox_inches='tight')
     plt.close('all')
     print('ClassTotal boxplot saved')
-    
+
     print("run in %s" % (datetime.datetime.now() - start))
     messagebox.showinfo("Information", "Done")
