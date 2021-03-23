@@ -19,14 +19,14 @@ test on processing only m2
 20210210
 redesign FA tabs computation section
 """
-import numpy as np
+# import numpy as np
 import pandas as pd
 from pyopenms import *
 import os
-import tkinter as tk
-from tkinter import ttk
+# import tkinter as tk
+# from tkinter import ttk
 from tkinter import messagebox
-from tkinter.messagebox import showinfo
+# from tkinter.messagebox import showinfo
 from tkinter import *
 from tkinter import filedialog
 import glob

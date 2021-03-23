@@ -9,19 +9,19 @@ get SST result
 
 """
 
-import numpy as np
+# import numpy as np
 import pandas as pd
-import os
-import glob
-import re
+# import os
+# import glob
+# import re
 
-from scipy import stats
+# from scipy import stats
 from pyopenms import *
 from tkinter import *
-import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
-from tkinter.messagebox import showinfo
+# import tkinter as tk
+# from tkinter import ttk
+# from tkinter import messagebox
+# from tkinter.messagebox import showinfo
 from tkinter import filedialog
 import datetime
 
