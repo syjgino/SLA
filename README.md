@@ -20,6 +20,7 @@
 ## Table of Contents
 
 * [Getting Started](#getting-started)
+* [Dictionary Files](#dictionary-files)
 * [Tuning](#Tuning)
   * [Instrument Setup](#Instrument-Setup)
   * [Run](#Run)
@@ -36,6 +37,11 @@
   * [Read MZML](#Read-MZML)
   * [Merge data with sample map](#Merge-data-with-sample-map)
   * [Further Analysis](#Further-Analysis)
+
+
+
+<!-- Dictionary Files -->
+## Dictionary Files
 
 
 
