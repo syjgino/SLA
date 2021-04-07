@@ -20,6 +20,7 @@
 ## Table of Contents
 
 * [Getting Started](#getting-started)
+* [Dictionary Files](#dictionary-files)
 * [Tuning](#Tuning)
   * [Instrument Setup](#Instrument-Setup)
   * [Run](#Run)
@@ -36,6 +37,15 @@
   * [Read MZML](#Read-MZML)
   * [Merge data with sample map](#Merge-data-with-sample-map)
   * [Further Analysis](#Further-Analysis)
+
+
+
+<!-- Dictionary Files -->
+## Dictionary Files
+### Species List (Spname_dict)
+This spread sheet contains the information of species we scan for. The order and info should be the same as the method MRM list in Analyst. 
+The Class column is used for class total analysis. The FA1/FA2 columns are used for fatty accid analysis.
+![spname](screeshot/spname.PNG)
 
 
 
@@ -228,7 +238,7 @@ standards you are using, and that the volumes used reflect what the amounts you
 actually spiked into each sample. If you are using a different amount/type of sample than 0.025ml plasma, please asjust the SampleNorm factor in the map file so the SLA will get the correct normalization in the next step. Do not change the Coef column in the Standard_dict.
 (note: We are using 0.025ml of plasma sample and 1/4 the amount of the LWM recommended internal standard. This way we will get the same results from LWM and SLA.)
 4. You will also need the Sample Map(sample submission form) you
-filled out while setting up the samples. Follow the example on the Sample Map. Make
+filled out while setting up the samples. Follow the example on the Sample Map. Name the actuall map sheet as "Sheet1". Make
 sure that each sample is appropriately demarcated into experiments and groups, and
 that the normalization values for each sample are correct. GroupNum will be used to sort x ticks in plots. You can
 change it to rearrange them. To exclude samples, such as bad samples/subgroups or blank/QC_spike, you can assign them to a seperate experiment, or simply exclude them from the map. For different type of samples, the sample normalization values are:

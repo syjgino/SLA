@@ -8,23 +8,23 @@ Tune for LA_V1
 
 """
 
-import numpy as np
+# import numpy as np
 import pandas as pd
 from pyopenms import *
 import os
-import glob
-import re
+# import glob
+# import re
 import matplotlib
 import matplotlib.pyplot as plt
 # from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
+# from matplotlib.figure import Figure
 import seaborn as sns
-from scipy import stats
+# from scipy import stats
 from tkinter import *
-import tkinter as tk
+# import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
-from tkinter.messagebox import showinfo
+# from tkinter import messagebox
+# from tkinter.messagebox import showinfo
 from tkinter import filedialog
 import datetime
 
@@ -108,7 +108,8 @@ def exportdata(covlist, covlist_dict, maploc_tune):
     pos_temp.to_excel(master, 'POS', index=True)
     sst_temp.to_excel(master, 'SST', index=True)
     master.save()
-    os.system(fname)
+    os.startfile(fname)
+    # os.system(fname)
     # messagebox.showinfo("Information","Done")
 
 

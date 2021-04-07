@@ -16,16 +16,16 @@ import numpy as np
 import pandas as pd
 # from pyopenms import *
 import os
-import tkinter as tk
-from tkinter import ttk
+# import tkinter as tk
+# from tkinter import ttk
 from tkinter import messagebox
-from tkinter.messagebox import showinfo
+# from tkinter.messagebox import showinfo
 from tkinter import *
 # import matplotlib.pyplot as plt
 # import matplotlib
 # matplotlib.use("Agg")
 from tkinter import filedialog
-import glob
+# import glob
 import re
 # import statistics
 import datetime
