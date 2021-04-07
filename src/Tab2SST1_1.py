@@ -1,11 +1,26 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jan 16 16:58:09 2020
+This file is part of the Shotgun Lipidomics Assistant (SLA) project.
 
+Copyright 2020 Baolong Su (UCLA), Kevin Williams (UCLA), Lisa F. Bettcher (UW).
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+"""
 @author: Gino
 
-for LA_V1
-get SST result
+read and output SST result
 
 """
 
@@ -55,7 +70,7 @@ def imp_mzml(mzmlloc):
 
 def SSTFun(mzmlloc, maploc2, text):
     text.configure(state="normal")
-    # get name all files
+    ##get name all files
     sp_dict1_loc = maploc2.get('1.0', 'end-1c')
     # std_dict_loc = 'C:/Users/baolongsu/Desktop/Projects/StdUnkRatio/standard_dict - LipidizerSimulate_102b_MW_dev2.xlsx'
     mzml_loc = mzmlloc.get('1.0', 'end-1c')
