@@ -108,7 +108,8 @@ def exportdata(covlist, covlist_dict, maploc_tune):
     pos_temp.to_excel(master, 'POS', index=True)
     sst_temp.to_excel(master, 'SST', index=True)
     master.save()
-    os.system(fname)
+    os.startfile(fname)
+    # os.system(fname)
     # messagebox.showinfo("Information","Done")
 
 
