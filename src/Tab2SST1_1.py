@@ -166,6 +166,7 @@ def SSTFun(mzmlloc, maploc2, text):
     master = pd.ExcelWriter(fname)
     sp_df3.to_excel(master, 'result', index=True)
     master.save()
-    os.system(fname)
+    os.startfile(fname)
+    # os.system(fname)
 
     # messagebox.showinfo("Information","Done")
