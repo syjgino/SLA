@@ -1,15 +1,43 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jul 17 10:54:52 2020
+This file is part of the Shotgun Lipidomics Assistant (SLA) project.
 
+Copyright 2020 Baolong Su (UCLA), Kevin Williams (UCLA), Lisa F. Bettcher (UW).
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+"""
 @author: baolongsu
 
-Lipid Analysis Pack V1 Tab4 (tab1 from LA2.0)
-merge(moved to tab 3, muted here)
-aggregate
+Tab4
+Merge _m1 and _m2
+(if you have only 1 result, always load to m1 and leave m2 blank)
+
+Use Map file(submission form) to get sample info and normalize data
+(if a sample in m1/m2 file is not included in the Map, it will simply exclude that sample from analysis)
+
+20191001
+changed tab name from Aggregate to Merge
+
+creating of LWM like merged "master" excel file moved to tab 3, muted here
 
 20200716
 Added options to export .csv file for clustVis
+
+20210115
+using numbers in 01,02...100 for original sample name in Analyst is prefered
+letters can be used, but may raise up errors
 """
 
 import numpy as np
@@ -165,7 +193,7 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
     spenorm = spequant.copy()  # inlude all samples
     clanorm = claquant.copy()
     fanorm = faquant.copy()
-    spenorm = spenorm.divide(40)  # x0.025 may remove in next version
+    spenorm = spenorm.divide(40)  # x0.025 to reverse /0.025 in the standard coef. /0.025 is there to simulate LWM result
     clanorm = clanorm.divide(40)
     fanorm = fanorm.divide(40)
     spenorm = spenorm.divide(sampinfo['SampleNorm'], axis='index')

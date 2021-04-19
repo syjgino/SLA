@@ -45,7 +45,7 @@ covlist_dict = dict()  # dictionary of COV entry box
 
 # TK
 root = ThemedTk(theme="clearlooks")
-root.title("ShotgunLipidomicsAssistant V1.12")
+root.title("ShotgunLipidomicsAssistant V1.2")
 root.iconbitmap('SLAicon_256.ico')
 
 note = ttk.Notebook(root)

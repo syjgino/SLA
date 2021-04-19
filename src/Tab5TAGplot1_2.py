@@ -232,7 +232,7 @@ def tagplot(exploc, CheckVar1, CheckVar2):
         # tag_sum_sd['ExpNum'] = tag_sum_avg['ExpNum']
 
         # Write to Excel
-        writer = pd.ExcelWriter(file[file.rfind('/') + 1:file.rfind('.')] + '_' + 'TAG_carbon.xlsx')
+        writer = pd.ExcelWriter(file[file.rfind('/') + 1:file.rfind('.')] + '_' + 'TG_carbon.xlsx')
         tag_summary.to_excel(writer, 'Summary')
         tag_sum_avg.to_excel(writer, sheet_name='SumAvg')
         tag_sum_sd.to_excel(writer, sheet_name='SumAvg', startrow=tag_sum_sd.shape[0] + 5, startcol=0)

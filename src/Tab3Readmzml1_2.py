@@ -444,9 +444,9 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     # class composition
     clas_comp = {}
     if len(out_df2_con['1']) > 0:
-        clas_comp = {'1': SP_grp['1'].apply(lambda row: 100 * row / row.sum(), axis=1)}
+        clas_comp = {'1': SP_grp['1'].apply(lambda row: 100 * row / row.sum(skipna=True), axis=1)}
     if len(out_df2_con['2']) > 0:
-        clas_comp['2'] = SP_grp['2'].apply(lambda row: 100 * row / row.sum(), axis=1)
+        clas_comp['2'] = SP_grp['2'].apply(lambda row: 100 * row / row.sum(skipna=True), axis=1)
 
     ######
     # save#
@@ -546,7 +546,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         spequant = spequant.reindex(sorted(spequant.columns), axis=1)
         specomp = specomp.reindex(sorted(specomp.columns), axis=1)
         claquant = claquant.reindex(sorted(claquant.columns), axis=1)
-        clacomp = claquant.apply(lambda x: 100 * x / sum(x), axis=1)  # get class composit
+        clacomp = claquant.apply(lambda x: 100 * x / x.sum(), axis=1)  # get class composit
         faquant = faquant.reindex(sorted(faquant.columns), axis=1)
         facomp = facomp.reindex(sorted(facomp.columns), axis=1)
 
