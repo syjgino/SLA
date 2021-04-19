@@ -51,7 +51,7 @@ The Class column is used for class total analysis. The FA1/FA2 columns are used 
 
 <!-- Getting Started -->
 ## Getting Started
-1. Download [SLA_V1.2](/releases/tag/1.2_20210419) from Github and extract the zip file. If desired, create
+1. Download the latest release of [SLA_V1.2](releases) from Github and extract the zip file. If desired, create
 Exe shortcut to desktop, then run SLA_V1.12.exe.
 2. If it does not open properly, or if it collapses while running, try to open it from
 command prompt to check the error message.
