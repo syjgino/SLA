@@ -297,4 +297,4 @@ demarcated experiments in the batch).
 
 
 [license-shield]: https://img.shields.io/badge/License-Apache%202.0-green.svg
-[license-url]: https://opensource.org/licenses/Apache-2.0
+[license-url]: LICENSE
