@@ -296,5 +296,5 @@ demarcated experiments in the batch).
 
 
 
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
+[license-shield]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 [license-url]: LICENSE
