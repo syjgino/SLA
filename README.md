@@ -10,7 +10,7 @@
     <br />
     <a href="https://www.uclalipidomics.net/"><strong>UCLA Lipidomics Core</strong></a>
     <br />
-    <a href="https://youtu.be/1bBZkzZ6BM0">View Demo</a> | <a href="https://github.com/syjgino/DataInspectGUI">IntensityViewer</a>
+    <a href="https://youtu.be/1bBZkzZ6BM0">View Demo</a>
   </p>
 </p>
 
