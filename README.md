@@ -1,5 +1,5 @@
 <!-- PROJECT SHIELDS -->
-[![MIT License][license-shield]][license-url]
+[![Apache-2.0 License][license-shield]][license-url]
 
 
 <!-- PROJECT TITLE -->
