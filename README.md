@@ -51,10 +51,10 @@ The Class column is used for class total analysis. The FA1/FA2 columns are used 
 ### Standard Dictionary (Standard_dict)
 This workbook contains the unknown to standard dictionary and the standard information sheet. 
 The Method1/Method2 sheet will take information from the StdInfo sheet to compute the Coef, which is used to calculate unknown concentration. 
-If you want to get close results to the LWM, you need to round the Coef to 1 decimal place. (for lipid with duplicated tails, i.e. PC 16:0_16:0, round to 1 decimal and then devide by 2) This may sounds strange but it does give us the closest simulation to LWM. (<0.1% diffence) 
+(We had observed that by rounding the Coef to 1 decimal place, we got the closest approximation to the LWM result.)
 The SLA will search for the unknown and grab the Coef. So the order of unknowns in this file does not matter.
-We believe that the LWM is using the deuterated Q3 of standard to match odd chain PC or PE. 
 
+![standardkey](screeshot/standardkey.PNG)
 
 (Note: Please do not change the sheet name and order in these dictionary files.)
 
