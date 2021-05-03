@@ -200,13 +200,18 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
     clanorm = clanorm.divide(sampinfo['SampleNorm'], axis='index')
     fanorm = fanorm.divide(sampinfo['SampleNorm'], axis='index')
 
-    # Fix GroupName
-    for i in range(1, int(max(sampinfo['ExpNum'])) + 1):
-        for ii in range(1, int(max(sampinfo.loc[sampinfo['ExpNum'] == i, 'GroupNum'])) + 1):
+    # Fix GroupName. If GroupName and GroupNum doesn't match, change GroupName to match GroupNum
+    for i in sampinfo['ExpNum'].unique().astype(int):
+        for ii in sampinfo.loc[sampinfo['ExpNum'] == i,'GroupNum'].unique().astype(int):
             gNamlogic = np.logical_and(sampinfo['GroupNum'] == ii, sampinfo['ExpNum'] == i)
             sampinfo.loc[gNamlogic, "GroupName"] = sampinfo['GroupName'][gNamlogic].reset_index(drop=True)[0]
+        
+    # for i in range(1, int(max(sampinfo['ExpNum'])) + 1):
+    #     for ii in range(1, int(max(sampinfo.loc[sampinfo['ExpNum'] == i, 'GroupNum'])) + 1):
+    #         gNamlogic = np.logical_and(sampinfo['GroupNum'] == ii, sampinfo['ExpNum'] == i)
+    #         sampinfo.loc[gNamlogic, "GroupName"] = sampinfo['GroupName'][gNamlogic].reset_index(drop=True)[0]
 
-    # Merge Map        
+    # Merge Map, using index (Sample column in map and sample name in raw data)
     spequantin = pd.concat([sampinfo, spequant], axis=1, sort=False, join='inner')
     specompin = pd.concat([sampinfo, specomp], axis=1, sort=False, join='inner')
     claquantin = pd.concat([sampinfo, claquant], axis=1, sort=False, join='inner')
