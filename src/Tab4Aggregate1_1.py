@@ -235,7 +235,7 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
     fanormin_exp = dict()
 
     ##loop
-    for i in range(1, int(max(spequantin['ExpNum'])) + 1):
+    for i in sampinfo['ExpNum'].unique().astype(int):   # range(1, int(max(spequantin['ExpNum'])) + 1):
         spequantin_exp[i] = spequantin[spequantin['ExpNum'] == i].copy()
         specompin_exp[i] = specompin[specompin['ExpNum'] == i].copy()
         # claquantin_exp[i] = claquantin[claquantin['ExpNum'] == i].copy()
