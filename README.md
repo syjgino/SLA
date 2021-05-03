@@ -45,6 +45,7 @@
 ### Species List (Spname_dict)
 This workbook contains the information of species we scan for. The order and info should be the same as the method MRM list in Analyst. 
 The Class column is used for class total analysis. The FA1/FA2 columns are used for fatty accid analysis.
+
 ![spname](screeshot/spname.PNG)
 
 ### Standard Dictionary (Standard_dict)
