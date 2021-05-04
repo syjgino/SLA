@@ -40,31 +40,6 @@
 
 
 
-<!-- Dictionary Files -->
-## Dictionary Files
-### Species List (Spname_dict.xlsx)
-This workbook contains the information of species we scan for. The order and info should be the same as the method MRM list in Analyst. 
-The Class column is used for class total analysis. The FA1/FA2 columns are used for fatty accid analysis.
-
-![spname](screeshot/spname.PNG)
-
-### Standard Dictionary (Standard_dict.xlsx)
-This workbook contains the unknown to standard dictionary and the standard information sheet. 
-The Method1/Method2 sheet will take information from the StdInfo sheet to compute the Coef, which is used to calculate unknown concentration. 
-(We had observed that by rounding the Coef to 1 decimal place, we got the closest approximation to the LWM result.)
-The SLA will search for the unknown and grab the Coef. So the order of unknowns in this file does not matter.
-
-![standardkey](screeshot/standardkey.PNG)
-
-### Isotope Correction Dictionary (ISOcorrectlist.xlsx)
-This workbook contains the information needed to perform isotope correction.
-
-![isokey](screeshot/isokey.PNG)
-
-(Note: Please do not change the sheet's name and order in these dictionary files.)
-
-
-
 <!-- Getting Started -->
 ## Getting Started
 1. Download the latest release of [SLA_V1.2](https://github.com/syjgino/SLA_1.2_test/releases) from Github and extract the zip file. Then run SLA_V1.12.exe.
@@ -75,7 +50,38 @@ command prompt to check the error message.
 [Proteowizard](http://proteowizard.sourceforge.net/download.html). (Note: We have been using version 3.0.19082-ade61137d. Some updated
 versions may not transfer the data or file name correctly.)
 4. A spreadsheet program must be installed on the control computer (Excel or LibreOffice).
-5. Download Analyst method files and Excel files. [KeyV1_2.0](KeyV1_2.0) for LWM version or [KeyV3](KeyV3) for our extended version.
+5. Download Analyst method files and dictionary files. [KeyV1](doc/KeyV1) for LWM version or [KeyV3](doc/KeyV3) for our extended version.
+
+
+<!-- Dictionary Files -->
+## Dictionary Files
+### Species List (Spname_dict.xlsx)
+This workbook contains the information of species we scan for. The order and info should be the same as the method MRM list in Analyst. 
+The Class column is used for class total analysis. The FA1/FA2 columns are used for fatty accid analysis.
+
+![spname](doc/screeshot/spname.PNG)
+
+### Standard Dictionary (Standard_dict.xlsx)
+This workbook contains the unknown to standard dictionary and the standard information sheet. 
+The Method1/Method2 sheet will take information from the StdInfo sheet to compute the Coef, which is used to calculate unknown concentration. 
+(We had observed that by rounding the Coef to 1 decimal place, we got the closest approximation to the LWM result.)
+The SLA will search for the unknown and grab the Coef. So the order of unknowns in this file does not matter.
+
+![standardkey](doc/screeshot/standardkey.PNG)
+
+### Isotope Correction Dictionary (ISOcorrectlist.xlsx)
+This workbook contains the information needed to perform isotope correction.
+
+![isokey](doc/screeshot/isokey.PNG)
+
+### Sample Map (SampleSubmissionForm.xlsx)
+This workbook is a template for sample map. The first column "Sample" must use the same input as the sample names entered in Analyst.
+
+![mapshot](doc/screeshot/Map.PNG)
+
+
+(Note: Please do not change the sheet's name and sheet order in these dictionary files.)
+
 
 
 <!-- Tuning – Instrument Setup -->
@@ -137,16 +143,16 @@ first. Hit ExportResult button when finished. Result will be saved to a xlsx fil
 same directory with Mzml files. (The excel file will be open automatically. A command
 prompt may pop-up. You can close it after the excel file is open.)
 
-![tuneshot1](screeshot/Tune1.PNG)
-![tuneshot2](screeshot/Tune2.PNG)
-![tuneshot3](screeshot/Tune3.PNG)
+![tuneshot1](doc/screeshot/Tune1.PNG)
+![tuneshot2](doc/screeshot/Tune2.PNG)
+![tuneshot3](doc/screeshot/Tune3.PNG)
 
 8. Copy/paste the volt column to the corresponding Analyst method COV column. The
 “POS” and “NEG” tabs correspond to the respective experiments in “Method 1”. The
 SST tab contains COV values for both positive and negative experiments in the SST
 method. Save the respective files after this modification.
 
-![tuneshot4](screeshot/Tune4.PNG)
+![tuneshot4](doc/screeshot/Tune4.PNG)
 
 
 
@@ -192,7 +198,7 @@ MSConverterGUI.
 Mzml file
 6. Compare results with previous suitability tests.
 
-![SSTshot1](screeshot/SST1.PNG)
+![SSTshot1](doc/screeshot/SST1.PNG)
 
 
 
@@ -226,7 +232,7 @@ We recomend using 01 through 99 as sample names(01,02... instead of 1,2...), and
 controls(i.e. “buffer”, “QC”, “QCSpike”, etc.). These names are then pasted to the first column in the map file and assigned
 sample information.(in the map file you can use 1,2... instead of 01,02...) Try to avoid using special characters here.
 
-![mapshot](screeshot/Map.PNG)
+![mapshot](doc/screeshot/Map.PNG)
 
 4. Submit and run these two batches. After completing both Method batches, proceed with data analysis.
 
@@ -262,7 +268,7 @@ change it to rearrange them. To exclude samples, such as bad samples/subgroups o
    - Tissue: <img valign="middle" src="https://latex.codecogs.com/svg.latex?\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul&space;&plus;&space;weight\;in\;mg}&space;\;\cdot\;&space;amount\;of\;mixture\;taken\;from\;total\;in\;ul" title="\frac{weight\;in\;mg}{amount\;to\;resuspend\;in\;ul + weight\;in\;mg} \;\cdot\; amount\;of\;mixture\;taken\;from\;total\;in\;ul" />
    - Cell: number of cell in 10 million
 
-![mapshot](screeshot/Map.PNG)
+![mapshot](doc/screeshot/Map.PNG)
 
 
 ### Read MZML
@@ -279,7 +285,7 @@ Yes for Mute Species.
 8. Put in your project name. You can also leave it blank.
 9. Hit Read MZML. Results will be saved under the same folder with the mzml files.
 
-![readmzmlshot1](screeshot/Readmzml2.PNG)
+![readmzmlshot1](doc/screeshot/Readmzml2.PNG)
 
 ### Merge data with sample map
 1. Select **Merge** tab on SLA.
@@ -288,13 +294,13 @@ Yes for Mute Species.
 4. Select output excel files m1&amp;m2 from **Read mzml** session. (if your experiment has only 1
 method, then load it to m1 and leave m2 blank.)
 
-![m1m2shot](screeshot/m1m2output.PNG)
+![m1m2shot](doc/screeshot/m1m2output.PNG)
 
 5. Put in your project name or leave it blank.
 6. Select if you want to export a csv file which can be uploaded to [ClustVis](https://biit.cs.ut.ee/clustvis/) for analysis.
 7. Hit Run Merge. Results will be saved in the directory you selected.
 
-![mergeshot](screeshot/merge.PNG)
+![mergeshot](doc/screeshot/merge.PNG)
 
 ### Further Analysis
 1. Prior to performing the ClassTotal/TAG Analysis, you may want to move the primary
@@ -303,12 +309,12 @@ demarcated experiments in the batch).
 2. Select ClassTotal/TAG Analysis tab.
 3. Load the _Exp_ file from the Merge session
 
-![expshot](screeshot/expfile.PNG)
+![expshot](doc/screeshot/expfile.PNG)
 
 4. Select if you want to add error bar and data points to the TAG analysis bar plots.
 5. Hit Run TAG. Results will be saved under the same folder with your *_Exp_* file.
 
-![TAG](screeshot/TAG.PNG)
+![TAG](doc/screeshot/TAG.PNG)
 
 
 
