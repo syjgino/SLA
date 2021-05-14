@@ -38,6 +38,9 @@ Added options to export .csv file for clustVis
 20210115
 using numbers in 01,02...100 for original sample name in Analyst is prefered
 letters can be used, but may raise up errors
+
+20210514
+force SampleNorm from map to be float32
 """
 
 import numpy as np
@@ -185,6 +188,7 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
     expname = dict(zip(sampinfo.ExpNum, sampinfo.ExpName))
     sampinfo = sampinfo.drop(['ExpName'], axis=1)
     sampinfo.index = list(map(qcname, list(sampinfo.index)))
+    sampinfo['SampleNorm'] = sampinfo['SampleNorm'].astype('float32')
 
     # Create Normalized Sheets
     # spenorm = spequant[list(map(lambda x: isinstance(x, int), spequant.index))].copy()  #exclude sample with string name
