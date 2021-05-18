@@ -17,29 +17,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-"""
-@author: BaolongSu
-
-Tab5
-TAG/Plot function
-
-09/13/2019:
-classtotal plot font size changed;
-classtotal plot title removed "class="
-
-03/10/2020
-classtotal plot ci='sd'
-
-11/23/2020
-all plot sort by groupname
-
-02/12/2021
-take both TAG or TG as name
-
-03/10/2021
-add boxplot of class total
-"""
-
 import numpy as np
 import pandas as pd
 # from pyopenms import *
@@ -203,8 +180,8 @@ def tagplot(exploc, CheckVar1, CheckVar2):
         tag_sum_avg = tag_sum_avg.sort_values(by=['GroupNum'])
 
         ##devide by 3
-        tag_sum_avg.iloc[:, 0:(len(tag_sum_avg.columns) - 1)] = tag_sum_avg.iloc[:,
-                                                                0:(len(tag_sum_avg.columns) - 1)] / 3
+        tag_sum_avg.iloc[:, 0:(len(tag_sum_avg.columns) - 1)] =\
+            tag_sum_avg.iloc[:, 0:(len(tag_sum_avg.columns) - 1)] / 3
 
         tag_sum_avgB = tag_sum_avg.copy()
         tag_sum_avg = tag_sum_avg.T
@@ -571,3 +548,27 @@ def tagplot(exploc, CheckVar1, CheckVar2):
 
     print("run in %s" % (datetime.datetime.now() - start))
     messagebox.showinfo("Information", "Done")
+
+
+"""
+@author: BaolongSu
+
+Tab5
+TAG/Plot function
+
+09/13/2019:
+classtotal plot font size changed;
+classtotal plot title removed "class="
+
+03/10/2020
+classtotal plot ci='sd'
+
+11/23/2020
+all plot sort by groupname
+
+02/12/2021
+take both TAG or TG as name
+
+03/10/2021
+add boxplot of class total
+"""

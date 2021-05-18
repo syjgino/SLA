@@ -17,16 +17,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-
-"""
-@author: BaolongSu
-
-Tab1 Tune
-read and output tune result
-user can edit Tuen_spname_dict excel file to match tuning mix
-
-"""
-
 # import numpy as np
 import pandas as pd
 from pyopenms import *
@@ -75,7 +65,7 @@ def imp_map(maploc_tune):
 
 
 def exportdata(covlist, covlist_dict, maploc_tune):
-    # global covlist_dict
+    """export result to excel file"""
     exp_temp_loc = maploc_tune.get('1.0', 'end-1c')  # 'Tuning_spname_dict'
     neg_temp = pd.read_excel(exp_temp_loc, sheet_name='NEG', header=0, index_col=None, na_values='.')
     pos_temp = pd.read_excel(exp_temp_loc, sheet_name='POS', header=0, index_col=None, na_values='.')
@@ -94,21 +84,21 @@ def exportdata(covlist, covlist_dict, maploc_tune):
     try:
         if any(neg_temp.loc[neg_temp['Group'] == 'LPC16', 'volt'] == 0):
             neg_temp.loc[neg_temp['Group'] == 'LPC16', 'volt'] = \
-            neg_temp.loc[neg_temp['Group'] == 'LPC18', 'volt'].iloc[0] - 1
+                neg_temp.loc[neg_temp['Group'] == 'LPC18', 'volt'].iloc[0] - 1
         elif any(neg_temp.loc[neg_temp['Group'] == 'LPC18', 'volt'] == 0):
             neg_temp.loc[neg_temp['Group'] == 'LPC18', 'volt'] = \
-            neg_temp.loc[neg_temp['Group'] == 'LPC16', 'volt'].iloc[0] + 1
-    except:
+                neg_temp.loc[neg_temp['Group'] == 'LPC16', 'volt'].iloc[0] + 1
+    except Exception:
         pass
 
     try:
         if any(neg_temp.loc[neg_temp['Group'] == 'LPE16', 'volt'] == 0):
             neg_temp.loc[neg_temp['Group'] == 'LPE16', 'volt'] = \
-            neg_temp.loc[neg_temp['Group'] == 'LPE18', 'volt'].iloc[0] - 1.5
+                neg_temp.loc[neg_temp['Group'] == 'LPE18', 'volt'].iloc[0] - 1.5
         elif any(neg_temp.loc[neg_temp['Group'] == 'LPE18', 'volt'] == 0):
             neg_temp.loc[neg_temp['Group'] == 'LPE18', 'volt'] = \
-            neg_temp.loc[neg_temp['Group'] == 'LPE16', 'volt'].iloc[0] + 1.5
-    except:
+                neg_temp.loc[neg_temp['Group'] == 'LPE16', 'volt'].iloc[0] + 1.5
+    except Exception:
         pass
 
     for i in range(0, len(covlist_pos)):
@@ -133,31 +123,39 @@ def exportdata(covlist, covlist_dict, maploc_tune):
 
 
 def fetchLPC(covlist_dict):
+    """
+    not in use. originally designed to auto update LPC peak
+    """
     covlist_dict[3].configure(state=NORMAL)
     covlist_dict[3].delete(0, END)
     try:
         covlist_dict[3].insert(0, float(covlist_dict[2].get()) + 1)
         covlist_dict[3].configure(state=DISABLED)
-    except:
+    except Exception:
         covlist_dict[3].insert(0, float(0))
         covlist_dict[3].configure(state=DISABLED)
 
 
 def fetchLPE(covlist_dict):
+    """
+    not in use. originally designed to auto update LPE peak
+    """
     covlist_dict[4].configure(state=NORMAL)
     covlist_dict[4].delete(0, END)
     try:
         covlist_dict[4].insert(0, float(covlist_dict[5].get()) - 1.5)
         covlist_dict[4].configure(state=DISABLED)
-    except:
+    except Exception:
         covlist_dict[4].insert(0, float(0))
         covlist_dict[4].configure(state=DISABLED)
 
 
 def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, covlist, covlist_label, covlist_dict):
+    global bmid, tvar, bvar, idc5, idc9
     out_text.configure(state="normal")
     sp_dict1_loc = maploc_tune.get('1.0', 'end-1c')
-    # std_dict_loc = 'C:/Users/baolongsu/Desktop/Projects/StdUnkRatio/standard_dict - LipidizerSimulate_102b_MW_dev2.xlsx'
+    # std_dict_loc =
+    # 'C:/Users/baolongsu/Desktop/Projects/StdUnkRatio/standard_dict - LipidizerSimulate_102b_MW_dev2.xlsx'
     file = tunef1.get('1.0', 'end-1c')
     os.chdir(file[0:file.rfind('/')])
     ##get name all files
@@ -169,22 +167,21 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, co
             (pd.Series(sp_dict[method]['Q1'] == row['Q1']) & pd.Series(sp_dict[method]['Q3'] == row['Q3']))].index[0])
 
     ##create all variable
-    all_df_dict = {'1': {}, '2': {}}
+    # all_df_dict = {'1': {}, '2': {}}
     # out_df2 = pd.DataFrame()
-    out_df2 = {'1': pd.DataFrame(), '2': pd.DataFrame()}
+    # out_df2 = {'1': pd.DataFrame(), '2': pd.DataFrame()}
     # out_df2_con = pd.DataFrame()
-    out_df2_con = {'1': pd.DataFrame(), '2': pd.DataFrame()}
-    out_df2_intensity = {'1': pd.DataFrame(), '2': pd.DataFrame()}
+    # out_df2_con = {'1': pd.DataFrame(), '2': pd.DataFrame()}
+    # out_df2_intensity = {'1': pd.DataFrame(), '2': pd.DataFrame()}
     sp_df3 = {'A': 0}
 
     ##read dicts
-    sp_dict = {}
-    sp_dict['1'] = pd.read_excel(sp_dict1_loc, sheet_name='1', header=0, index_col=-1, na_values='.')
-    sp_dict['2'] = pd.read_excel(sp_dict1_loc, sheet_name='2', header=0, index_col=-1, na_values='.')
-    sp_dict['NEG'] = pd.read_excel(sp_dict1_loc, sheet_name='NEG', header=0, index_col=None, na_values='.')
-    sp_dict['POS'] = pd.read_excel(sp_dict1_loc, sheet_name='POS', header=0, index_col=None, na_values='.')
+    sp_dict = {'1': pd.read_excel(sp_dict1_loc, sheet_name='1', header=0, index_col=-1, na_values='.'),
+               '2': pd.read_excel(sp_dict1_loc, sheet_name='2', header=0, index_col=-1, na_values='.'),
+               'NEG': pd.read_excel(sp_dict1_loc, sheet_name='NEG', header=0, index_col=None, na_values='.'),
+               'POS': pd.read_excel(sp_dict1_loc, sheet_name='POS', header=0, index_col=None, na_values='.')}
 
-    ##loop start
+    ## reading mzml loop start
     # start0 = datetime.datetime.now()
     for sample in range(0, len(list_of_files)):
         ##get method number
@@ -373,7 +370,7 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, co
     out_text.see(END)
     out_text.configure(state="disabled")
 
-    ##Add entry box according to template
+    ## Add entry box according to template
     covlist[:] = list(sp_dict['NEG']['Group'].unique()) + list(sp_dict['POS']['Group'].unique())
 
     for i in covlist_label:
@@ -434,3 +431,13 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, co
     # plt.savefig('peakplot.png')
 
     # messagebox.showinfo("Information","Done")
+
+
+"""
+@author: BaolongSu
+
+Tab1 Tune
+read and output tune result
+user can edit Tuen_spname_dict excel file to match tuning mix
+
+"""

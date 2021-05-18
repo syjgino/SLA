@@ -79,6 +79,7 @@ def get_std_dict(std_dict_loc):
 def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
              iso_dict_loc, variable_iso, progressBar, variable_dataversion,
              variable_mute):
+    global iso_dict
     progressBar = progressBar
     os.chdir(dirloc_read.get('1.0', 'end-1c'))
     list_of_files = glob.glob('./*.mzML')
@@ -103,9 +104,10 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         return (std_dict[method]['Coef'][row['Species']])
 
     # def spName(row): #not working currently
-    #    return(sp_dict[method].loc[(pd.Series(sp_dict[method]['Q1'] == row['Q1']) & pd.Series(sp_dict[method]['Q3'] == row['Q3']))].index[0])
+    #    return(sp_dict[method].loc[(pd.Series(sp_dict[method]['Q1'] ==
+    #    row['Q1']) & pd.Series(sp_dict[method]['Q3'] == row['Q3']))].index[0])
 
-    ##isotope correction, v1, nolonger in use
+    ##isotope correction, v1, not in use
     def isoadj(row):
         rnum = sp_df2['Species'] == row['Name']
         if row['CT1'] == 'XXX':
@@ -153,30 +155,27 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     # sp_df3 = {'A':0}
 
     ##read spname dict
-    sp_dict = {}
-    sp_dict['1'] = pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='1', header=0, index_col=3,
-                                 na_values='.')
-    sp_dict['2'] = pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='2', header=0, index_col=3,
-                                 na_values='.')
+    sp_dict = {'1': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='1', header=0, index_col=3,
+                                  na_values='.'),
+               '2': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='2', header=0, index_col=3,
+                                  na_values='.')}
 
     # read standard dict
-    std_dict = {}
-    std_dict['1'] = pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method1', header=0, index_col=0,
-                                  na_values='.').to_dict()
-    std_dict['2'] = pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method2', header=0, index_col=0,
-                                  na_values='.').to_dict()
+    std_dict = {'1': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method1', header=0, index_col=0,
+                                   na_values='.').to_dict(),
+                '2': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method2', header=0, index_col=0,
+                                   na_values='.').to_dict()}
 
     # read iso correction dict
     if variable_iso.get() == 'Yes':
-        iso_dict = {}
-        iso_dict['1'] = pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
-                                      sheet_name='M1', header=0, index_col=None, na_values='.')
-        iso_dict['2'] = pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
-                                      sheet_name='M2', header=0, index_col=None, na_values='.')
+        iso_dict = {'1': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
+                                       sheet_name='M1', header=0, index_col=None, na_values='.'),
+                    '2': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
+                                       sheet_name='M2', header=0, index_col=None, na_values='.')}
 
-    ##reading mzml loop start
+    ## reading mzml loop start
     for sample in range(0, len(list_of_files)):
-        ##get method number
+        ## get method number
         method = re.search('- (.)-', list_of_files[sample]).group(1)
         start = datetime.datetime.now()
         print('method' + method, str(sample))
@@ -185,7 +184,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         MzMLFile().load(list_of_files[sample][2:], exp)
         all_chroms = exp.getChromatograms()
 
-        ##create dataframe with species info
+        ## create dataframe with species info
         sp_df = pd.DataFrame({'NativeID': []})
         sp_serie = list()
         for each_chrom in all_chroms:
@@ -270,7 +269,8 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         out_df_intensity.columns = out_df_intensity.iloc[0]
         out_df_intensity = out_df_intensity[1:]
         # name of sample(2nd one for analyst, 1st one for lipidyzer)
-        # out_df_intensity = out_df_intensity.rename(index={'AvgIntensity': re.search('-[0-9][0-9]* - (.+)[.]', list_of_files[sample]).group(1)} ).astype(float)
+        # out_df_intensity = out_df_intensity.rename(
+        # index={'AvgIntensity': re.search('-[0-9][0-9]* - (.+)[.]', list_of_files[sample]).group(1)} ).astype(float)
         out_df_intensity = out_df_intensity.rename(
             index={'AvgIntensity': re.search('- .-(.+)[.]', list_of_files[sample]).group(1)}).astype(float)
         all_df_dict[method][sample] = sp_df2
@@ -297,9 +297,9 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         # drop extra 2nd tail scans, for V2
         sp_df2 = sp_df2[sp_df2['Species'].str[-2:] != '_2']
 
-        ############################################
-        # drop muted species on spname list 20200730#
-        ############################################
+        #####################################
+        # drop muted species on spname list #
+        #####################################
         if variable_mute.get() == "Yes":
             mutelist = sp_dict[method][sp_dict[method]["Mute"] == TRUE]
             mutelist = mutelist.index
@@ -348,11 +348,10 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     # Fatty Accid Concentration#
     #######################
     # build FA dict
-    FA_dict = {}
-    FA_dict['1'] = sp_dict['1'][['Class', 'FA1', 'FA2']].to_dict()
+    FA_dict = {'1': sp_dict['1'][['Class', 'FA1', 'FA2']].to_dict(),
+               '2': sp_dict['2'][['Class', 'FA1', 'FA2']].to_dict()}
     # FA_dict['1'] = FA_dict['1'].to_dict()
 
-    FA_dict['2'] = sp_dict['2'][['Class', 'FA1', 'FA2']].to_dict()
     # FA_dict['2'] = FA_dict['2'].to_dict()
 
     # compute FA concentration
@@ -394,10 +393,12 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     FA_comp = {}
     if len(out_df2_con['1']) > 0:
         FA_comp['1'] = FA_con['1'].apply(lambda col: 100 * col / FA_grp['1'][col.name[:col.name.find("(") - 1]])
-        # FA_comp = {'1' : FA_con['1'].apply(lambda col: 100*col/FA_grp['1'].iloc[:,FA_grp['1'].columns == col.name[0:3]].iloc[:,0])}
+        # FA_comp = {'1' : FA_con['1'].apply(lambda col: 100*col/FA_grp['1'].iloc[:,FA_grp['1'].columns == col.name[
+        # 0:3]].iloc[:,0])}
     if len(out_df2_con['2']) > 0:
         FA_comp['2'] = FA_con['2'].apply(lambda col: 100 * col / FA_grp['2'][col.name[:col.name.find("(") - 1]])
-        # FA_comp['2'] = FA_con['2'].apply(lambda col: 100*col/FA_grp['2'].iloc[:,FA_grp['2'].columns == col.name[0:3]].iloc[:,0])
+        # FA_comp['2'] =
+        # FA_con['2'].apply(lambda col: 100*col/FA_grp['2'].iloc[:,FA_grp['2'].columns == col.name[0:3]].iloc[:,0])
 
     ###################
     # Species Composition#
@@ -417,14 +418,16 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     SP_comp = {}
     if len(out_df2_con['1']) > 0:
         SP_comp['1'] = out_df2_con['1'].apply(lambda col: 100 * col / SP_grp['1'][FA_dict['1']['Class'][col.name]])
-        # SP_comp = {'1' : out_df2_con['1'].apply(lambda col: 100*col/SP_grp['1'].iloc[:,SP_grp['1'].columns == col.name[0:3]].iloc[:,0])}
+        # SP_comp = {'1' : out_df2_con['1'].apply(lambda col: 100*col/SP_grp['1'].iloc[:,SP_grp['1'].columns ==
+        # col.name[0:3]].iloc[:,0])}
     if len(out_df2_con['2']) > 0:
         SP_comp['2'] = out_df2_con['2'].apply(lambda col: 100 * col / SP_grp['2'][FA_dict['2']['Class'][col.name]])
-        # SP_comp['2'] = out_df2_con['2'].apply(lambda col: 100*col/SP_grp['2'].iloc[:,SP_grp['2'].columns == col.name[0:3]].iloc[:,0])
+        # SP_comp['2'] = out_df2_con['2'].apply(lambda col: 100*col/SP_grp['2'].iloc[:,SP_grp['2'].columns ==
+        # col.name[0:3]].iloc[:,0])
 
-    ###########
-    # Class Total#
-    ###########
+    ###############
+    # Class Total #
+    ###############
     # class consentration total is SP_grp
     # if len(out_df2_con['1'])>0:
     #    SP_grp['1'].columns = pd.Series(SP_grp['1'].columns).apply(lambda x: x.replace('(', ''))
@@ -448,9 +451,9 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     if len(out_df2_con['2']) > 0:
         clas_comp['2'] = SP_grp['2'].apply(lambda row: 100 * row / row.sum(skipna=True), axis=1)
 
-    ######
-    # save#
-    ######
+    ########
+    # save #
+    ########
     # m1
     if len(out_df2_con['1']) > 0:
         master = pd.ExcelWriter(proname3.get() + '_output_m1.xlsx')

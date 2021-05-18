@@ -17,13 +17,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-"""
-@author: Gino
-
-read and output SST result
-
-"""
-
 # import numpy as np
 import pandas as pd
 import os
@@ -72,7 +65,8 @@ def SSTFun(mzmlloc, maploc2, text):
     text.configure(state="normal")
     ##get name all files
     sp_dict1_loc = maploc2.get('1.0', 'end-1c')
-    # std_dict_loc = 'C:/Users/baolongsu/Desktop/Projects/StdUnkRatio/standard_dict - LipidizerSimulate_102b_MW_dev2.xlsx'
+    # std_dict_loc =
+    # 'C:/Users/baolongsu/Desktop/Projects/StdUnkRatio/standard_dict - LipidizerSimulate_102b_MW_dev2.xlsx'
     mzml_loc = mzmlloc.get('1.0', 'end-1c')
     # change dir to where mzml file is
     os.chdir(os.path.dirname(mzml_loc))
@@ -84,17 +78,16 @@ def SSTFun(mzmlloc, maploc2, text):
             (pd.Series(sp_dict[method]['Q1'] == row['Q1']) & pd.Series(sp_dict[method]['Q3'] == row['Q3']))].index[0])
 
     ##create all variable
-    all_df_dict = {'1': {}, '2': {}}
+    # all_df_dict = {'1': {}, '2': {}}
     # out_df2 = pd.DataFrame()
-    out_df2 = {'1': pd.DataFrame(), '2': pd.DataFrame()}
+    # out_df2 = {'1': pd.DataFrame(), '2': pd.DataFrame()}
     # out_df2_con = pd.DataFrame()
-    out_df2_con = {'1': pd.DataFrame(), '2': pd.DataFrame()}
-    out_df2_intensity = {'1': pd.DataFrame(), '2': pd.DataFrame()}
+    # out_df2_con = {'1': pd.DataFrame(), '2': pd.DataFrame()}
+    # out_df2_intensity = {'1': pd.DataFrame(), '2': pd.DataFrame()}
     # sp_df3 = {'A':0}
 
     ##read dicts
-    sp_dict = {}
-    sp_dict['1'] = pd.read_excel(sp_dict1_loc, sheet_name='SST', header=0, index_col=-2, na_values='.')
+    sp_dict = {'1': pd.read_excel(sp_dict1_loc, sheet_name='SST', header=0, index_col=-2, na_values='.')}
     # sp_dict['2'] = pd.read_excel(sp_dict1_loc, sheet_name = '2', header=0, index_col=-1, na_values='.')
 
     ##loop start

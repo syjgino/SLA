@@ -34,7 +34,7 @@ from ttkthemes import ThemedTk
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 from Tab1Tune1_1 import *
 from Tab2SST1_1 import *
-# from Tab3Readmzml1_1 import *  # using LWM lipid name format
+# from Tab3Readmzml1_1 import *  # old version, LWM lipid name format only
 from Tab3Readmzml1_2 import *  # new name and FA analysis version
 from Tab4Aggregate1_1 import *
 from Tab5TAGplot1_2 import *
@@ -62,9 +62,9 @@ note.add(tab5, text="ClassTotal/TAG Analysis")
 note.pack()
 
 ########
-##Tab1##
+# Tab1 #
 ########
-# choices for peak selecting method
+# outer scroll bar
 tab1_canvas = tk.Canvas(tab1_container)
 tab1scroll = ttk.Scrollbar(tab1_container, command=tab1_canvas.yview)
 tab1_canvas.config(yscrollcommand=tab1scroll.set,
@@ -75,16 +75,15 @@ tab1_canvas.grid(column=0, row=0, rowspan=100, sticky='ns')
 tab1 = ttk.Frame(tab1_canvas)
 tab1_canvas.create_window((0, 0), window=tab1, anchor="nw")
 tab1.bind("<Configure>",
-          lambda event,
-                 tab1_canvas=tab1_canvas: tab1_canvas.configure(scrollregion=tab1_canvas.bbox("all"),
-                                                                width=event.width))
-
+          lambda event, tab1_canvas1=tab1_canvas: tab1_canvas1.configure(scrollregion=tab1_canvas1.bbox("all"),
+                                                                         width=event.width))
+# choices for peak selecting method
 choices_peaktype = ['Max1', 'Max3', 'Con5', 'Con9']
 variable_peaktype = StringVar(tab1)
 w = ttk.OptionMenu(tab1, variable_peaktype, choices_peaktype[3], *choices_peaktype)
 w.grid(row=3, column=2, sticky='w')
 
-# text boxes
+# file input boxes
 tunef1 = Text(tab1, width=50, height=2, state=DISABLED)  # mzml directory location
 tunef1.grid(row=0, column=1, columnspan=2, sticky='w', padx=1, pady=1)
 tunef2 = Text(tab1, width=50, height=2, state=DISABLED)  # mzml directory location
@@ -92,6 +91,7 @@ tunef2.grid(row=1, column=1, columnspan=2, sticky='w', padx=1, pady=1)
 maploc_tune = Text(tab1, width=50, height=2, state=DISABLED)  # tuning_spname_dict file location
 maploc_tune.grid(row=2, column=1, columnspan=2, sticky='w', padx=1, pady=1)
 
+# output text box
 scroll = ttk.Scrollbar(tab1)  # scroll bar for output text box
 scroll.grid(row=5, column=3, sticky=N + S + W, rowspan=12)
 out_text = Text(tab1, width=50, height=18.5, state=DISABLED)
@@ -120,7 +120,7 @@ ttk.Button(tab1, text='ExportResult', command=lambda: exportdata(covlist, covlis
                                                                                                            pady=1)
 
 ########
-##Tab2##
+# Tab2 #
 ########
 # text boxes
 scroll = ttk.Scrollbar(tab2)
@@ -140,7 +140,7 @@ ttk.Button(tab2, text='Import SST', command=lambda: imp_mzml(mzmlloc)).grid(row=
 ttk.Button(tab2, text='Run', command=lambda: SSTFun(mzmlloc, maploc2, text)).grid(row=2, column=0)
 
 #################
-##Tab3 readMZml##
+# Tab3 readMZml #
 #################
 ttk.Button(tab3, text='Set Directory', command=lambda: set_dir_read(dirloc_read)).grid(row=0, column=0)
 ttk.Button(tab3, text='Import Standard Dict', command=lambda: get_std_dict(std_dict_loc)).grid(row=1, column=0)
@@ -195,7 +195,7 @@ progressBar = ttk.Progressbar(tab3, orient=HORIZONTAL,
 progressBar.grid(row=8, column=0, columnspan=3, sticky=EW, padx=10, pady=3)
 
 ##################
-##Tab4 Aggregate##
+# Tab4 Aggregate #
 ##################
 ttk.Label(tab4, text='Project Name').grid(row=4, column=0, pady=10)
 

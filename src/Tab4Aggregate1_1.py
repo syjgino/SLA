@@ -17,31 +17,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-"""
-@author: baolongsu
-
-Tab4
-Merge _m1 and _m2
-(if you have only 1 result, always load to m1 and leave m2 blank)
-
-Use Map file(submission form) to get sample info and normalize data
-(if a sample in m1/m2 file is not included in the Map, it will simply exclude that sample from analysis)
-
-20191001
-changed tab name from Aggregate to Merge
-
-creating of LWM like merged "master" excel file moved to tab 3, muted here
-
-20200716
-Added options to export .csv file for clustVis
-
-20210115
-using numbers in 01,02...100 for original sample name in Analyst is prefered
-letters can be used, but may raise up errors
-
-20210514
-force SampleNorm from map to be float32
-"""
 
 import numpy as np
 import pandas as pd
@@ -191,13 +166,16 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
     sampinfo['SampleNorm'] = sampinfo['SampleNorm'].astype('float32')
 
     # Create Normalized Sheets
-    # spenorm = spequant[list(map(lambda x: isinstance(x, int), spequant.index))].copy()  #exclude sample with string name
+    # spenorm = spequant[list(map(lambda x: isinstance(x, int), spequant.index))].copy()
+    # #exclude sample with string name
+
     # clanorm = claquant[list(map(lambda x: isinstance(x, int), claquant.index))].copy()
     # fanorm = faquant[list(map(lambda x: isinstance(x, int), faquant.index))].copy()
     spenorm = spequant.copy()  # inlude all samples
     clanorm = claquant.copy()
     fanorm = faquant.copy()
-    spenorm = spenorm.divide(40)  # x0.025 to reverse /0.025 in the standard coef. /0.025 is there to simulate LWM result
+    spenorm = spenorm.divide(
+        40)  # x0.025 to reverse /0.025 in the standard coef. /0.025 is there to simulate LWM result
     clanorm = clanorm.divide(40)
     fanorm = fanorm.divide(40)
     spenorm = spenorm.divide(sampinfo['SampleNorm'], axis='index')
@@ -206,10 +184,10 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
 
     # Fix GroupName. If GroupName and GroupNum doesn't match, change GroupName to match GroupNum
     for i in sampinfo['ExpNum'].unique().astype(int):
-        for ii in sampinfo.loc[sampinfo['ExpNum'] == i,'GroupNum'].unique().astype(int):
+        for ii in sampinfo.loc[sampinfo['ExpNum'] == i, 'GroupNum'].unique().astype(int):
             gNamlogic = np.logical_and(sampinfo['GroupNum'] == ii, sampinfo['ExpNum'] == i)
             sampinfo.loc[gNamlogic, "GroupName"] = sampinfo['GroupName'][gNamlogic].reset_index(drop=True)[0]
-        
+
     # for i in range(1, int(max(sampinfo['ExpNum'])) + 1):
     #     for ii in range(1, int(max(sampinfo.loc[sampinfo['ExpNum'] == i, 'GroupNum'])) + 1):
     #         gNamlogic = np.logical_and(sampinfo['GroupNum'] == ii, sampinfo['ExpNum'] == i)
@@ -239,7 +217,7 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
     fanormin_exp = dict()
 
     ##loop
-    for i in sampinfo['ExpNum'].unique().astype(int):   # range(1, int(max(spequantin['ExpNum'])) + 1):
+    for i in sampinfo['ExpNum'].unique().astype(int):  # range(1, int(max(spequantin['ExpNum'])) + 1):
         spequantin_exp[i] = spequantin[spequantin['ExpNum'] == i].copy()
         specompin_exp[i] = specompin[specompin['ExpNum'] == i].copy()
         # claquantin_exp[i] = claquantin[claquantin['ExpNum'] == i].copy()
@@ -321,3 +299,30 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
         print('exp', i)
     print("run in %s" % (datetime.datetime.now() - start))
     messagebox.showinfo("Information", "Done")
+
+
+"""
+@author: baolongsu
+
+Tab4
+Merge _m1 and _m2
+(if you have only 1 result, always load to m1 and leave m2 blank)
+
+Use Map file(submission form) to get sample info and normalize data
+(if a sample in m1/m2 file is not included in the Map, it will simply exclude that sample from analysis)
+
+20191001
+changed tab name from Aggregate to Merge
+
+creating of LWM like merged "master" excel file moved to tab 3, muted here
+
+20200716
+Added options to export .csv file for clustVis
+
+20210115
+using numbers in 01,02...100 for original sample name in Analyst is prefered
+letters can be used, but may raise up errors
+
+20210514
+force SampleNorm from map to be float32
+"""
