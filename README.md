@@ -19,8 +19,8 @@
 <!-- UPDATES -->
 ## Version Updates
 * v1.21
- * Add option to choose max number of 0s allowed among 20 scans (Tab3 Read mzml) 
- * Allow user to select sheet used as sample map (Tab4 Merge)
+      * Add option to choose max number of 0s allowed among 20 scans (Tab3 Read mzml) 
+      * Allow user to select sheet used as sample map (Tab4 Merge)
 
 
 <!-- TABLE OF CONTENTS -->
