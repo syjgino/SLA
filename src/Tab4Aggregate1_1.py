@@ -41,21 +41,13 @@ import datetime
 # import seaborn as sns
 
 
-def imp_map(maploc, w_mapsheet, choices_mapsheet, variable_mapsheet):
+def imp_map(maploc):
     # map1 = filedialog.askopenfilename(filetypes=(("excel Files", "*.xlsx"),("all files", "*.*")))
     maploc.configure(state="normal")
     maploc.delete(1.0, END)
     map1 = filedialog.askopenfilename(filetypes=(("excel Files", "*.xlsx"), ("all files", "*.*")))
     maploc.insert(INSERT, map1)
     maploc.configure(state="disabled")
-    #clear old options
-    variable_mapsheet.set('')
-    w_mapsheet['menu'].delete(0, "end")
-    # Insert list of new options
-    choices_mapsheet = pd.ExcelFile(maploc.get('1.0', 'end-1c')).sheet_names
-    for choice in choices_mapsheet:
-        w_mapsheet['menu'].add_command(label=choice, 
-                                       command=lambda value=choice: variable_mapsheet.set(value))
 
 
 def imp_method1(method1loc):
@@ -85,8 +77,7 @@ def set_dir(dirloc_aggregate):
     dirloc_aggregate.configure(state="disabled")
 
 
-def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, 
-             maploc, variable_mapsheet, CheckClustVis):
+def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClustVis):
     start = datetime.datetime.now()
     os.chdir(dirloc_aggregate.get('1.0', 'end-1c'))
     project = proname.get()
@@ -167,7 +158,7 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc,
     # print('master sheet saved')
 
     # Import Map
-    sampinfo = pd.read_excel(map1, sheet_name=variable_mapsheet.get(), header=1, index_col=0, na_values='.')
+    sampinfo = pd.read_excel(map1, sheet_name=0, header=1, index_col=0, na_values='.')
     # Exp name dict
     expname = dict(zip(sampinfo.ExpNum, sampinfo.ExpName))
     sampinfo = sampinfo.drop(['ExpName'], axis=1)
@@ -334,7 +325,4 @@ letters can be used, but may raise up errors
 
 20210514
 force SampleNorm from map to be float32
-
-20210621
-Merge tab: add dropdown list to choose map sheet
 """
