@@ -44,7 +44,7 @@
 
 <!-- Getting Started -->
 ## Getting Started
-1. Download the latest release of [SLA_V1.2](https://github.com/syjgino/SLA_1.2_test/releases) from Github and extract the zip file. Then run SLA_V1.12.exe.
+1. Download the latest release of [SLA_V1.2](https://github.com/syjgino/SLA_1.2_test/releases) from Github and extract the zip file. Then run SLA_V1.2.exe.
 A prompt window will open together with the GUI window. Please do not close the prompt window.
 2. If it does not open properly, or if it collapses while running, try to open it from
 command prompt to check the error message.
