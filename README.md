@@ -255,6 +255,7 @@ Analyst methods utilized in your sample run.
 2. There is a Mute column in spname_dict_xxx. You can mute a species from the output by
 setting the value to TRUE. (Internal Standards and species end with “_2” are always
 muted from output.)
+3. In our current dictionary, species names ending with "_2" denote for extra MRMs aquired for isotope correction, which are not included in the output.
 
 Q1    | Q3   | Mute | Name
 ------|------|------|-------
