@@ -294,6 +294,8 @@ keep the relevant mzml files there.)
 Yes for Mute Species.
 8. Put in your project name. You can also leave it blank.
 9. Hit Read MZML. Results will be saved under the same folder with the mzml files.
+   - Note: By default, SLA will removes any MRMs that have more than 2 zeros out of 20 acquisi-tions. If any standards are found to have more than 2 zeros (or have an average raw intensity below 100), they are removed along with all unknowns that use that standard. Any remaining zeros within the data set are dropped (if any MRM data sets have 1 or 2 zeros) and the remaining values are averaged. 
+   - In future updates(v1.21), we will add a dropdown button to make change on the number of zeros allowed.
 
 ![readmzmlshot1](doc/screeshot/Readmzml2.PNG)
 
