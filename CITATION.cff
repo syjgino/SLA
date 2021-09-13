@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Su
+    given-names: Baolong
+    orcid: https://orcid.org/0000-0002-1970-4417
+title: "Shotgun Lipidomics Assistant"
+version: 1.2
+doi: 10.5281/zenodo.5504487
+date-released: 2021-09-13
