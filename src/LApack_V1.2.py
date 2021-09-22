@@ -110,7 +110,7 @@ ttk.Label(tab1, text='Export:', font=('Helvetica', 10, 'bold')).grid(row=4, colu
 # buttons
 ttk.Button(tab1, text='Import POS', command=lambda: get_tune1(tunef1)).grid(row=0, column=0)
 ttk.Button(tab1, text='Import NEG', command=lambda: get_tune2(tunef2)).grid(row=1, column=0)
-ttk.Button(tab1, text='Import Tune Dict', command=lambda: imp_map(maploc_tune)).grid(row=2, column=0, padx=1)
+ttk.Button(tab1, text='Import Tune Dict', command=lambda: imp_tunekey(maploc_tune)).grid(row=2, column=0, padx=1)
 ttk.Button(tab1, text='Run',
            command=lambda: TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, covlist,
                                      covlist_label, covlist_dict)).grid(row=3, column=0, padx=1)
@@ -135,7 +135,7 @@ mzmlloc = Text(tab2, width=50, height=2, state=DISABLED)
 mzmlloc.grid(row=0, column=1, columnspan=1, sticky='w', padx=1, pady=1)
 
 # buttons
-ttk.Button(tab2, text='Import Tune Dict', command=lambda: imp_map2(maploc2)).grid(row=1, column=0, padx=1)
+ttk.Button(tab2, text='Import Tune Dict', command=lambda: imp_tunekey2(maploc2)).grid(row=1, column=0, padx=1)
 ttk.Button(tab2, text='Import SST', command=lambda: imp_mzml(mzmlloc)).grid(row=0, column=0)
 ttk.Button(tab2, text='Run', command=lambda: SSTFun(mzmlloc, maploc2, text)).grid(row=2, column=0)
 
