@@ -43,7 +43,7 @@ import datetime
 #    dirloc.insert(INSERT, setdir)
 #    dirloc.configure(state="disabled")
 
-def imp_map2(maploc2):
+def imp_tunekey2(maploc2):
     # map1 = filedialog.askopenfilename(filetypes=(("excel Files", "*.xlsx"),("all files", "*.*")))
     maploc2.configure(state="normal")
     maploc2.delete(1.0, END)

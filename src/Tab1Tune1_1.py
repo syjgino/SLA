@@ -55,7 +55,7 @@ def get_tune2(tunef2):
     tunef2.configure(state="disabled")
 
 
-def imp_map(maploc_tune):
+def imp_tunekey(maploc_tune):
     # map1 = filedialog.askopenfilename(filetypes=(("excel Files", "*.xlsx"),("all files", "*.*")))
     maploc_tune.configure(state="normal")
     maploc_tune.delete(1.0, END)
