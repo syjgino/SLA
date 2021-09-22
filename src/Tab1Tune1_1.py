@@ -55,7 +55,7 @@ def get_tune2(tunef2):
     tunef2.configure(state="disabled")
 
 
-def imp_map(maploc_tune):
+def imp_tunekey(maploc_tune):
     # map1 = filedialog.askopenfilename(filetypes=(("excel Files", "*.xlsx"),("all files", "*.*")))
     maploc_tune.configure(state="normal")
     maploc_tune.delete(1.0, END)
@@ -399,7 +399,7 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, co
     pltdata = sp_df3[1].iloc[:, list(range(6, len(sp_df3[1].columns)))]
     pltdata_norm = pltdata.copy()
     # pltdata_norm = pltdata.drop([0,3], axis=0)
-    pltdata_norm.loc[:, 0:(len(pltdata_norm.columns) - 1)] = pltdata_norm.iloc[:,
+    pltdata_norm.iloc[:, 0:(len(pltdata_norm.columns) - 1)] = pltdata_norm.iloc[:,
                                                              0:(len(pltdata_norm.columns) - 1)].div(
         pltdata_norm.iloc[:, 0:(len(pltdata_norm.columns) - 1)].max(axis=1), axis=0)
     pltdata1 = pd.melt(pltdata_norm, id_vars=["Species"], var_name="COV",
