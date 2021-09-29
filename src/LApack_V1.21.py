@@ -25,6 +25,9 @@ all imported Tab files should be in the same location as this file
 
 v1.21 
 add dropdown list to choose the max number of 0s allowed
+
+20210920
+fix map_loc function name duplication
 """
 
 import os

@@ -172,7 +172,7 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc,
     expname = dict(zip(sampinfo.ExpNum, sampinfo.ExpName))
     sampinfo = sampinfo.drop(['ExpName'], axis=1)
     sampinfo.index = list(map(qcname, list(sampinfo.index)))
-    sampinfo['SampleNorm'] = sampinfo['SampleNorm'].astype('float32')
+    sampinfo['SampleNorm'] = sampinfo['SampleNorm'].astype('float64')
 
     # Create Normalized Sheets
     # spenorm = spequant[list(map(lambda x: isinstance(x, int), spequant.index))].copy()
@@ -337,4 +337,11 @@ force SampleNorm from map to be float32
 
 20210621
 Merge tab: add dropdown list to choose map sheet
+
+20210920
+fix map_loc function name duplication
+
+202100929
+force SampleNorm from map to be float64
+
 """
