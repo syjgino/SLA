@@ -277,7 +277,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         #####drop species if standard <100 and/or >=3 0s#########
         std_df = sp_df2[sp_df2['Species'].str[0] == 'd']
         dropbothloc = np.logical_or(std_df['AvgIntensity'] < 100,
-                                    np.sum(std_df.iloc[:, 6:26] == 0, axis=1) >= variable_std0cut.get())
+                                    np.sum(std_df.iloc[:, 6:26] == 0, axis=1) > variable_std0cut.get())
         dropstd = std_df.loc[dropbothloc, 'Species']
         #
         std_dict_df = pd.DataFrame.from_dict(std_dict[method]['StdName'], orient='index')

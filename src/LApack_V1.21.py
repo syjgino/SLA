@@ -179,7 +179,7 @@ proname3.grid(row=4, column=1, columnspan=1, sticky='w')
 # choice for number of 0s cut
 choices_std0cut = range(0,21)
 variable_std0cut = IntVar(tab3)
-w_std0cut = ttk.OptionMenu(tab3, variable_std0cut, choices_std0cut[3], *choices_std0cut)
+w_std0cut = ttk.OptionMenu(tab3, variable_std0cut, choices_std0cut[2], *choices_std0cut)
 w_std0cut.grid(row=5, column=1, sticky='w')
 
 
@@ -187,7 +187,7 @@ w_std0cut.grid(row=5, column=1, sticky='w')
 choices_iso = ['Yes', 'No']
 variable_iso = StringVar(tab3)
 # variable_iso.set('No')
-w_iso = ttk.OptionMenu(tab3, variable_iso, choices_iso[1], *choices_iso)
+w_iso = ttk.OptionMenu(tab3, variable_iso, choices_iso[0], *choices_iso)
 w_iso.grid(row=6, column=1, sticky='w')
 
 # choice for data file version
