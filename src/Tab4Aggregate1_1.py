@@ -240,28 +240,34 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, maploc, CheckClu
         fanormin_exp[i].dropna(axis=1, how='all', inplace=True)
 
         # Ave and SD
-        spenormAve = spenormin_exp[i].groupby(['GroupName'], as_index=True).mean()
+        spenormAve = spenormin_exp[i].drop(['SampleNorm','SampleID'], axis=1)
+        spenormAve = spenormAve.groupby(['GroupName'], as_index=True).mean()
         spenormAve = spenormAve.sort_values(by=['GroupNum'])
-        spenormAve = spenormAve.drop(['SampleNorm','SampleID'], axis=1)
+        #spenormAve = spenormAve.drop(['SampleNorm','SampleID'], axis=1)
+        
         spdict = spenormAve['GroupNum'].to_dict()
-        spenormSD = spenormin_exp[i].groupby(['GroupName'], as_index=True).std()
+        spenormSD = spenormin_exp[i].drop(['SampleNorm','SampleID'], axis=1)
+        spenormSD = spenormSD.groupby(['GroupName'], as_index=True).std()
         spenormSD['GroupNum'] = spenormSD.index
         spenormSD['GroupNum'] = spenormSD['GroupNum'].replace(spdict)
         spenormSD = spenormSD.sort_values(by=['GroupNum'])
         spenormSD['ExpNum'] = spenormAve['ExpNum']
-        spenormSD = spenormSD.drop(['SampleNorm','SampleID'], axis=1)
+        #spenormSD = spenormSD.drop(['SampleNorm','SampleID'], axis=1)
         spenormSD.index.names = ['SD']
 
-        classAve = clanormin_exp[i].groupby(['GroupName'], as_index=True).mean()
+        classAve = clanormin_exp[i].drop(['SampleNorm','SampleID'], axis=1)
+        classAve = classAve.groupby(['GroupName'], as_index=True).mean()
         classAve = classAve.sort_values(by=['GroupNum'])
-        classAve = classAve.drop(['SampleNorm','SampleID'], axis=1)
+        #classAve = classAve.drop(['SampleNorm','SampleID'], axis=1)
+        
         cladict = classAve['GroupNum'].to_dict()
-        classSD = clanormin_exp[i].groupby(['GroupName'], as_index=True).std()
+        classSD = clanormin_exp[i].drop(['SampleNorm','SampleID'], axis=1)
+        classSD = classSD.groupby(['GroupName'], as_index=True).std()
         classSD['GroupNum'] = classSD.index
         classSD['GroupNum'] = classSD['GroupNum'].replace(cladict)
         classSD = classSD.sort_values(by=['GroupNum'])
         classSD['ExpNum'] = classAve['ExpNum']
-        classSD = classSD.drop(['SampleNorm','SampleID'], axis=1)
+        #classSD = classSD.drop(['SampleNorm','SampleID'], axis=1)
         classSD.index.names = ['SD']
 
         # Write Experiment
