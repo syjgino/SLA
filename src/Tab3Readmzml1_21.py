@@ -300,7 +300,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         # drop muted species on spname list #
         #####################################
         if variable_mute.get() == "Yes":
-            mutelist = sp_dict[method][sp_dict[method]["Mute"] == TRUE]
+            mutelist = sp_dict[method][sp_dict[method]["Mute"] == True]
             mutelist = mutelist.index
             sp_df2 = sp_df2[-sp_df2['Species'].str[:].isin(mutelist)]
 
