@@ -349,4 +349,8 @@ fix map_loc function name duplication
 202100929
 force SampleNorm from map to be float64
 
+v1.3 20220712
+add chol as m3
+add option to choose number of scans
+add option to choose max number of 0s in unknows allowed
 """

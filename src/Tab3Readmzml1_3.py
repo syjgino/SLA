@@ -588,4 +588,9 @@ redesign FA tabs computation section to accept new nomenclature
 
 20210512
 add choice for max number of 0s allowed among 20 scans
+
+v1.3 20220712
+add chol as m3
+add option to choose number of scans
+add option to choose max number of 0s in unknows allowed
 """

@@ -17,18 +17,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-"""
-@author: BaolongSu
 
-SLA main
-all imported Tab files should be in the same location as this file
-
-v1.21 
-add dropdown list to choose the max number of 0s allowed
-
-20210920
-fix map_loc function name duplication
-"""
 
 import os
 from tkinter import *
@@ -275,3 +264,24 @@ ttk.Button(tab5, text='Run',
            command=lambda: tagplot(exploc, CheckVar1, CheckVar2)).grid(row=3, column=2, sticky='e')
 
 root.mainloop()
+
+
+
+
+"""
+@author: BaolongSu
+
+SLA main
+all imported Tab files should be in the same location as this file
+
+v1.21 
+add dropdown list to choose the max number of 0s allowed
+
+v1.21 20210920
+fix map_loc function name duplication
+
+v1.3 20220712
+add chol as m3
+add option to choose number of scans
+add option to choose max number of 0s in unknows allowed
+"""
