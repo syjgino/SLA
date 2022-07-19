@@ -145,24 +145,34 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         avgint_list[np.where(rnum)[0][0]] = B1
 
     ##create variable
-    all_df_dict = {'1': {}, '2': {}}
+    all_df_dict = {'1': {}, '2': {}, '3': {}}
     # out_df2 = pd.DataFrame()
-    out_df2 = {'1': pd.DataFrame(), '2': pd.DataFrame()}
+    out_df2 = {'1': pd.DataFrame(), 
+               '2': pd.DataFrame(),
+               '3': pd.DataFrame()}
     # out_df2_con = pd.DataFrame()
-    out_df2_con = {'1': pd.DataFrame(), '2': pd.DataFrame()}
-    out_df2_intensity = {'1': pd.DataFrame(), '2': pd.DataFrame()}
+    out_df2_con = {'1': pd.DataFrame(), 
+                   '2': pd.DataFrame(),
+                   '3': pd.DataFrame()}
+    out_df2_intensity = {'1': pd.DataFrame(), 
+                         '2': pd.DataFrame(),
+                         '3': pd.DataFrame()}
     # sp_df3 = {'A':0}
 
     ##read spname dict
     sp_dict = {'1': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='1', header=0, index_col=3,
                                   na_values='.'),
                '2': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='2', header=0, index_col=3,
+                                  na_values='.'),
+               '3': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='3', header=0, index_col=3,
                                   na_values='.')}
 
     # read standard dict
     std_dict = {'1': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method1', header=0, index_col=0,
                                    na_values='.').to_dict(),
                 '2': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method2', header=0, index_col=0,
+                                   na_values='.').to_dict(),
+                '3': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method3', header=0, index_col=0,
                                    na_values='.').to_dict()}
 
     # read iso correction dict
@@ -348,7 +358,8 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     #######################
     # build FA dict
     FA_dict = {'1': sp_dict['1'][['Class', 'FA1', 'FA2']].to_dict(),
-               '2': sp_dict['2'][['Class', 'FA1', 'FA2']].to_dict()}
+               '2': sp_dict['2'][['Class', 'FA1', 'FA2']].to_dict(),
+               '3': sp_dict['3'][['Class', 'FA1', 'FA2']].to_dict()}
     # FA_dict['1'] = FA_dict['1'].to_dict()
 
     # FA_dict['2'] = FA_dict['2'].to_dict()
@@ -370,6 +381,14 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         FA_con['2'] = pd.concat([FA_con_m2_1, FA_con_m2_2, ], axis=1)
         FA_con['2'] = FA_con['2'].groupby(FA_con['2'].columns, axis=1).sum()
         FA_con['2'] = FA_con['2'].replace(0, np.nan)
+    #
+    if len(out_df2_con['3']) > 0:
+        FA_con_m3_1 = out_df2_con['3'].rename(columns=FA_dict['3']['FA1'])
+        FA_con_m3_2 = out_df2_con['3'].rename(columns=FA_dict['3']['FA2'])
+        FA_con_m3_2 = FA_con_m3_2.loc[:, FA_con_m3_2.columns.notnull()]
+        FA_con['3'] = pd.concat([FA_con_m3_1, FA_con_m3_2, ], axis=1)
+        FA_con['3'] = FA_con['3'].groupby(FA_con['3'].columns, axis=1).sum()
+        FA_con['3'] = FA_con['3'].replace(0, np.nan)
 
     # FA_con['1'].to_excel("test.xlsx")
     ##########################
@@ -389,6 +408,13 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         FA_grp['2'] = FA_grp['2'].groupby(FA_grp['2'].columns, axis=1).sum()
         FA_grp['2'] = FA_grp['2'].replace(np.inf, np.nan)
         FA_grp['2'] = FA_grp['2'].replace(0, np.nan)
+    if len(out_df2_con['3']) > 0:
+        FA_grp['3'] = FA_con['3'].copy()
+        FA_grp['3'].columns = pd.Series(FA_grp['3'].columns).apply(lambda st: st[:st.find("(") - 1])
+        FA_grp['3'] = FA_grp['3'].groupby(FA_grp['3'].columns, axis=1).sum()
+        FA_grp['3'] = FA_grp['3'].replace(np.inf, np.nan)
+        FA_grp['3'] = FA_grp['3'].replace(0, np.nan)
+        
     FA_comp = {}
     if len(out_df2_con['1']) > 0:
         FA_comp['1'] = FA_con['1'].apply(lambda col: 100 * col / FA_grp['1'][col.name[:col.name.find("(") - 1]])
@@ -396,6 +422,8 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     if len(out_df2_con['2']) > 0:
         FA_comp['2'] = FA_con['2'].apply(lambda col: 100 * col / FA_grp['2'][col.name[:col.name.find("(") - 1]])
         # FA_comp['2'] = FA_con['2'].apply(lambda col: 100*col/FA_grp['2'].iloc[:,FA_grp['2'].columns == col.name[0:3]].iloc[:,0])
+    if len(out_df2_con['3']) > 0:
+        FA_comp['3'] = FA_con['3'].apply(lambda col: 100 * col / FA_grp['3'][col.name[:col.name.find("(") - 1]])
 
     ######################
     # Species Composition#
@@ -412,6 +440,12 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         SP_grp['2'] = SP_grp['2'].groupby(SP_grp['2'].columns, axis=1).sum()
         SP_grp['2'] = SP_grp['2'].replace(np.inf, np.nan)
         SP_grp['2'] = SP_grp['2'].replace(0, np.nan)
+    if len(out_df2_con['3']) > 0:
+        SP_grp['3'] = out_df2_con['3'].rename(columns=FA_dict['3']['Class'])
+        SP_grp['3'] = SP_grp['3'].groupby(SP_grp['3'].columns, axis=1).sum()
+        SP_grp['3'] = SP_grp['3'].replace(np.inf, np.nan)
+        SP_grp['3'] = SP_grp['3'].replace(0, np.nan)
+        
     SP_comp = {}
     if len(out_df2_con['1']) > 0:
         SP_comp['1'] = out_df2_con['1'].apply(lambda col: 100 * col / SP_grp['1'][FA_dict['1']['Class'][col.name]])
@@ -419,6 +453,8 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     if len(out_df2_con['2']) > 0:
         SP_comp['2'] = out_df2_con['2'].apply(lambda col: 100 * col / SP_grp['2'][FA_dict['2']['Class'][col.name]])
         # SP_comp['2'] = out_df2_con['2'].apply(lambda col: 100*col/SP_grp['2'].iloc[:,SP_grp['2'].columns == col.name[0:3]].iloc[:,0])
+    if len(out_df2_con['3']) > 0:
+        SP_comp['3'] = out_df2_con['3'].apply(lambda col: 100 * col / SP_grp['3'][FA_dict['3']['Class'][col.name]])
 
     ##############
     # Class Total#
@@ -445,6 +481,8 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         clas_comp = {'1': SP_grp['1'].apply(lambda row: 100 * row / row.sum(skipna=True), axis=1)}
     if len(out_df2_con['2']) > 0:
         clas_comp['2'] = SP_grp['2'].apply(lambda row: 100 * row / row.sum(skipna=True), axis=1)
+    if len(out_df2_con['3']) > 0:
+        clas_comp['3'] = SP_grp['3'].apply(lambda row: 100 * row / row.sum(skipna=True), axis=1)
 
     #######
     # save#
@@ -526,8 +564,47 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         keyinfo_m2.to_excel(master2, 'version info', index=True)
 
         master2.save()
+        
+    # m3
+    if len(out_df2_con['3']) > 0:
+        master3 = pd.ExcelWriter(proname3.get() + '_output_m3.xlsx')
+        
+        out_df2_con['3'] = out_df2_con['3'].reindex(sorted(out_df2_con['3'].columns), axis=1)
+        out_df2_con['3'].insert(0, 'Name', out_df2_con['3'].index)
+        out_df2_con['3'].to_excel(master3, 'Lipid Species Concentrations', index=False)
+        SP_comp['3'] = SP_comp['3'].reindex(sorted(SP_comp['3'].columns), axis=1)
+        SP_comp['3'].insert(0, 'Name', SP_comp['3'].index)
+        SP_comp['3'].to_excel(master3, 'Lipid Species Composition', index=False)
 
-    # Merge m1 m2 DataFrames
+        SP_grp['3'] = SP_grp['3'].reindex(sorted(SP_grp['3'].columns), axis=1)
+        SP_grp['3'].insert(0, 'Name', SP_grp['3'].index)
+        SP_grp['3'].to_excel(master3, 'Lipid Class Concentration', index=False)
+        clas_comp['3'] = clas_comp['3'].reindex(sorted(clas_comp['3'].columns), axis=1)
+        clas_comp['3'].insert(0, 'Name', clas_comp['3'].index)
+        clas_comp['3'].to_excel(master3, 'Lipid Class Composition', index=False)
+
+        FA_con['3'] = FA_con['3'].reindex(sorted(FA_con['3'].columns), axis=1)
+        FA_con['3'].insert(0, 'Name', FA_con['3'].index)
+        FA_con['3'].to_excel(master3, 'Fatty Acid Concentration', index=False)
+        FA_comp['3'] = FA_comp['3'].reindex(sorted(FA_comp['3'].columns), axis=1)
+        FA_comp['3'].insert(0, 'Name', FA_comp['3'].index)
+        FA_comp['3'].to_excel(master3, 'Fatty Acid Composition', index=False)
+
+        # add standard dictionary and mrm list(spname) info
+        keyinfo_m3 = pd.DataFrame({'Info': [sp_dict1_loc.get('1.0', 'end-1c'),
+                                            std_dict_loc.get('1.0', 'end-1c'),
+                                            iso_dict_loc.get('1.0', 'end-1c'),
+                                            variable_iso.get()]},
+                                  index=['SpName/mrm List',
+                                         'Standard Dictionary',
+                                         'Isotope Correction List',
+                                         'isotope Corrected'])
+        keyinfo_m3.to_excel(master3, 'version info', index=True)
+
+        master3.save()
+        
+
+    # Merge m1 m2 m3 DataFrames
     if (len(out_df2_con['1']) > 0) & (len(out_df2_con['2']) > 0):
         spequant = pd.concat([out_df2_con["1"].iloc[:, 1:], out_df2_con["2"].iloc[:, 1:]],
                              axis=1, sort=False)
@@ -549,14 +626,14 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         facomp = facomp.reindex(sorted(facomp.columns), axis=1)
 
         # Write Master data sheet
-        master3 = pd.ExcelWriter(proname3.get() + '_output_merge.xlsx')
-        spequant.to_excel(master3, 'Species Quant')
-        specomp.to_excel(master3, 'Species Composit')
-        claquant.to_excel(master3, 'Class Quant')
-        clacomp.to_excel(master3, 'Class Composit')
-        faquant.to_excel(master3, 'FattyAcid Quant')
-        facomp.to_excel(master3, 'FattyAcid Composit')
-        master3.save()
+        masterMerge = pd.ExcelWriter(proname3.get() + '_output_merge.xlsx')
+        spequant.to_excel(masterMerge, 'Species Quant')
+        specomp.to_excel(masterMerge, 'Species Composit')
+        claquant.to_excel(masterMerge, 'Class Quant')
+        clacomp.to_excel(masterMerge, 'Class Composit')
+        faquant.to_excel(masterMerge, 'FattyAcid Quant')
+        facomp.to_excel(masterMerge, 'FattyAcid Composit')
+        masterMerge.save()
 
     # save intensity
     masterint = pd.ExcelWriter(proname3.get() + '_intensity.xlsx')
@@ -565,6 +642,9 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     if len(out_df2_con['2']) > 0:
         out_df2_intensity['2'] = out_df2_intensity['2'].reindex(sorted(out_df2_intensity['2'].columns), axis=1)
         out_df2_intensity['2'].to_excel(masterint, 'IntensityM2', index=True)
+    if len(out_df2_con['3']) > 0:
+        out_df2_intensity['3'] = out_df2_intensity['3'].reindex(sorted(out_df2_intensity['3'].columns), axis=1)
+        out_df2_intensity['3'].to_excel(masterint, 'IntensityM3', index=True)
     masterint.save()
 
     messagebox.showinfo("Information", "Done")
@@ -590,7 +670,14 @@ redesign FA tabs computation section to accept new nomenclature
 add choice for max number of 0s allowed among 20 scans
 
 v1.3 20220712
-add chol as m3
+# tab 3 readmzml
+add chol as m3 (no iso for m3)
 add option to choose number of scans
 add option to choose max number of 0s in unknows allowed
+
+# tab 4 merge
+add merge m3
+
+# tab 5 plot 
+add chol to plot
 """

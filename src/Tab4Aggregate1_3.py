@@ -76,6 +76,15 @@ def imp_method2(method2loc):
     method2loc.configure(state="disabled")
 
 
+def imp_method3(method3loc):
+    # file3 = filedialog.askopenfilename(filetypes=(("excel Files", "*.xlsx"),("all files", "*.*")))
+    method3loc.configure(state="normal")
+    method3loc.delete(1.0, END)
+    file3 = filedialog.askopenfilename(filetypes=(("excel Files", "*.xlsx"), ("all files", "*.*")))
+    method3loc.insert(INSERT, file3)
+    method3loc.configure(state="disabled")
+    
+
 def set_dir(dirloc_aggregate):
     # setdir = filedialog.askdirectory()
     dirloc_aggregate.configure(state="normal")
@@ -85,13 +94,15 @@ def set_dir(dirloc_aggregate):
     dirloc_aggregate.configure(state="disabled")
 
 
-def MergeApp(dirloc_aggregate, proname, method1loc, method2loc, 
+def MergeApp(dirloc_aggregate, proname, 
+             method1loc, method2loc, method3loc,
              maploc, variable_mapsheet, CheckClustVis):
     start = datetime.datetime.now()
     os.chdir(dirloc_aggregate.get('1.0', 'end-1c'))
     project = proname.get()
     file1 = method1loc.get('1.0', 'end-1c')
     file2 = method2loc.get('1.0', 'end-1c')
+    file3 = method3loc.get('1.0', 'end-1c')
     map1 = maploc.get('1.0', 'end-1c')
 
     # Fix sample index(name) type for proper merge
@@ -139,13 +150,34 @@ def MergeApp(dirloc_aggregate, proname, method1loc, method2loc,
         claquant2 = pd.DataFrame()
         faquant2 = pd.DataFrame()
         facomp2 = pd.DataFrame()
+    
+    # Import DataFrames from file3
+    if file3 != '':
+        spequant3 = pd.read_excel(file3, sheet_name='Lipid Species Concentrations', header=0, index_col=0,
+                                  na_values='.')
+        specomp3 = pd.read_excel(file3, sheet_name='Lipid Species Composition', header=0, index_col=0, na_values='.')
+        claquant3 = pd.read_excel(file3, sheet_name='Lipid Class Concentration', header=0, index_col=0, na_values='.')
+        faquant3 = pd.read_excel(file3, sheet_name='Fatty Acid Concentration', header=0, index_col=0, na_values='.')
+        facomp3 = pd.read_excel(file3, sheet_name='Fatty Acid Composition', header=0, index_col=0, na_values='.')
+
+        spequant3.index = list(map(qcname, list(spequant3.index)))
+        specomp3.index = list(map(qcname, list(specomp3.index)))
+        claquant3.index = list(map(qcname, list(claquant3.index)))
+        faquant3.index = list(map(qcname, list(faquant3.index)))
+        facomp3.index = list(map(qcname, list(facomp3.index)))
+    else:
+        spequant3 = pd.DataFrame()
+        specomp3 = pd.DataFrame()
+        claquant3 = pd.DataFrame()
+        faquant3 = pd.DataFrame()
+        facomp3 = pd.DataFrame()
 
     # Merge DataFrames
-    spequant = pd.concat([spequant1, spequant2], axis=1, sort=False)
-    specomp = pd.concat([specomp1, specomp2], axis=1, sort=False)
-    claquant = pd.concat([claquant1, claquant2], axis=1, sort=False)
-    faquant = pd.concat([faquant1, faquant2], axis=1, sort=False)
-    facomp = pd.concat([facomp1, facomp2], axis=1, sort=False)
+    spequant = pd.concat([spequant1, spequant2, spequant3], axis=1, sort=False)
+    specomp = pd.concat([specomp1, specomp2, specomp3], axis=1, sort=False)
+    claquant = pd.concat([claquant1, claquant2, claquant3], axis=1, sort=False)
+    faquant = pd.concat([faquant1, faquant2, faquant3], axis=1, sort=False)
+    facomp = pd.concat([facomp1, facomp2, facomp3], axis=1, sort=False)
 
     # Sort Columns in Merged DataFrames
     spequant = spequant.reindex(sorted(spequant.columns), axis=1)
@@ -350,7 +382,14 @@ fix map_loc function name duplication
 force SampleNorm from map to be float64
 
 v1.3 20220712
-add chol as m3
+# tab 3 readmzml
+add chol as m3 (no iso for m3)
 add option to choose number of scans
 add option to choose max number of 0s in unknows allowed
+
+# tab 4 merge
+add merge m3
+
+# tab 5 plot 
+add chol to plot
 """

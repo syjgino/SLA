@@ -30,9 +30,9 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 from Tab1Tune1_1 import *
 from Tab2SST1_1 import *
 # from Tab3Readmzml1_1 import *  # using LWM lipid name format
-from Tab3Readmzml1_21 import *  # new name and FA analysis version
+from Tab3Readmzml1_3 import *  # new name and FA analysis version
 # from Tab3Readmzml1_2_drop import *  # custom drop points among 20 scans
-from Tab4Aggregate1_21 import *
+from Tab4Aggregate1_3 import *
 from Tab5TAGplot1_2 import *
 
 covlist = list()  # list of COV
@@ -146,30 +146,41 @@ ttk.Button(tab3, text='Read MZML', command=lambda: readMZML(dirloc_read,
                                                             sp_dict1_loc, std_dict_loc,
                                                             proname3, iso_dict_loc, variable_iso, variable_std0cut,
                                                             progressBar, variable_dataversion, variable_mute
-                                                            )).grid(row=6, column=2)
+                                                            )).grid(row=9, column=4)
 
 ttk.Label(tab3, text='Project Name').grid(row=4, column=0, pady=10)
-ttk.Label(tab3, text='Max 0s for Standard').grid(row=5, column=0, pady=10)
-ttk.Label(tab3, text='Isotope Correction').grid(row=6, column=0, pady=10)
+
+ttk.Label(tab3, text='Max 0s for Standards').grid(row=5, column=0, pady=10)  # choice for number of 0s cut
+ttk.Label(tab3, text='Max 0s for Targets').grid(row=5, column=2, pady=10)  # choice for number of 0s cut
+
+ttk.Label(tab3, text='Isotope Correction').grid(row=6, column=0, pady=10) # choice for isotope correction
+ttk.Label(tab3, text='No. of Scans').grid(row=6, column=2, pady=10) # input for number of scans
+
 ttk.Label(tab3, text='mzml Version').grid(row=7, column=0, pady=8)  # choice V, dataversion
-ttk.Label(tab3, text='Mute Species').grid(row=8, column=0, pady=8)  # choice V2, mute species
+ttk.Label(tab3, text='Mute Species').grid(row=7, column=2, pady=8)  # choice V2, mute species
 
 dirloc_read = Text(tab3, width=50, height=2, state=DISABLED)  # work directory location
-dirloc_read.grid(row=0, column=1, columnspan=2, sticky='w', padx=1, pady=1)
+dirloc_read.grid(row=0, column=1, columnspan=3, sticky='w', padx=1, pady=1)
 std_dict_loc = Text(tab3, width=50, height=2, state=DISABLED)  # standard dictionary location
-std_dict_loc.grid(row=1, column=1, columnspan=2, sticky='w', padx=1, pady=1)
+std_dict_loc.grid(row=1, column=1, columnspan=3, sticky='w', padx=1, pady=1)
 sp_dict1_loc = Text(tab3, width=50, height=2, state=DISABLED)  # species name/mrm list location
-sp_dict1_loc.grid(row=2, column=1, columnspan=2, sticky='w', padx=1, pady=1)
+sp_dict1_loc.grid(row=2, column=1, columnspan=3, sticky='w', padx=1, pady=1)
 iso_dict_loc = Text(tab3, width=50, height=2, state=DISABLED)  # isotope correction file location
-iso_dict_loc.grid(row=3, column=1, columnspan=2, sticky='w', padx=1, pady=1)
+iso_dict_loc.grid(row=3, column=1, columnspan=3, sticky='w', padx=1, pady=1)
 proname3 = ttk.Entry(tab3, width=30)
 proname3.grid(row=4, column=1, columnspan=1, sticky='w')
 
 # choice for number of 0s cut
+# standards
 choices_std0cut = range(0,21)
 variable_std0cut = IntVar(tab3)
 w_std0cut = ttk.OptionMenu(tab3, variable_std0cut, choices_std0cut[2], *choices_std0cut)
 w_std0cut.grid(row=5, column=1, sticky='w')
+# targets
+choices_tgt0cut = range(0,21)
+variable_tgt0cut = IntVar(tab3)
+w_tgt0cut = ttk.OptionMenu(tab3, variable_tgt0cut, choices_tgt0cut[2], *choices_tgt0cut)
+w_tgt0cut.grid(row=5, column=3, sticky='w')
 
 
 # choice for isotope correction
@@ -178,6 +189,13 @@ variable_iso = StringVar(tab3)
 # variable_iso.set('No')
 w_iso = ttk.OptionMenu(tab3, variable_iso, choices_iso[0], *choices_iso)
 w_iso.grid(row=6, column=1, sticky='w')
+
+# input for number of scans
+choices_scans = range(10,101,5)
+variable_scans = IntVar(tab3)
+w_scans = ttk.OptionMenu(tab3, variable_scans, choices_scans[2], *choices_scans)
+w_scans.grid(row=6, column=3, sticky='w')
+
 
 # choice for data file version
 choices_dataversion = ['Analyst', 'LWM']
@@ -191,29 +209,36 @@ choices_mute = ['Yes', 'No']
 variable_mute = StringVar(tab3)
 # variable_version.set('NewClass')
 V2 = ttk.OptionMenu(tab3, variable_mute, choices_mute[0], *choices_mute)
-V2.grid(row=8, column=1, sticky='w')
+V2.grid(row=7, column=3, sticky='w')
 
 # progressbar
 progressBar = ttk.Progressbar(tab3, orient=HORIZONTAL,
                               length=100, mode='determinate')
-progressBar.grid(row=9, column=0, columnspan=3, sticky=EW, padx=10, pady=3)
+progressBar.grid(row=9, column=0, columnspan=4, sticky=EW, padx=10, pady=3)
+
+
+
 
 ########################
 ##Tab4 Aggregate/merge##
 ########################
-ttk.Label(tab4, text='Project Name').grid(row=4, column=0, pady=10)
+ttk.Label(tab4, text='Project Name').grid(row=5, column=0, pady=10)
 ttk.Label(tab4, text='Map Sheet').grid(row=1, column=2, sticky='w', padx=1)
 
 dirloc_aggregate = Text(tab4, width=50, height=2, state=DISABLED)  # directory location
 dirloc_aggregate.grid(row=0, column=1, columnspan=1, sticky='w', pady=3, padx=1)
 maploc = Text(tab4, width=50, height=2, state=DISABLED)  # sample submition form/map location
 maploc.grid(row=1, column=1, columnspan=1, sticky='w', pady=3, padx=1)
+
 method1loc = Text(tab4, width=50, height=2, state=DISABLED)  # m1 output file
 method1loc.grid(row=2, column=1, columnspan=1, sticky='w', pady=3, padx=1)
 method2loc = Text(tab4, width=50, height=2, state=DISABLED)  # m2 output file
 method2loc.grid(row=3, column=1, columnspan=1, sticky='w', pady=3, padx=1)
+method3loc = Text(tab4, width=50, height=2, state=DISABLED)  # m3 output file
+method3loc.grid(row=4, column=1, columnspan=1, sticky='w', pady=3, padx=1)
+
 proname = ttk.Entry(tab4, width=30)  # project name
-proname.grid(row=4, column=1, columnspan=1, sticky='w', pady=3, padx=1)
+proname.grid(row=5, column=1, columnspan=1, sticky='w', pady=3, padx=1)
 
 ttk.Button(tab4, text='Set Directory', command=lambda: set_dir(dirloc_aggregate)).grid(row=0, column=0, padx=1)
 ttk.Button(tab4, text='Import Map', 
@@ -223,17 +248,18 @@ ttk.Button(tab4, text='Import Map',
                                    variable_mapsheet)).grid(row=1, column=0, padx=1)
 ttk.Button(tab4, text='Import Method1', command=lambda: imp_method1(method1loc)).grid(row=2, column=0, padx=1)
 ttk.Button(tab4, text='Import Method2', command=lambda: imp_method2(method2loc)).grid(row=3, column=0, padx=1)
+ttk.Button(tab4, text='Import Method3', command=lambda: imp_method3(method3loc)).grid(row=4, column=0, padx=1)
 ttk.Button(tab4, text='Run Merge',
            command=lambda: MergeApp(dirloc_aggregate, proname, 
-                                    method1loc, method2loc, 
+                                    method1loc, method2loc, method3loc,
                                     maploc, variable_mapsheet,
-                                    CheckClustVis)).grid(row=5, column=1, sticky='e')
+                                    CheckClustVis)).grid(row=6, column=1, sticky='e')
 
 # option to output .csv file for ClustVis
 CheckClustVis = IntVar()
 ttk.Checkbutton(tab4, text="Generate .csv file for ClustVis", variable=CheckClustVis,
                 onvalue=1, offvalue=0,  # height=0,
-                width=0).grid(row=5, column=1, sticky=W, pady=0)
+                width=0).grid(row=6, column=1, sticky=W, pady=0)
 
 # dropdown to choose map sheet
 choices_mapsheet = ['Sheet1']
@@ -244,9 +270,9 @@ w_mapsheet = ttk.OptionMenu(tab4, variable_mapsheet,
 w_mapsheet.grid(row=1, column=3, sticky='w')
 
 
-############
-##Tab5 TAG##
-############
+##############
+##Tab5 plots##
+##############
 exploc = Text(tab5, width=50, height=2, state=DISABLED)
 exploc.grid(row=0, column=1, columnspan=2, sticky='w', pady=5, padx=1)
 
@@ -281,7 +307,14 @@ v1.21 20210920
 fix map_loc function name duplication
 
 v1.3 20220712
-add chol as m3
+# tab 3 readmzml
+add chol as m3 (no iso for m3)
 add option to choose number of scans
 add option to choose max number of 0s in unknows allowed
+
+# tab 4 merge
+add merge m3
+
+# tab 5 plot 
+add chol to plot
 """
