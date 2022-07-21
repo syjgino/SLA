@@ -35,9 +35,11 @@ from Tab3Readmzml1_3 import *  # new name and FA analysis version
 from Tab4Aggregate1_3 import *
 from Tab5TAGplot1_2 import *
 
-covlist = list()  # list of COV
+""" Vars for Tab1 tuning """
+covlist = list()  # list of COV class/species
 covlist_label = dict()  # dictionary of COV lavbel
-covlist_dict = dict()  # dictionary of COV entry box
+covlist_dict = dict()  # dictionary of COV entry box, 
+                       # cov value = covlist_dict[i].get()
 
 # TK
 root = ThemedTk(theme="clearlooks")
@@ -60,14 +62,36 @@ note.pack()
 ########
 ##Tab1##
 ########
-# choices for peak selecting method
+
+"""
+var:
+variable_peaktype: peak selecting method
+tunef1: POS mzml
+tunef2: NEG mzml
+maploc_tune: tuning dict
+out_text: output text box 
+covlist, covlist_label, covlist_dict: vars to create 
+tuning result input boxes
+
+button/Fun:
+Import POS/get_tune1
+Import NEG/get_tune2
+Import Tune Dict/imp_tunekey: import files
+
+Run/TuningFun: run tuning and output result, generate
+input boxes on the right side of the window
+
+Export/exportdata: export tuning result
+"""
+
+# scroll bar for whole tab
 tab1_canvas = tk.Canvas(tab1_container)
 tab1scroll = ttk.Scrollbar(tab1_container, command=tab1_canvas.yview)
 tab1_canvas.config(yscrollcommand=tab1scroll.set,
                    height='13.7c')  # scrollregion=(0,0,0,1000))
 tab1scroll.grid(column=1, row=0, sticky='ns', rowspan=100)
 tab1_canvas.grid(column=0, row=0, rowspan=100, sticky='ns')
-# tab1scroll.grid(column=1,row=0, sticky='ns', rowspan=100)
+#tab1scroll.grid(column=1,row=0, sticky='ns', rowspan=100)
 tab1 = ttk.Frame(tab1_canvas)
 tab1_canvas.create_window((0, 0), window=tab1, anchor="nw")
 tab1.bind("<Configure>",
@@ -75,19 +99,21 @@ tab1.bind("<Configure>",
                  tab1_canvas=tab1_canvas: tab1_canvas.configure(scrollregion=tab1_canvas.bbox("all"),
                                                                 width=event.width))
 
+# choices for peak selecting method
 choices_peaktype = ['Max1', 'Max3', 'Con5', 'Con9']
 variable_peaktype = StringVar(tab1)
 w_peakm = ttk.OptionMenu(tab1, variable_peaktype, choices_peaktype[3], *choices_peaktype)
 w_peakm.grid(row=3, column=2, sticky='w')
 
 # text boxes
-tunef1 = Text(tab1, width=50, height=2, state=DISABLED)  # mzml directory location
+tunef1 = Text(tab1, width=50, height=2, state=DISABLED)  # POS mzml location
 tunef1.grid(row=0, column=1, columnspan=2, sticky='w', padx=1, pady=1)
-tunef2 = Text(tab1, width=50, height=2, state=DISABLED)  # mzml directory location
+tunef2 = Text(tab1, width=50, height=2, state=DISABLED)  # NEG mzml location
 tunef2.grid(row=1, column=1, columnspan=2, sticky='w', padx=1, pady=1)
 maploc_tune = Text(tab1, width=50, height=2, state=DISABLED)  # tuning_spname_dict file location
 maploc_tune.grid(row=2, column=1, columnspan=2, sticky='w', padx=1, pady=1)
 
+# scroll bar for text output box
 scroll = ttk.Scrollbar(tab1)  # scroll bar for output text box
 scroll.grid(row=5, column=3, sticky=N + S + W, rowspan=12)
 out_text = Text(tab1, width=50, height=18.5, state=DISABLED)
@@ -138,15 +164,56 @@ ttk.Button(tab2, text='Run', command=lambda: SSTFun(mzmlloc, maploc2, text)).gri
 #################
 ##Tab3 readMZml##
 #################
-ttk.Button(tab3, text='Set Directory', command=lambda: set_dir_read(dirloc_read)).grid(row=0, column=0)
-ttk.Button(tab3, text='Import Standard Dict', command=lambda: get_std_dict(std_dict_loc)).grid(row=1, column=0)
-ttk.Button(tab3, text='Import SpName Dict', command=lambda: get_sp_dict1(sp_dict1_loc)).grid(row=2, column=0)
-ttk.Button(tab3, text='Import Iso Dict', command=lambda: get_iso_dict(iso_dict_loc)).grid(row=3, column=0)
-ttk.Button(tab3, text='Read MZML', command=lambda: readMZML(dirloc_read,
-                                                            sp_dict1_loc, std_dict_loc,
-                                                            proname3, iso_dict_loc, variable_iso, variable_std0cut,
-                                                            progressBar, variable_dataversion, variable_mute
-                                                            )).grid(row=9, column=4)
+"""
+input vars:
+dirloc_read
+std_dict_loc
+sp_dict1_loc
+iso_dict_loc: dict file location
+
+proname3: project name
+
+variable_iso: run iso correction or not
+variable_std0cut: 0s threshold for std
+variable_tgt0cut: 0s threshold for targets
+variable_dataversion: LWM or analyst raw data
+variable_mute: use mute or not
+variable_scans: number of scans
+
+output:
+progressBar: progress Bar
+
+button/Fun:
+Set Directory/set_dir_read
+Import Standard Dict/get_std_dict
+Import SpName Dict/get_sp_dict1
+Import Iso Dict/get_iso_dict
+Read MZML/readMZML
+
+"""
+
+ttk.Button(tab3, text='Set Directory', 
+           command=lambda: set_dir_read(dirloc_read)).grid(row=0, column=0)
+ttk.Button(tab3, text='Import Standard Dict', 
+           command=lambda: get_std_dict(std_dict_loc)).grid(row=1, column=0)
+ttk.Button(tab3, text='Import SpName Dict', 
+           command=lambda: get_sp_dict1(sp_dict1_loc)).grid(row=2, column=0)
+ttk.Button(tab3, text='Import Iso Dict', 
+           command=lambda: get_iso_dict(iso_dict_loc)).grid(row=3, column=0)
+ttk.Button(tab3, text='Read MZML', 
+           command=lambda: readMZML(dirloc_read=dirloc_read,
+                                    sp_dict1_loc=sp_dict1_loc, 
+                                    std_dict_loc=std_dict_loc,
+                                    proname3=proname3, 
+                                    iso_dict_loc=iso_dict_loc,
+                                    variable_iso=variable_iso,
+                                    variable_std0cut=variable_std0cut,
+                                    progressBar=progressBar, 
+                                    variable_dataversion=variable_dataversion, 
+                                    variable_mute=variable_mute,
+                                    variable_tgt0cut=variable_tgt0cut,
+                                    variable_scans=variable_scans
+                                    )).grid(row=9, column=4)
 
 ttk.Label(tab3, text='Project Name').grid(row=4, column=0, pady=10)
 

@@ -77,8 +77,8 @@ def get_std_dict(std_dict_loc):
 # readMZML function
 def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
              iso_dict_loc, variable_iso, variable_std0cut,
-             progressBar, variable_dataversion,
-             variable_mute):
+             progressBar, variable_dataversion, variable_mute,
+             variable_tgt0cut, variable_scans):
     global iso_dict
     progressBar = progressBar
     os.chdir(dirloc_read.get('1.0', 'end-1c'))
@@ -203,8 +203,15 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
             sp_serie.append(NatID)
 
         # sp_df['NativeID'] = pd.Series(sp_serie[1:])
+        
+        """
         # drop rows may be tic/bic
-        ticrows = pd.Series([x for x in list(map(lambda x: len(x), sp_serie))]) > 20
+        # use length of the sp_serie row. 
+        # the tic/bic row is only length of 3
+        # actual data row is ~71
+        """
+        # ticrows here is actually rows that are not tic/bic
+        ticrows = pd.Series([x for x in list(map(lambda x: len(x), sp_serie))]) > 20 
         sp_df['NativeID'] = np.array(sp_serie)[np.flatnonzero(ticrows)]
 
         sp_df2 = sp_df['NativeID'].apply(lambda x: pd.Series(x.split()))

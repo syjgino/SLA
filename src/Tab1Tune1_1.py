@@ -150,12 +150,21 @@ def fetchLPE(covlist_dict):
         covlist_dict[4].configure(state=DISABLED)
 
 
-def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, covlist, covlist_label, covlist_dict):
+def TuningFun(tunef1, tunef2, maploc_tune, 
+              out_text, variable_peaktype, tab1, 
+              covlist, covlist_label, covlist_dict):
+    """ 
+    read mzml
+    compute peak
+    output peak to out_text
+    generate cov entry boxes in tab1
+    """
+    
+    # vars to compute peak, 5 methods
     global bmid, tvar, bvar, idc5, idc9
     out_text.configure(state="normal")
     sp_dict1_loc = maploc_tune.get('1.0', 'end-1c')
-    # std_dict_loc =
-    # 'C:/Users/baolongsu/Desktop/Projects/StdUnkRatio/standard_dict - LipidizerSimulate_102b_MW_dev2.xlsx'
+    
     file = tunef1.get('1.0', 'end-1c')
     os.chdir(file[0:file.rfind('/')])
     ##get name all files
@@ -331,7 +340,7 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, co
             peaks_neg = peaks_neg + [round(idc5 * 0.101 - 20, 3)]
             out_text.insert(END, tvar + '\n')
 
-    # %%
+    #%%
     elif variable_peaktype.get() == 'Con9':
         out_text.insert(END, 'Get Median of Max Consecutive 9 Values:\n')
         # print SM
@@ -365,12 +374,12 @@ def TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, co
     out_text.insert(END, 'LPC/LPE16 cover C12-16\nLPC/LPE18 cover C17-24\n', "blue")
     out_text.insert(END, 'LPC16+1.0=LPC18\nLPE16+1.5=LPE18\n', "blue")
 
-    # %%
+    #%%
     out_text.insert(END, ' ' + '\n')
     out_text.see(END)
     out_text.configure(state="disabled")
 
-    ## Add entry box according to template
+    """Add entry box according to template""" 
     covlist[:] = list(sp_dict['NEG']['Group'].unique()) + list(sp_dict['POS']['Group'].unique())
 
     for i in covlist_label:
