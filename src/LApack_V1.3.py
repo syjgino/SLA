@@ -45,24 +45,36 @@ covlist_dict = dict()  # dictionary of COV entry box,
 root = ThemedTk(theme="clearlooks")
 root.title("ShotgunLipidomicsAssistant V1.21")
 root.iconbitmap('SLAicon_256.ico')
+#root.geometry("800x600")
 
 note = ttk.Notebook(root)
+#note.pack(fill="both", expand=True)
+
 tab1_container = ttk.Frame(note)
 tab2 = ttk.Frame(note)
 tab3 = ttk.Frame(note)
 tab4 = ttk.Frame(note)
 tab5 = ttk.Frame(note)
+#tab5 = ttk.Frame(note, width=800, height=600)
+
+tab1_container.pack(fill="both", expand=True)
+tab2.pack(fill="both", expand=True)
+tab3.pack(fill="both", expand=True)
+tab4.pack(fill="both", expand=True)
+tab5.pack(fill="both", expand=True)
+
 note.add(tab1_container, text="Tuning")
 note.add(tab2, text="SST")
 note.add(tab3, text="Read mzml")
 note.add(tab4, text="Merge")
 note.add(tab5, text="ClassTotal/TAG Analysis")
+
 note.pack()
+
 
 ########
 ##Tab1##
 ########
-
 """
 var:
 variable_peaktype: peak selecting method
@@ -130,16 +142,18 @@ ttk.Label(tab1, text='Result:\nLPC/LPE16 cover C12-16 | LPC/LPE18 cover C17-24\n
 ttk.Label(tab1, text='Export:', font=('Helvetica', 10, 'bold')).grid(row=4, column=4, pady=2, sticky='w')
 
 # buttons
-ttk.Button(tab1, text='Import POS', command=lambda: get_tune1(tunef1)).grid(row=0, column=0)
-ttk.Button(tab1, text='Import NEG', command=lambda: get_tune2(tunef2)).grid(row=1, column=0)
-ttk.Button(tab1, text='Import Tune Dict', command=lambda: imp_tunekey(maploc_tune)).grid(row=2, column=0, padx=1)
+ttk.Button(tab1, text='Import POS', 
+           command=lambda: get_tune1(tunef1)).grid(row=0, column=0)
+ttk.Button(tab1, text='Import NEG', 
+           command=lambda: get_tune2(tunef2)).grid(row=1, column=0)
+ttk.Button(tab1, text='Import Tune Dict', 
+           command=lambda: imp_tunekey(maploc_tune)).grid(row=2, column=0, padx=1)
 ttk.Button(tab1, text='Run',
            command=lambda: TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, covlist,
                                      covlist_label, covlist_dict)).grid(row=3, column=0, padx=1)
-ttk.Button(tab1, text='ExportResult', command=lambda: exportdata(covlist, covlist_dict, maploc_tune)).grid(row=3,
-                                                                                                           column=5,
-                                                                                                           padx=0,
-                                                                                                           pady=1)
+ttk.Button(tab1, text='ExportResult', 
+           command=lambda: exportdata(covlist, covlist_dict, maploc_tune)).grid(row=3, column=5,
+                                                                                padx=0, pady=1)
 
 ########
 ##Tab2##
@@ -355,6 +369,8 @@ ttk.Button(tab5, text='Choose File(_exp)',
            command=lambda: imp_exp(exploc)).grid(row=0, column=0, pady=0, padx=1)
 ttk.Button(tab5, text='Run',
            command=lambda: tagplot(exploc, CheckVar1, CheckVar2)).grid(row=3, column=2, sticky='e')
+
+
 
 root.mainloop()
 
