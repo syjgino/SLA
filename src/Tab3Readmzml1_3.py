@@ -83,6 +83,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     progressBar = progressBar
     os.chdir(dirloc_read.get('1.0', 'end-1c'))
     list_of_files = glob.glob('./*.mzML')
+    nscans = variable_scans.get()
 
     ##average of all intensity scans after dropping 0s
     def centered_average(row):
@@ -241,7 +242,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         intensity_df = pd.DataFrame(intensity_df)
         intensity_df = intensity_df.T
         #####get 20 scans & drop tic/bic in data#####
-        intensity_df2 = intensity_df.loc[0:19, ticrows]
+        intensity_df2 = intensity_df.loc[0:nscans, ticrows]
         intensity_df2 = intensity_df2.T
         intensity_df2 = intensity_df2.reset_index()
         intensity_df2 = intensity_df2.drop(columns=['index'])
@@ -257,7 +258,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
 
         ##compute avg intesity
         sp_df2['AvgIntensity'] = np.nan
-        sp_df2['AvgIntensity'] = sp_df2.iloc[:, 6:26].apply(centered_average, axis=1)  # 20 scans
+        sp_df2['AvgIntensity'] = sp_df2.iloc[:, 6:(nscans+6)].apply(centered_average, axis=1)  # 20 scans
 
         ##Isotope correction on intensity with MAP
         if variable_iso.get() == 'Yes':
@@ -294,7 +295,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         #####drop species if standard <100 and/or >=3 0s#########
         std_df = sp_df2[sp_df2['Species'].str[0] == 'd']
         dropbothloc = np.logical_or(std_df['AvgIntensity'] < 100,
-                                    np.sum(std_df.iloc[:, 6:26] == 0, axis=1) > variable_std0cut.get())
+                                    np.sum(std_df.iloc[:, 6:(nscans+6)] == 0, axis=1) > variable_std0cut.get())
         dropstd = std_df.loc[dropbothloc, 'Species']
         #
         std_dict_df = pd.DataFrame.from_dict(std_dict[method]['StdName'], orient='index')
@@ -304,8 +305,8 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         spdrop_indx = -sp_df2['Species'].apply(lambda x: x in list(dropstd_sp))
         sp_df2 = sp_df2.loc[spdrop_indx, :]
 
-        # drop species if >=3 0s
-        sp_df2 = sp_df2[np.sum(sp_df2.iloc[:, 6:26] == 0, axis=1) < 3]  # 20 scans
+        # drop species if >=3 0s, or > variable_tgt0cut
+        sp_df2 = sp_df2[np.sum(sp_df2.iloc[:, 6:(nscans+6)] == 0, axis=1) <= variable_tgt0cut.get()]  # 20 scans
 
         # drop standard from output
         sp_df2 = sp_df2[sp_df2['Species'].str[0] != 'd']
