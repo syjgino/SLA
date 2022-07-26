@@ -242,7 +242,8 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         intensity_df = pd.DataFrame(intensity_df)
         intensity_df = intensity_df.T
         #####get 20 scans & drop tic/bic in data#####
-        intensity_df2 = intensity_df.loc[0:nscans, ticrows]
+        ### use .loc here, column name. 0:19 for 20 columns(0-19), not 0:20 ###
+        intensity_df2 = intensity_df.loc[0:(nscans-1), ticrows]
         intensity_df2 = intensity_df2.T
         intensity_df2 = intensity_df2.reset_index()
         intensity_df2 = intensity_df2.drop(columns=['index'])
@@ -258,6 +259,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
 
         ##compute avg intesity
         sp_df2['AvgIntensity'] = np.nan
+        ### use .iloc here, column number. 6:26 for 20 columns (6-25) ###
         sp_df2['AvgIntensity'] = sp_df2.iloc[:, 6:(nscans+6)].apply(centered_average, axis=1)  # 20 scans
 
         ##Isotope correction on intensity with MAP
