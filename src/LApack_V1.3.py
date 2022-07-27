@@ -27,7 +27,8 @@ from ttkthemes import ThemedTk
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
-from Tab1Tune1_1 import *
+#from Tab1Tune1_1 import *
+from Tab1Tune1_2 import * # can change tune steps and starting volt
 from Tab2SST1_1 import *
 # from Tab3Readmzml1_1 import *  # using LWM lipid name format
 from Tab3Readmzml1_3 import *  # new name and FA analysis version

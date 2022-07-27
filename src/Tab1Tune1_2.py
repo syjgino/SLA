@@ -38,7 +38,7 @@ from tkinter import filedialog
 import datetime
 
 
-cv_step = 0.05
+cv_step = 0.101
 NEG_startcv = -20  #PC:-10; PE: -8; PS: -3
 POS_startcv = -5
 
@@ -322,7 +322,7 @@ def TuningFun(tunef1, tunef2, maploc_tune,
             bvar = avar.idxmax()
             c5 = 0
             idc5 = 0
-            for j in range(bvar - 15, bvar + 12):
+            for j in range(bvar - int(round(2/cv_step, 0)), bvar + int(round(2/cv_step, 0))):
                 if c5 < sum(avar[j:j + 5]):
                     c5 = sum(avar[j:j + 5])
                     idc5 = j + 2
@@ -336,7 +336,7 @@ def TuningFun(tunef1, tunef2, maploc_tune,
                 bvar = avar.idxmax()
                 c5 = 0
                 idc5 = 0
-                for jj in range(bvar - 15, bvar + 12):
+                for jj in range(bvar - int(round(2/cv_step, 0)), bvar + int(round(2/cv_step, 0))):
                     if c5 < sum(avar[jj:jj + 5]):
                         c5 = sum(avar[jj:jj + 5])
                         idc5 = jj + 2
@@ -353,7 +353,7 @@ def TuningFun(tunef1, tunef2, maploc_tune,
             bvar = avar.idxmax()
             c9 = 0
             idc9 = 0
-            for j in range(bvar - 15, bvar + 12):
+            for j in range(bvar - int(round(2/cv_step, 0)), bvar + int(round(2/cv_step, 0))):
                 if c9 < sum(avar[j:j + 9]):
                     c9 = sum(avar[j:j + 9])
                     idc9 = j + 4
@@ -367,7 +367,7 @@ def TuningFun(tunef1, tunef2, maploc_tune,
                 bvar = avar.idxmax()
                 c9 = 0
                 idc9 = 0
-                for jj in range(bvar - 15, bvar + 12):
+                for jj in range(bvar - int(round(2/cv_step, 0)), bvar + int(round(2/cv_step, 0))):
                     if c9 < sum(avar[jj:jj + 9]):
                         c9 = sum(avar[jj:jj + 9])
                         idc9 = jj + 4
@@ -456,4 +456,7 @@ user can edit Tuen_spname_dict excel file to match tuning mix
 Tab1Tune1_2 update 20220721
 add option for cv step and starting point, only in this script file, not available in app interface yet.
 
+Tab1Tune1_2 update 20220727
+change con5 and con9 searching range from (-15,12) steps, to (-2,2) volts
+from the maximum point.
 """
