@@ -161,20 +161,32 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     # sp_df3 = {'A':0}
 
     ##read spname dict
-    sp_dict = {'1': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='1', header=0, index_col=3,
-                                  na_values='.'),
-               '2': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='2', header=0, index_col=3,
-                                  na_values='.'),
-               '3': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='3', header=0, index_col=3,
-                                  na_values='.')}
+    try:
+        sp_dict = {'1': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='1', header=0, index_col=3,
+                                      na_values='.'),
+                   '2': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='2', header=0, index_col=3,
+                                      na_values='.'),
+                   '3': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='3', header=0, index_col=3,
+                                      na_values='.')}
+    except:
+        sp_dict = {'1': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='1', header=0, index_col=3,
+                                      na_values='.'),
+                   '2': pd.read_excel(sp_dict1_loc.get('1.0', 'end-1c'), sheet_name='2', header=0, index_col=3,
+                                      na_values='.')}
 
     # read standard dict
-    std_dict = {'1': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method1', header=0, index_col=0,
-                                   na_values='.').to_dict(),
-                '2': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method2', header=0, index_col=0,
-                                   na_values='.').to_dict(),
-                '3': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method3', header=0, index_col=0,
-                                   na_values='.').to_dict()}
+    try:
+        std_dict = {'1': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method1', header=0, index_col=0,
+                                       na_values='.').to_dict(),
+                    '2': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method2', header=0, index_col=0,
+                                       na_values='.').to_dict(),
+                    '3': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method3', header=0, index_col=0,
+                                       na_values='.').to_dict()}
+    except:
+        std_dict = {'1': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method1', header=0, index_col=0,
+                                       na_values='.').to_dict(),
+                    '2': pd.read_excel(std_dict_loc.get('1.0', 'end-1c'), sheet_name='Method2', header=0, index_col=0,
+                                       na_values='.').to_dict()}
 
     # read iso correction dict
     if variable_iso.get() == 'Yes':
