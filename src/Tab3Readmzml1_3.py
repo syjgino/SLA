@@ -539,11 +539,17 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         keyinfo_m1 = pd.DataFrame({'Info': [sp_dict1_loc.get('1.0', 'end-1c'),
                                             std_dict_loc.get('1.0', 'end-1c'),
                                             iso_dict_loc.get('1.0', 'end-1c'),
-                                            variable_iso.get()]},
+                                            variable_iso.get(),
+                                            variable_scans.get(),
+                                            variable_std0cut.get(),
+                                            variable_tgt0cut.get()]},
                                   index=['SpName/mrm List',
                                          'Standard Dictionary',
                                          'Isotope Correction List',
-                                         'isotope Corrected'])
+                                         'isotope Corrected',
+                                         'scans',
+                                         'max 0 std',
+                                         'max 0 unknown'])
         keyinfo_m1.to_excel(master, 'version info', index=True)
 
         master.save()
@@ -578,11 +584,17 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         keyinfo_m2 = pd.DataFrame({'Info': [sp_dict1_loc.get('1.0', 'end-1c'),
                                             std_dict_loc.get('1.0', 'end-1c'),
                                             iso_dict_loc.get('1.0', 'end-1c'),
-                                            variable_iso.get()]},
+                                            variable_iso.get(),
+                                            variable_scans.get(),
+                                            variable_std0cut.get(),
+                                            variable_tgt0cut.get()]},
                                   index=['SpName/mrm List',
                                          'Standard Dictionary',
                                          'Isotope Correction List',
-                                         'isotope Corrected'])
+                                         'isotope Corrected',
+                                         'scans',
+                                         'max 0 std',
+                                         'max 0 unknown'])
         keyinfo_m2.to_excel(master2, 'version info', index=True)
 
         master2.save()
@@ -616,11 +628,17 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         keyinfo_m3 = pd.DataFrame({'Info': [sp_dict1_loc.get('1.0', 'end-1c'),
                                             std_dict_loc.get('1.0', 'end-1c'),
                                             iso_dict_loc.get('1.0', 'end-1c'),
-                                            variable_iso.get()]},
+                                            variable_iso.get(),
+                                            variable_scans.get(),
+                                            variable_std0cut.get(),
+                                            variable_tgt0cut.get()]},
                                   index=['SpName/mrm List',
                                          'Standard Dictionary',
                                          'Isotope Correction List',
-                                         'isotope Corrected'])
+                                         'isotope Corrected',
+                                         'scans',
+                                         'max 0 std',
+                                         'max 0 unknown'])
         keyinfo_m3.to_excel(master3, 'version info', index=True)
 
         master3.save()
