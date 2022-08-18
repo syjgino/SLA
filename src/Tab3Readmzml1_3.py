@@ -379,9 +379,13 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     # Fatty Accid Concentration#
     #######################
     # build FA dict
-    FA_dict = {'1': sp_dict['1'][['Class', 'FA1', 'FA2']].to_dict(),
-               '2': sp_dict['2'][['Class', 'FA1', 'FA2']].to_dict(),
-               '3': sp_dict['3'][['Class', 'FA1', 'FA2']].to_dict()}
+    try:
+        FA_dict = {'1': sp_dict['1'][['Class', 'FA1', 'FA2']].to_dict(),
+                   '2': sp_dict['2'][['Class', 'FA1', 'FA2']].to_dict(),
+                   '3': sp_dict['3'][['Class', 'FA1', 'FA2']].to_dict()}
+    except:
+        FA_dict = {'1': sp_dict['1'][['Class', 'FA1', 'FA2']].to_dict(),
+                   '2': sp_dict['2'][['Class', 'FA1', 'FA2']].to_dict()}
     # FA_dict['1'] = FA_dict['1'].to_dict()
 
     # FA_dict['2'] = FA_dict['2'].to_dict()
