@@ -115,19 +115,21 @@ tab1.bind("<Configure>",
 
 # choice for COV
 # POS start point
-choices_POSCOVstart = range(-40,20,5)
+choices_POSCOVstart = [5,0,-5,-10,-15,
+                       -20,-40,-60,-80,-100]
 variable_POSCOVstart = IntVar(tab1)
-w_POSCOVstart = ttk.OptionMenu(tab1, variable_POSCOVstart, choices_POSCOVstart[7], *choices_POSCOVstart)
+w_POSCOVstart = ttk.OptionMenu(tab1, variable_POSCOVstart, choices_POSCOVstart[5], *choices_POSCOVstart)
 w_POSCOVstart.grid(row=3, column=1, sticky='w')
 
 # NEG start point
-choices_NEGCOVstart = range(-40,20,5)
+choices_NEGCOVstart = [5,0,-5,-10,-15,
+                       -20,-40,-60,-80,-100]
 variable_NEGCOVstart = IntVar(tab1)
-w_NEGCOVstart = ttk.OptionMenu(tab1, variable_NEGCOVstart, choices_NEGCOVstart[4], *choices_NEGCOVstart)
+w_NEGCOVstart = ttk.OptionMenu(tab1, variable_NEGCOVstart, choices_NEGCOVstart[2], *choices_NEGCOVstart)
 w_NEGCOVstart.grid(row=3, column=2, sticky='w')
 
 # COV step 
-choices_COVstep = [0.101, 0.201, 0.301, 0.401, 0.501]
+choices_COVstep = [0.101, 0.05]
 variable_COVstep = DoubleVar(tab1)
 w_COVstep = ttk.OptionMenu(tab1, variable_COVstep, choices_COVstep[0], *choices_COVstep)
 w_COVstep.grid(row=4, column=1, sticky='w')
