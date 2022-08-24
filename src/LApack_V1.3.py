@@ -28,7 +28,7 @@ from ttkthemes import ThemedTk
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 #from Tab1Tune1_1 import *
-from Tab1Tune1_2 import * # can change tune steps and starting volt
+from Tab1Tune1_3 import * # can change tune steps and starting volt
 from Tab2SST1_1 import *
 # from Tab3Readmzml1_1 import *  # using LWM lipid name format
 from Tab3Readmzml1_3 import *  # new name and FA analysis version
@@ -112,11 +112,32 @@ tab1.bind("<Configure>",
                  tab1_canvas=tab1_canvas: tab1_canvas.configure(scrollregion=tab1_canvas.bbox("all"),
                                                                 width=event.width))
 
+
+# choice for COV
+# POS start point
+choices_POSCOVstart = range(-40,20,5)
+variable_POSCOVstart = IntVar(tab1)
+w_POSCOVstart = ttk.OptionMenu(tab1, variable_POSCOVstart, choices_POSCOVstart[7], *choices_POSCOVstart)
+w_POSCOVstart.grid(row=3, column=1, sticky='w')
+
+# NEG start point
+choices_NEGCOVstart = range(-40,20,5)
+variable_NEGCOVstart = IntVar(tab1)
+w_NEGCOVstart = ttk.OptionMenu(tab1, variable_NEGCOVstart, choices_NEGCOVstart[4], *choices_NEGCOVstart)
+w_NEGCOVstart.grid(row=3, column=2, sticky='w')
+
+# COV step 
+choices_COVstep = [0.101, 0.201, 0.301, 0.401, 0.501]
+variable_COVstep = DoubleVar(tab1)
+w_COVstep = ttk.OptionMenu(tab1, variable_COVstep, choices_COVstep[0], *choices_COVstep)
+w_COVstep.grid(row=4, column=1, sticky='w')
+
 # choices for peak selecting method
 choices_peaktype = ['Max1', 'Max3', 'Con5', 'Con9']
 variable_peaktype = StringVar(tab1)
 w_peakm = ttk.OptionMenu(tab1, variable_peaktype, choices_peaktype[3], *choices_peaktype)
-w_peakm.grid(row=3, column=2, sticky='w')
+w_peakm.grid(row=4, column=2, sticky='w')
+
 
 # text boxes
 tunef1 = Text(tab1, width=50, height=2, state=DISABLED)  # POS mzml location
@@ -128,19 +149,22 @@ maploc_tune.grid(row=2, column=1, columnspan=2, sticky='w', padx=1, pady=1)
 
 # scroll bar for text output box
 scroll = ttk.Scrollbar(tab1)  # scroll bar for output text box
-scroll.grid(row=5, column=3, sticky=N + S + W, rowspan=12)
+scroll.grid(row=6, column=3, sticky=N + S + W, rowspan=12)
 out_text = Text(tab1, width=50, height=18.5, state=DISABLED)
-out_text.grid(row=5, column=0, columnspan=3, rowspan=12, sticky='wnse', pady=5, padx=5)
+out_text.grid(row=6, column=0, columnspan=3, rowspan=12, sticky='wnse', pady=5, padx=5)
 out_text.tag_config("blue", foreground="blue")
 out_text.config(yscrollcommand=scroll.set)
 scroll.config(command=out_text.yview)
 
 # labels
-ttk.Label(tab1, text='Peak Method').grid(row=3, column=1, sticky='e')
-ttk.Label(tab1, text='').grid(row=3, column=7, columnspan=1, pady=2, padx=2)
+ttk.Label(tab1, text='POS COV start').grid(row=3, column=0, sticky='e')
+ttk.Label(tab1, text='NEG COV start').grid(row=3, column=1, sticky='e')
+ttk.Label(tab1, text='COV step').grid(row=4, column=0, sticky='e')
+ttk.Label(tab1, text='Peak Method').grid(row=4, column=1, sticky='e')
+ttk.Label(tab1, text='').grid(row=4, column=7, columnspan=1, pady=2, padx=2)
 ttk.Label(tab1, text='Result:\nLPC/LPE16 cover C12-16 | LPC/LPE18 cover C17-24\nLPC16+1.0=LPC18 | LPE16+1.5=LPE18',
-          font=('Helvetica', 10, 'bold')).grid(row=4, column=0, columnspan=3, pady=2, sticky='w')
-ttk.Label(tab1, text='Export:', font=('Helvetica', 10, 'bold')).grid(row=4, column=4, pady=2, sticky='w')
+          font=('Helvetica', 10, 'bold')).grid(row=5, column=0, columnspan=3, pady=2, sticky='w')
+ttk.Label(tab1, text='Export:', font=('Helvetica', 10, 'bold')).grid(row=5, column=4, pady=2, sticky='w')
 
 # buttons
 ttk.Button(tab1, text='Import POS', 
@@ -150,10 +174,18 @@ ttk.Button(tab1, text='Import NEG',
 ttk.Button(tab1, text='Import Tune Dict', 
            command=lambda: imp_tunekey(maploc_tune)).grid(row=2, column=0, padx=1)
 ttk.Button(tab1, text='Run',
-           command=lambda: TuningFun(tunef1, tunef2, maploc_tune, out_text, variable_peaktype, tab1, covlist,
-                                     covlist_label, covlist_dict)).grid(row=3, column=0, padx=1)
+           command=lambda: TuningFun(tunef1=tunef1, tunef2=tunef2, 
+                                     maploc_tune=maploc_tune, 
+                                     out_text=out_text, 
+                                     variable_peaktype=variable_peaktype, 
+                                     tab1=tab1, covlist=covlist,
+                                     covlist_label=covlist_label, 
+                                     covlist_dict=covlist_dict,
+                                     variable_POSCOVstart=variable_POSCOVstart,
+                                     variable_NEGCOVstart=variable_NEGCOVstart,
+                                     variable_COVstep=variable_COVstep)).grid(row=4, column=2, padx=1, sticky='e')
 ttk.Button(tab1, text='ExportResult', 
-           command=lambda: exportdata(covlist, covlist_dict, maploc_tune)).grid(row=3, column=5,
+           command=lambda: exportdata(covlist, covlist_dict, maploc_tune)).grid(row=4, column=5,
                                                                                 padx=0, pady=1)
 
 ########
