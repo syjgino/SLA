@@ -52,8 +52,8 @@ A prompt window will open together with the GUI window. Please do not close the 
 2. If it does not open properly, or if it collapses while running, try to open it from
 command prompt to check the error message.
 3. To convert wiff file to mzml file, you need to download and isntall MSconvertGUI from
-[Proteowizard](http://proteowizard.sourceforge.net/download.html). (Note: We have been using version 3.0.19082-ade61137d. Some updated
-versions may not transfer the data or file name correctly.)
+[Proteowizard](http://proteowizard.sourceforge.net/download.html). (Note: Sometimes their new updated
+versions may not convert the data or file name correctly. We have backed up a tested older version in this git.)
 4. A spreadsheet program must be installed on the control computer (Excel or LibreOffice).
 5. Download Analyst method files and dictionary files. [KeyV1](doc/KeyV1) for LWM version or [KeyV3](doc/KeyV3) for our extended version.
 
