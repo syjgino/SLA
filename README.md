@@ -249,16 +249,19 @@ sample information.(in the map file you can use 1,2... instead of 01,02...) Try 
 (standard_dict_xxx.xlsx) to perform the data analysis step. Make sure these match the
 Analyst methods utilized in your sample run.
 2. There is a Mute column in spname_dict_xxx. You can mute a species from the output by
-setting the value to TRUE. (Internal Standards and species end with “_2” are always
+setting the value to TRUE. (NOTE: Internal Standards start with a "d" and species end with “_2” are always
 muted from output.)
 3. In our current dictionary, species names ending with "_2" denote for extra MRMs aquired for isotope correction, which are not included in the output.
+4. In method1, which uses the DMS, a "blank" species is added at the beginning of each COV changes. For example, at the beginning of PC, a "dPCBLANK" is 
+added there so that the DMS has time to settle down the COV before acquiring the unknowns. PLEASE NOTE THAT THERE HAS TO BE A “d” IN FRONT OF THESE BLANKS, 
+so that the program will drop them together with the standard in the results.
 
-Q1    | Q3   | Mute | Name
-------|------|------|-------
--700  | 200  |FALSE |dPCBLANK
--706.5| 225.2|FALSE |PC(12:0/14:1)
--736.5| 255.2|FALSE |PC(16:0/12:0)
--734.5| 253.2|FALSE |PC(12:0/16:1)
+Q1    | Q3   | Mute | Name	   |Class |FA1     |FA2     |
+------|------|------|-------	   |----- |------- |------- |
+-700  | 200  |FALSE |dPCBLANK      |dPC   |        |        |
+-706.5| 225.2|FALSE |PC(12:0/14:1) |PC    |PC(14:1)|PC(12:0)|
+-736.5| 255.2|FALSE |PC(16:0/12:0) |PC    |PC(16:0)|PC(12:0)|
+-734.5| 253.2|FALSE |PC(12:0/16:1) |PC    |PC(16:1)|PC(12:0)|
 
 3. To update internal standard information, open the “standard_dict_xxx.xlsx” file. Make
 sure that the appropriate standards are listed, that the actual concentrations match the Lot of
