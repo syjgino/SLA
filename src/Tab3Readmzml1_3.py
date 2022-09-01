@@ -134,14 +134,33 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
     ##isotope correction V2
     def isoadjv2(row):
         rnum = sp_df2['Species'] == row['Name']
-        rnum1 = sp_df2['Species'] == row['CT1']
-        rnum2 = sp_df2['Species'] == row['CT2']
-        rnum3 = sp_df2['Species'] == row['CT3']
         A = avgint_list[np.where(rnum)[0][0]]
-        A1 = avgint_list[np.where(rnum1)[0][0]] * row['Pct1']
-        A2 = avgint_list[np.where(rnum2)[0][0]] * row['Pct2']
-        A3 = avgint_list[np.where(rnum3)[0][0]] * row['Pct3']
-        nomin = A - A1 - A2 - A3
+        
+        try:
+            rnum1 = sp_df2['Species'] == row['CT1']
+            A1 = avgint_list[np.where(rnum1)[0][0]] * row['Pct1']
+        except:
+            A1 = 0
+            
+        try:
+            rnum2 = sp_df2['Species'] == row['CT2']
+            A2 = avgint_list[np.where(rnum2)[0][0]] * row['Pct2']
+        except:
+            A2 = 0
+            
+        try:
+            rnum3 = sp_df2['Species'] == row['CT3']
+            A3 = avgint_list[np.where(rnum3)[0][0]] * row['Pct3']
+        except:
+            A3 = 0
+            
+        try:
+            rnum4 = sp_df2['Species'] == row['CT4']
+            avgint_list[np.where(rnum4)[0][0]] * row['Pct4']
+        except:
+            A4 = 0
+        
+        nomin = A - A1 - A2 - A3 - A4
         B1 = max(nomin / row['P0'], 0)
         avgint_list[np.where(rnum)[0][0]] = B1
 
