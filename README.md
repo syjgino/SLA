@@ -23,7 +23,17 @@
 
 <!-- UPDATES -->
 ## Version Updates
-**This Readme is for version 1.2x. Will be updated to v1.3 soon.**
+**This Readme is for version 1.3x**
+
+* v1.3
+  * Tune:
+	* Add option to choose starting COV and ramp step size
+  * ReadMzml:
+	* Add option to choose total number of scans
+	* Add capability to process a 3rd method
+  * Merge:
+	* Add capability to process a 3rd method
+
 * v1.21
   * Add option to choose max number of 0s allowed among 20 scans (Tab3 Read mzml) 
   * Allow user to select sheet used as sample map (Tab4 Merge)
@@ -31,6 +41,7 @@
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
+**Please read "Create New Method" if you plan to create your customized method**
 
 * [Getting Started](#getting-started)
 * [Dictionary Files](#dictionary-files)
@@ -50,6 +61,8 @@
   * [Read MZML](#Read-MZML)
   * [Merge data with sample map](#Merge-data-with-sample-map)
   * [Further Analysis](#Further-Analysis)
+
+* [Create New Method](#Create-New-Method)
 
 
 
@@ -331,6 +344,13 @@ demarcated experiments in the batch).
 5. Hit Run TAG. Results will be saved under the same folder with your *_Exp_* file.
 
 ![TAG](doc/screeshot/TAG.PNG)
+
+
+
+
+<!-- Create New Method -->
+## Prep
+### 
 
 
 
