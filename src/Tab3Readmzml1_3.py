@@ -156,7 +156,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
             
         try:
             rnum4 = sp_df2['Species'] == row['CT4']
-            avgint_list[np.where(rnum4)[0][0]] * row['Pct4']
+            A4 = avgint_list[np.where(rnum4)[0][0]] * row['Pct4']
         except:
             A4 = 0
         
