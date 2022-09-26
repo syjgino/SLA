@@ -301,10 +301,10 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
                 sp_df2['AvgIntensity'] = avgint_list
 
         # compute ratio
-        avgint_list = sp_df2.AvgIntensity.values.tolist()
+        #avgint_list = sp_df2.AvgIntensity.values.tolist()
         std_int = sp_df2.apply(stdNorm, axis=1)
         std_int[std_int == 0] = np.nan  # std=0 set to NA
-        sp_df2['Ratio'] = sp_df2['AvgIntensity'] / std_int
+        sp_df2['Ratio'] = sp_df2['AvgIntensity'].replace(0, np.nan) / std_int  # unknown=0 set to NA
 
         # compute concentration (coef = mg/ml / MW * 1E5)
         sp_df2['Concentration'] = sp_df2['Ratio'] * sp_df2.apply(conCoef, axis=1)
@@ -314,7 +314,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         # save all intensity
         # sp_df3[sample] = sp_df2
 
-        # out put intensity, muted
+        # out put intensity
         out_df_intensity = sp_df2[['Species', 'AvgIntensity']].T
         out_df_intensity.columns = out_df_intensity.iloc[0]
         out_df_intensity = out_df_intensity[1:]
