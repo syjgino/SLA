@@ -143,8 +143,8 @@ can use your mouse to point at a different peaks in the plots. The x shown on th
 bottom right corner of the plot is the COV value. Note that most tuning mixes have a
 single LPC and LPE species and yet these subclasses have two different COV values for
 shorter and longer chain species. The calculation for the offset between these is
-provided on the tab. Copy the one COV value and calculate the other COV from the
-first. Hit ExportResult button when finished. Result will be saved to a xlsx file under the
+provided on the tab. 
+8. Hit ExportResult button when finished. Result will be saved to a xlsx file under the
 same directory with Mzml files. (The excel file will be open automatically. A command
 prompt may pop-up. You can close it after the excel file is open.)
 
