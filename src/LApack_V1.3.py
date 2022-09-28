@@ -101,7 +101,7 @@ Export/exportdata: export tuning result
 tab1_canvas = tk.Canvas(tab1_container)
 tab1scroll = ttk.Scrollbar(tab1_container, command=tab1_canvas.yview)
 tab1_canvas.config(yscrollcommand=tab1scroll.set,
-                   height='13.7c')  # scrollregion=(0,0,0,1000))
+                   height='14.4c')  # scrollregion=(0,0,0,1000))
 tab1scroll.grid(column=1, row=0, sticky='ns', rowspan=100)
 tab1_canvas.grid(column=0, row=0, rowspan=100, sticky='ns')
 #tab1scroll.grid(column=1,row=0, sticky='ns', rowspan=100)
