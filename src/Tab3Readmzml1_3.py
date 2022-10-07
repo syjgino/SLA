@@ -301,7 +301,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
                 sp_df2['AvgIntensity'] = avgint_list
 
         # compute ratio
-        #avgint_list = sp_df2.AvgIntensity.values.tolist()
+        avgint_list = sp_df2.AvgIntensity.values.tolist() # this is used by stdNorm
         std_int = sp_df2.apply(stdNorm, axis=1)
         std_int[std_int == 0] = np.nan  # std=0 set to NA
         sp_df2['Ratio'] = sp_df2['AvgIntensity'].replace(0, np.nan) / std_int  # unknown=0 set to NA
