@@ -159,8 +159,14 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
             A4 = avgint_list[np.where(rnum4)[0][0]] * row['Pct4']
         except:
             A4 = 0
+            
+        try:
+            rnum5 = sp_df2['Species'] == row['CT5']
+            A5 = avgint_list[np.where(rnum5)[0][0]] * row['Pct5']
+        except:
+            A5 = 0
         
-        nomin = A - A1 - A2 - A3 - A4
+        nomin = A - A1 - A2 - A3 - A4 - A5
         B1 = max(nomin / row['P0'], 0)
         avgint_list[np.where(rnum)[0][0]] = B1
 

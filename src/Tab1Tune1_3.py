@@ -272,10 +272,12 @@ def TuningFun(tunef1, tunef2, maploc_tune,
         ##merge sp and intensity
         sp_df2 = sp_df2.merge(intensity_df2, left_index=True, right_index=True)
 
-        ##change experiment1 to negative, add species nam
+        ##change experiment1 to negative
         ##not used here
-        if max(sp_df2['experiment']) == 2:
-            sp_df2['Q1'][sp_df2['experiment'] == 1] = -sp_df2['Q1'][sp_df2['experiment'] == 1]
+        # if max(sp_df2['experiment']) == 2:
+        #     sp_df2['Q1'][sp_df2['experiment'] == 1] = -sp_df2['Q1'][sp_df2['experiment'] == 1]
+        
+        ## add species name
         # sp_df2['Species'] = sp_dict[method].index
         sp_df2['Species'] = ''
         sp_df2['Species'] = sp_df2.apply(spName, axis=1)
