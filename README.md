@@ -23,21 +23,20 @@
 
 <!-- UPDATES -->
 ## Version Updates
-**This Readme is for version 1.3x**
+**This Readme is for version 1.3**
 
 * v1.3
   * Tune:
 	* Add option to choose starting COV and ramp step size
   * ReadMzml:
+  	* Add option to choose max number of 0s allowed among 20 scans
 	* Add option to choose total number of scans
 	* Add capability to process a 3rd method
   * Merge:
 	* Add capability to process a 3rd method
+	* Allow user to select sheet used as sample map
 
-* v1.21
-  * Add option to choose max number of 0s allowed among 20 scans (Tab3 Read mzml) 
-  * Allow user to select sheet used as sample map (Tab4 Merge)
-
+**Please read [readme.docx](https://github.com/syjgino/SLA/blob/v1.3-keyV4/readme.docx)**
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
