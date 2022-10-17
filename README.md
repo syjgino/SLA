@@ -21,6 +21,14 @@
 **A DMS Shotgun Lipidomics Workflow Application to Facilitate High-Throughput, Comprehensive Lipidomics**<br />Baolong Su, Lisa F. Bettcher, Wei-Yuan Hsieh, Daniel Hornburg, Mackenzie J. Pearson, Niek Blomberg, Martin Giera, Michael P. Snyder, Daniel Raftery, Steven J. Bensinger, and Kevin J. Williams<br />*Journal of the American Society for Mass Spectrometry Article ASAP*<br />[DOI: 10.1021/jasms.1c00203](https://doi.org/10.1021/jasms.1c00203)
 <hr/>
 
+
+<!-- V1.3 -->
+**New version [v1.3](https://github.com/syjgino/SLA/tree/v1.3-keyV4) is available**
+<hr/>
+
+
+
+
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
