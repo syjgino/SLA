@@ -24,7 +24,8 @@
 
 <!-- Instruction -->
 ## Instruction
-**Please read [readme.docx](https://github.com/syjgino/SLA/blob/v1.3-keyV4/readme.docx)**
+**Please download the [latest released package](https://github.com/syjgino/SLA/releases/tag/v1.3_20221016)
+and read the [readme.docx](https://github.com/syjgino/SLA/blob/v1.3-keyV4/readme.docx)**
 <hr/>
 
 
