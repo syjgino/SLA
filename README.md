@@ -52,8 +52,8 @@ A prompt window will open together with the GUI window. Please do not close the 
 2. If it does not open properly, or if it collapses while running, try to open it from
 command prompt to check the error message.
 3. To convert wiff file to mzml file, you need to download and isntall MSconvertGUI from
-[Proteowizard](http://proteowizard.sourceforge.net/download.html). (Note: We have been using version 3.0.19082-ade61137d. Some updated
-versions may not transfer the data or file name correctly.)
+[Proteowizard](http://proteowizard.sourceforge.net/download.html). (Note: Sometimes their new updated
+versions may not convert the data or file name correctly. We have backed up a tested older version in this git.)
 4. A spreadsheet program must be installed on the control computer (Excel or LibreOffice).
 5. Download Analyst method files and dictionary files. [KeyV1](doc/KeyV1) for LWM version or [KeyV3](doc/KeyV3) for our extended version.
 
@@ -143,8 +143,8 @@ can use your mouse to point at a different peaks in the plots. The x shown on th
 bottom right corner of the plot is the COV value. Note that most tuning mixes have a
 single LPC and LPE species and yet these subclasses have two different COV values for
 shorter and longer chain species. The calculation for the offset between these is
-provided on the tab. Copy the one COV value and calculate the other COV from the
-first. Hit ExportResult button when finished. Result will be saved to a xlsx file under the
+provided on the tab. 
+8. Hit ExportResult button when finished. Result will be saved to a xlsx file under the
 same directory with Mzml files. (The excel file will be open automatically. A command
 prompt may pop-up. You can close it after the excel file is open.)
 
@@ -249,16 +249,19 @@ sample information.(in the map file you can use 1,2... instead of 01,02...) Try 
 (standard_dict_xxx.xlsx) to perform the data analysis step. Make sure these match the
 Analyst methods utilized in your sample run.
 2. There is a Mute column in spname_dict_xxx. You can mute a species from the output by
-setting the value to TRUE. (Internal Standards and species end with “_2” are always
+setting the value to TRUE. (NOTE: Internal Standards start with a "d" and species end with “_2” are always
 muted from output.)
 3. In our current dictionary, species names ending with "_2" denote for extra MRMs aquired for isotope correction, which are not included in the output.
+4. In method1, which uses the DMS, a "blank" species is added at the beginning of each COV changes. For example, at the beginning of PC, a "dPCBLANK" is 
+added there so that the DMS has time to settle down the COV before acquiring the unknowns. PLEASE NOTE THAT THERE HAS TO BE A “d” IN FRONT OF THESE BLANKS, 
+so that the program will drop them together with the standard in the results.
 
-Q1    | Q3   | Mute | Name
-------|------|------|-------
--700  | 200  |FALSE |dPCBLANK
--706.5| 225.2|FALSE |PC(12:0/14:1)
--736.5| 255.2|FALSE |PC(16:0/12:0)
--734.5| 253.2|FALSE |PC(12:0/16:1)
+Q1    | Q3   | Mute | Name	   |Class |FA1     |FA2     |
+------|------|------|-------	   |----- |------- |------- |
+-700  | 200  |FALSE |dPCBLANK      |dPC   |        |        |
+-706.5| 225.2|FALSE |PC(12:0/14:1) |PC    |PC(14:1)|PC(12:0)|
+-736.5| 255.2|FALSE |PC(16:0/12:0) |PC    |PC(16:0)|PC(12:0)|
+-734.5| 253.2|FALSE |PC(12:0/16:1) |PC    |PC(16:1)|PC(12:0)|
 
 3. To update internal standard information, open the “standard_dict_xxx.xlsx” file. Make
 sure that the appropriate standards are listed, that the actual concentrations match the Lot of
