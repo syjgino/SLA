@@ -23,7 +23,7 @@
 
 
 <!-- V1.3 -->
-**New version [v1.3](https://github.com/syjgino/SLA/tree/v1.3-keyV4) is available**
+## New version [v1.3](https://github.com/syjgino/SLA/tree/v1.3-keyV4) is available
 <hr/>
 
 
