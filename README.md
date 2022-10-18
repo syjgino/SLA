@@ -37,14 +37,16 @@ You can retore the file within your antivirus software if it is removed.**
 * v1.3
   * Tune:
 	* Add option to choose starting COV and ramp step size
+	![tune1](doc/screeshot/v1.3/tune1.PNG)
   * ReadMzml:
   	* Add option to choose max number of 0s allowed among 20 scans
 	* Add option to choose total number of scans
 	* Add capability to process a 3rd method
+	![readmzml](doc/screeshot/v1.3/readmzml.PNG)
   * Merge:
 	* Add capability to process a 3rd method
 	* Allow user to select sheet used as sample map
-
+	![merge](doc/screeshot/v1.3/merge.PNG)
 
 
 
