@@ -215,10 +215,18 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
 
     # read iso correction dict
     if variable_iso.get() == 'Yes':
-        iso_dict = {'1': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
-                                       sheet_name='M1', header=0, index_col=None, na_values='.'),
-                    '2': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
-                                       sheet_name='M2', header=0, index_col=None, na_values='.')}
+        try:
+            iso_dict = {'1': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
+                                           sheet_name='M1', header=0, index_col=None, na_values='.'),
+                        '2': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
+                                           sheet_name='M2', header=0, index_col=None, na_values='.'),
+                        '3': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
+                                           sheet_name='M3', header=0, index_col=None, na_values='.')}
+        except:
+            iso_dict = {'1': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
+                                           sheet_name='M1', header=0, index_col=None, na_values='.'),
+                        '2': pd.read_excel(iso_dict_loc.get('1.0', 'end-1c'),
+                                           sheet_name='M2', header=0, index_col=None, na_values='.')}
 
     ##reading mzml loop start
     for sample in range(0, len(list_of_files)):
@@ -303,7 +311,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         ##Isotope correction on intensity with MAP
         avgint_list = sp_df2.AvgIntensity.values.tolist() # this is used by stdNorm and isoadjv2
         if variable_iso.get() == 'Yes':
-            if method in ['1', '2']:
+            if method in ['1', '2', '3']:
                 iso_dict[method].apply(isoadjv2, axis=1) # this will modify avgint_list
                 sp_df2['AvgIntensity'] = avgint_list
 
@@ -673,7 +681,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         master3.save()
         
 
-    # Merge m1 m2 m3 DataFrames
+    # Merge m1 m2 DataFrames
     if (len(out_df2_con['1']) > 0) & (len(out_df2_con['2']) > 0):
         spequant = pd.concat([out_df2_con["1"].iloc[:, 1:], out_df2_con["2"].iloc[:, 1:]],
                              axis=1, sort=False)
