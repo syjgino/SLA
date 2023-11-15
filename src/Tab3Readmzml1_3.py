@@ -681,7 +681,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         master3.save()
         
 
-    # Merge m1 m2 DataFrames
+    # Merge m1 m2 m3 DataFrames
     if (len(out_df2_con['1']) > 0) & (len(out_df2_con['2']) > 0):
         spequant = pd.concat([out_df2_con["1"].iloc[:, 1:], out_df2_con["2"].iloc[:, 1:]],
                              axis=1, sort=False)
