@@ -44,7 +44,7 @@ covlist_dict = dict()  # dictionary of COV entry box,
 
 # TK
 root = ThemedTk(theme="clearlooks")
-root.title("ShotgunLipidomicsAssistant V1.3")
+root.title("ShotgunLipidomicsAssistant V1.5")
 root.iconbitmap('SLAicon_256.ico')
 #root.geometry("800x600")
 
@@ -373,7 +373,7 @@ ttk.Button(tab4, text='Run Merge',
 
 # option to output .csv file for ClustVis
 CheckClustVis = IntVar()
-ttk.Checkbutton(tab4, text="Generate .csv file for ClustVis", variable=CheckClustVis,
+ttk.Checkbutton(tab4, text="Generate .csv file", variable=CheckClustVis,
                 onvalue=1, offvalue=0,  # height=0,
                 width=0).grid(row=6, column=1, sticky=W, pady=0)
 
