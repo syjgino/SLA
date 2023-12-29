@@ -35,7 +35,7 @@ You can retore the file within your antivirus software if it is removed.**
 ## Version Updates
 
 * v1.5
-  * THIS VERSION IS LOCKED FOR BOOK
+  * THIS VERSION IS LOCKED FOR BOOK "Clinical Metabolomics - Methods and Protocols"
 
 
 
