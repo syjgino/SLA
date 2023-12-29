@@ -24,8 +24,8 @@
 
 <!-- Instruction -->
 ## Instruction
-**Please download the [latest released package (version 1.3)](https://github.com/syjgino/SLA/releases/tag/v1.3_20221016)
-and read the [readme.docx](https://github.com/syjgino/SLA/blob/v1.3-keyV4/readme.docx)**<br/>
+**Please download the [latest released package (version 1.5)](https://github.com/syjgino/SLA/releases/tag/v1.5book)
+and read the [readme.docx](https://github.com/syjgino/SLA/blob/v1.5-keyV4/readme.docx)**<br/>
 **Note that the deployed executable file within the SLA may trigger some antivirus software. 
 You can retore the file within your antivirus software if it is removed.**
 <hr/>
