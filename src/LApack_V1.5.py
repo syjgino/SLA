@@ -28,10 +28,10 @@ from ttkthemes import ThemedTk
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 #from Tab1Tune1_1 import *
-from Tab1Tune1_3 import * # can change tune steps and starting volt
+from Tab1Tune1_5_1 import * # can change tune steps and starting volt
 from Tab2SST1_1 import *
 # from Tab3Readmzml1_1 import *  # using LWM lipid name format
-from Tab3Readmzml1_3 import *  # new name and FA analysis version
+from Tab3Readmzml1_5_1 import *  # new name and FA analysis version
 # from Tab3Readmzml1_2_drop import *  # custom drop points among 20 scans
 from Tab4Aggregate1_3 import *
 from Tab5TAGplot1_2 import *
@@ -129,7 +129,7 @@ w_NEGCOVstart = ttk.OptionMenu(tab1, variable_NEGCOVstart, choices_NEGCOVstart[5
 w_NEGCOVstart.grid(row=3, column=2, sticky='w')
 
 # COV step 
-choices_COVstep = [0.101, 0.05]
+choices_COVstep = [0.101, 0.051]
 variable_COVstep = DoubleVar(tab1)
 w_COVstep = ttk.OptionMenu(tab1, variable_COVstep, choices_COVstep[0], *choices_COVstep)
 w_COVstep.grid(row=4, column=1, sticky='w')
@@ -307,9 +307,9 @@ w_iso = ttk.OptionMenu(tab3, variable_iso, choices_iso[0], *choices_iso)
 w_iso.grid(row=6, column=1, sticky='w')
 
 # input for number of scans
-choices_scans = range(10,101,5)
+choices_scans = range(5,101,1)
 variable_scans = IntVar(tab3)
-w_scans = ttk.OptionMenu(tab3, variable_scans, choices_scans[2], *choices_scans)
+w_scans = ttk.OptionMenu(tab3, variable_scans, choices_scans[15], *choices_scans)
 w_scans.grid(row=6, column=3, sticky='w')
 
 

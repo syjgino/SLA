@@ -257,10 +257,17 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         # actual data row is ~71
         """
         # ticrows here is actually rows that are not tic/bic
-        ticrows = pd.Series([x for x in list(map(lambda x: len(x), sp_serie))]) > 20 
-        sp_df['NativeID'] = np.array(sp_serie)[np.flatnonzero(ticrows)]
+        #ticrows = pd.Series([x for x in list(map(lambda x: len(x), sp_serie))]) > 20 
+        #sp_df['NativeID'] = np.array(sp_serie)[np.flatnonzero(ticrows)]
+        #sp_df2 = sp_df['NativeID'].apply(lambda x: pd.Series(x.split()))
+        
+        # datarows are rows not tic/bic
+        datarows = pd.Series([x for x in list(map(lambda x: len(x), sp_serie))]) > 20
+        
+        sp_df['NativeID'] = np.array(sp_serie)[np.flatnonzero(datarows)]
 
         sp_df2 = sp_df['NativeID'].apply(lambda x: pd.Series(x.split()))
+        
 
         if any(sp_df2[0] == '-'):
             a = sp_df2.iloc[0:sum(sp_df2[0] == '-'), 1:9]
@@ -288,7 +295,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         intensity_df = intensity_df.T
         #####get 20 scans & drop tic/bic in data#####
         ### use .loc here, column name. 0:19 for 20 columns(0-19), not 0:20 ###
-        intensity_df2 = intensity_df.loc[0:(nscans-1), ticrows]
+        intensity_df2 = intensity_df.loc[0:(nscans-1), datarows]
         intensity_df2 = intensity_df2.T
         intensity_df2 = intensity_df2.reset_index()
         intensity_df2 = intensity_df2.drop(columns=['index'])
@@ -339,7 +346,7 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         all_df_dict[method][sample] = sp_df2
         out_df2_intensity[method] = pd.concat([out_df2_intensity[method], out_df_intensity], axis=0, sort=False)
 
-        #####drop species if standard <100 and/or >=3 0s#########
+        #####drop species if standard <100 and/or >= variable_std0cut 0s#########
         std_df = sp_df2[sp_df2['Species'].str[0] == 'd']
         dropbothloc = np.logical_or(std_df['AvgIntensity'] < 100,
                                     np.sum(std_df.iloc[:, 6:(nscans+6)] == 0, axis=1) > variable_std0cut.get())
@@ -353,7 +360,11 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
         sp_df2 = sp_df2.loc[spdrop_indx, :]
 
         # drop species if >=3 0s, or > variable_tgt0cut
-        sp_df2 = sp_df2[np.sum(sp_df2.iloc[:, 6:(nscans+6)] == 0, axis=1) <= variable_tgt0cut.get()]  # 20 scans
+        sp_df2 = sp_df2[np.sum(sp_df2.iloc[:, 6:(nscans+6)] == 0, axis=1) <= variable_tgt0cut.get()]
+        
+        # drop species if avg signal <100 / avgintcut_unknown
+        sp_df2 = sp_df2[sp_df2['AvgIntensity'] >= 100]
+
 
         # drop standard from output
         sp_df2 = sp_df2[sp_df2['Species'].str[0] != 'd']
@@ -757,4 +768,9 @@ add merge m3
 
 # tab 5 plot 
 add chol to plot
+
+#v1.5 20231228
+tab3
+add min signal threshold on unknowns
+version 1.5 is for book chap
 """

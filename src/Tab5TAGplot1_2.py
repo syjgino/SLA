@@ -505,11 +505,11 @@ def tagplot(exploc, CheckVar1, CheckVar2):
                     facecolor=(1, 1, 1, 0), edgecolor=".2",
                     kind="bar", errwidth=1, capsize=.2,
                     height=4, aspect=1.2, ci='sd')
-    g.set_titles(size=22, col_template='{col_name}')
-    g.set_xlabels(fontsize=16)
+    g.set_titles(size=30, col_template='{col_name}')
+    g.set_xlabels(fontsize=14)
     for axes in g.axes.flat:
         axes.set_xticklabels(axes.get_xticklabels(), rotation=90,
-                             fontsize=16,
+                             fontsize=18,
                              horizontalalignment='center',
                              verticalalignment='top', )
     plt.savefig(file[file.rfind('/') + 1:file.rfind('.')] + '_ClassTotalBar.pdf', bbox_inches='tight')
@@ -536,11 +536,11 @@ def tagplot(exploc, CheckVar1, CheckVar2):
                     height=4, aspect=1.2, fliersize=5,
                     **PROPS
                     )
-    g.set_titles(size=22, col_template='{col_name}')
-    g.set_xlabels(fontsize=16)
+    g.set_titles(size=30, col_template='{col_name}')
+    g.set_xlabels(fontsize=14)
     for axes in g.axes.flat:
         axes.set_xticklabels(axes.get_xticklabels(), rotation=90,
-                             fontsize=16,
+                             fontsize=18,
                              horizontalalignment='center',
                              verticalalignment='top', )
     plt.savefig(file[file.rfind('/') + 1:file.rfind('.')] + '_ClassTotalBox.pdf', bbox_inches='tight')

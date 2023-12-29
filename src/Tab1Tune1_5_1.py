@@ -443,18 +443,48 @@ def TuningFun(tunef1, tunef2, maploc_tune,
 
     # pltdata1 = pd.concat([pltdata1, pltdata_sm1])
 
-    fig1 = plt.figure(num=None, figsize=(9, 5), dpi=120, facecolor='w', edgecolor='k')
+    fig1 = plt.figure(num=None, figsize=(10, 4), 
+                      dpi=300, facecolor='w', edgecolor='k')
     ax = sns.lineplot(x="COV", y="Intensity", hue="Species",
                       data=pltdata1)
     for i in range(0, len(peaks_neg)):  # add peak lines [1,2,4,5] for V1
-        ax.axvline(x=peaks_neg[i], linewidth=1)
+        ax.axvline(x=peaks_neg[i], linewidth=1, linestyle='--')
+    
+    # Shrink current axis by 20%
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0, box.width * 0.9, box.height])
+    
+    # Put a legend to the right of the current axis
+    ax.legend(loc='upper left', bbox_to_anchor=(1, 1.02),
+              handlelength=1,
+              handleheight=0.2,
+              handletextpad=0.4)
+    
+    plt.setp(ax.get_legend().get_texts(), fontsize='5') # for legend text
+    plt.setp(ax.get_legend().get_title(), fontsize='5') # for legend title
+    
     fig1.show()
 
-    fig2 = plt.figure(num=None, figsize=(9, 5), dpi=120, facecolor='w', edgecolor='k')
-    ax = sns.lineplot(x="COV", y="Intensity", hue="Species",
+
+    fig2 = plt.figure(num=None, figsize=(10, 4), dpi=300, facecolor='w', edgecolor='k')
+    ax2 = sns.lineplot(x="COV", y="Intensity", hue="Species",
                       data=pltdata_sm1)
     for i in [0]:  # add peak lines
-        ax.axvline(x=peaks_pos[i], linewidth=1)
+        ax2.axvline(x=peaks_pos[i], linewidth=1, linestyle='--')
+        
+    # Shrink current axis by 20%
+    box2 = ax2.get_position()
+    ax2.set_position([box2.x0, box2.y0, box2.width * 0.9, box2.height])
+    
+    # Put a legend to the right of the current axis
+    ax2.legend(loc='upper left', bbox_to_anchor=(1, 1.02),
+               handlelength=1,
+               handleheight=0.2,
+               handletextpad=0.4)
+    
+    plt.setp(ax2.get_legend().get_texts(), fontsize='5') # for legend text
+    plt.setp(ax2.get_legend().get_title(), fontsize='5') # for legend title
+    
     fig2.show()
 
     # plot_canvas = FigureCanvasTkAgg(fig)
@@ -477,4 +507,8 @@ add option for cv step and starting point, only in this script file, not availab
 Tab1Tune1_2 update 20220727
 change con5 and con9 searching range from (-15,12) steps, to (-2,2) volts
 from the maximum point.
+
+Tab1Tune1_3 update 20231221
+change plot style
+
 """
