@@ -208,8 +208,19 @@ def tagplot(exploc, CheckVar1, CheckVar2):
         tag_sum_sd['GroupNum'] = tag_sum_sd['GroupNum'].replace(tag_avg_di)
         tag_sum_sd = tag_sum_sd.sort_values(by=['GroupNum'])
         # tag_sum_sd['ExpNum'] = tag_sum_avg['ExpNum']
+        
+        # tag bulk
+        tag_bulk = tag_all.copy()
+        tag_bulk['bulk'] = tag_bulk.index.str.split('-').str[0]
+        tag_bulk = tag_bulk.drop('carbon', axis=1).groupby(['bulk'], as_index=True).sum().T
 
         # Write to Excel
+        writer_tgbulk = pd.ExcelWriter(file[file.rfind('/') + 1:file.rfind('.')] + '_' + 'TG_bulk.xlsx')
+        tag_bulk.to_excel(writer_tgbulk, 'TG bulk')
+        writer_tgbulk.save()
+        writer_tgbulk.close()
+        
+        
         writer = pd.ExcelWriter(file[file.rfind('/') + 1:file.rfind('.')] + '_' + 'TG_carbon.xlsx')
         tag_summary.to_excel(writer, 'Summary')
         tag_sum_avg.to_excel(writer, sheet_name='SumAvg')
