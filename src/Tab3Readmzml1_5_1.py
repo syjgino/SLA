@@ -279,6 +279,11 @@ def readMZML(dirloc_read, sp_dict1_loc, std_dict_loc, proname3,
 
         sp_df2.columns = sp_df2.loc[0].str.extract(r'(.*)=', expand=False)
         sp_df2 = sp_df2.apply(lambda x: x.str.extract(r'=(.*)$', expand=False))
+
+        #update 20240730
+        #for newer version of MSconvert with species name info
+        sp_df2 = sp_df2[['Q1', 'Q3',
+                         'sample', 'period', 'experiment', 'transition']]
         sp_df2 = sp_df2.astype(float)
 
         ##get intensity
@@ -773,4 +778,9 @@ add chol to plot
 tab3
 add min signal threshold on unknowns
 version 1.5 is for book chap
+
+#v1.5 update 20240730
+can work with newer version of MSconvert
+new MSconvert can extract extra species info from .wiff, such as species name
+
 """

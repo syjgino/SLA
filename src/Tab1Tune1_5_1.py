@@ -247,7 +247,8 @@ def TuningFun(tunef1, tunef2, maploc_tune,
         sp_df2.columns = sp_df2.loc[0].str.extract(r'(.*)=', expand=False)
         sp_df2 = sp_df2.apply(lambda x: x.str.extract(r'=(.*)$', expand=False))
                 
-        #update 20240717
+        #update 20240730
+        #for newer version of MSconvert with species name info
         sp_df2 = sp_df2[['Q1', 'Q3', 
                          'sample', 'period', 'experiment', 'transition']]
         
@@ -515,5 +516,9 @@ from the maximum point.
 
 Tab1Tune1_3 update 20231221
 change plot style
+
+Tab1Tune1_3 update 20240730
+can work with newer version of MSconvert
+new MSconvert can extract extra species info from .wiff, such as species name
 
 """
