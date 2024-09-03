@@ -29,7 +29,7 @@ os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 #from Tab1Tune1_1 import *
 from Tab1Tune1_5_1 import * # can change tune steps and starting volt
-from Tab2SST1_1 import *
+from Tab2SST1_5 import *
 # from Tab3Readmzml1_1 import *  # using LWM lipid name format
 from Tab3Readmzml1_5_1 import *  # new name and FA analysis version
 # from Tab3Readmzml1_2_drop import *  # custom drop points among 20 scans

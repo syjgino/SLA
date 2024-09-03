@@ -126,6 +126,11 @@ def SSTFun(mzmlloc, maploc2, text):
 
     sp_df2.columns = sp_df2.loc[0].str.extract(r'(.*)=', expand=False)
     sp_df2 = sp_df2.apply(lambda x: x.str.extract(r'=(.*)$', expand=False))
+
+    #update 20240730
+    #for newer version of MSconvert with species name info
+    sp_df2 = sp_df2[['Q1', 'Q3',
+                     'sample', 'period', 'experiment', 'transition']]
     sp_df2 = sp_df2.astype(float)
 
     ##get intensity
